@@ -1,0 +1,29 @@
+package com.example.booking.exceptions;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptions {
+
+  private static final Logger log = LoggerFactory.getLogger(GlobalExceptions.class);
+
+  @ExceptionHandler(BadRequestException.class)
+  public ResponseEntity<String> badRequest(BadRequestException exception) {
+    log.error(HttpStatus.BAD_REQUEST + " - " + exception.getMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+      .body(exception.getMessage());
+  }
+
+  @ExceptionHandler(NotFoundException.class)
+  public ResponseEntity<String> notFound(NotFoundException exception) {
+    log.error(HttpStatus.NOT_FOUND + " - " + exception.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+      .body(exception.getMessage());
+  }
+
+}
