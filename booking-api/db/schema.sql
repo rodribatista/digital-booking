@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS db_booking;
-USE db_booking;
+CREATE SCHEMA IF NOT EXISTS `db_booking` ;
+USE `db_booking` ;
 
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT,
