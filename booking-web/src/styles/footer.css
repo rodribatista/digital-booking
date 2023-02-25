@@ -8,14 +8,16 @@ footer {
   align-items: center;
   justify-content: space-between;
   background-color: #F0572D;
-  padding: 10px 10%;
+  padding: 15px 10% 10px 10%;
+  gap: 10px;
+  z-index: 1000;
 }
 
-img {
+footer img {
   max-width: 100px;
 }
 
-.container {
+.socials {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,11 +25,12 @@ img {
   gap: 25px;
 }
 
-.container img {
-  max-height: 20px;
+.socials img {
+  height: 15px;
 }
 
-p {
+footer p {
+  margin: 0;
   font-size: 0.8rem;
   color: white;
 }
@@ -38,8 +41,34 @@ p {
     flex-direction: row;
   }
 
-  p {
+  footer p {
     font-size: 1rem;
+  }
+
+  .socials img {
+    height: 20px;
+  }
+
+}
+
+@media (min-width: 1400px) {
+
+  footer {
+    padding: 15px 15% 10px 15%;
+    width: calc(100vw - 30%);
+  }
+
+  .socials img {
+    height: 18px;
+  }
+
+}
+
+@media (min-width: 1800px) {
+
+  footer {
+    padding: 15px 20% 10px 20%;
+    width: calc(100vw - 40%);
   }
 
 }

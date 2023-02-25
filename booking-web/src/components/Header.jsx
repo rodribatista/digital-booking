@@ -9,7 +9,7 @@ import '../styles/header.css'
 const Header = () => {
   return (
     <header>
-      <Link to='/'>
+      <Link to='/' className='logo'>
         <img src={logo} alt="Logo Digital Booking"/>
       </Link>
       <Link to='/' className='onMobile'>
