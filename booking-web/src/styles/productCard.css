@@ -8,82 +8,79 @@
   box-shadow: 2px 2px 5px rgba(25, 27, 29, .2);
 }
 
-.imageContainer {
+.productCardImage {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 200px;
 }
 
-.fav {
+.productCardImage .fav {
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
 }
 
-.productImage {
+.productCardImage .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.infoContainer {
+.productCardInfo {
   display: flex;
   flex-direction: column;
-  width: calc(100% - 30px);
-  height: 220px;
+  width: 100%;
   padding: 15px;
   gap: 15px;
 }
 
-.infoContainer h1 {
+.productCardInfo h1 {
   font-size: 1.2rem;
   font-weight: 700;
   color: #191B1D;
 }
 
-.infoContainer h2 {
+.productCardInfo h2 {
   font-size: 0.8rem;
   font-weight: 700;
   color: #31363F;
 }
 
-.infoContainer h3 {
+.productCardInfo h3 {
   font-size: 0.8rem;
   font-weight: 700;
   color: #191B1D;
 }
 
-.infoContainer p {
+.productCardInfo p {
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 1rem;
   color: #191B1D;
 }
 
-.infoLocation {
+.productCardLocation {
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
-.infoLocation img {
+.productCardLocation img {
   height: 1rem;
 }
 
-.infoContainer button {
+.productCardInfo button {
   width: 100%;
-  padding: 15px 0;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   background-color: #F0572D;
   color: white;
-  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  align-self: flex-end;
 }
 
 @media (min-width: 480px) {
@@ -92,15 +89,19 @@
     flex-direction: row;
   }
 
-  .infoContainer h1 {
+  .productCardImage {
+    height: 100%;
+  }
+
+  .productCardInfo h1 {
     font-size: 1.5rem;
   }
   
-  .infoContainer h2, .infoContainer h3 {
+  .productCardInfo h2, .productCardInfo h3 {
     font-size: 1rem;
   }
 
-  .infoContainer p {
+  .productCardInfo p {
     font-size: 0.9rem;
   }
 

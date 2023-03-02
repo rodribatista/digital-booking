@@ -1,23 +1,28 @@
 import React from 'react'
 
-import iconFav from '../assets/icons/icon-fav.svg'
-import pointer from '../assets/icons/icon-pointer.svg'
+import fav from '../assets/icons/heart_fav.svg'
+import pointer from '../assets/icons/pointer_solid.svg'
 
 import '../styles/productCard.css'
+
+const handleClick = (e) => {
+  e.preventDefault()
+  alert(`Ir a página de ${e.target.value}`)
+}
 
 const ProductCard = ({product}) => {
   return (
     <div className='productCard'>
-      <div className='imageContainer'>
-        <img className='fav' src={iconFav} alt="" />
-        <img className='productImage' src={product.urlImage} alt="" />
+      <div className='productCardImage'>
+        <img className='fav' src={fav} alt="" />
+        <img className='img' src={product.images} alt="" />
       </div>
-      <div className='infoContainer'>
+      <div className='productCardInfo'>
         <div>
-          <h2>{product.category}</h2>
+          <h2>{product.category.toUpperCase()}</h2>
           <h1>{product.name}</h1>
         </div>
-        <div className='infoLocation'>
+        <div className='productCardLocation'>
           <img src={pointer} alt="" />
           <h3>{product.location}</h3>
         </div>
@@ -28,7 +33,12 @@ const ProductCard = ({product}) => {
             : product.description}
           </p>
         </div>
-        <button>Ver detalle</button>
+        <button
+          onClick={handleClick}
+          value={product.name}
+        >
+          Ver detalle
+        </button>
       </div>
     </div>
   )

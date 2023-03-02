@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import SearchBar from '../components/SearchBar'
 import CategoryCard from '../components/CategoryCard'
 import ProductCard from '../components/ProductCard'
 
@@ -42,46 +43,50 @@ const categories = [
 const products = [
   {
     id: 1,
-    category: 'HOTEL',
+    category: 'Hoteles',
     name: 'Hermitage Hotel',
     location: '940 m del centro',
     description: 'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires. con 2 impresionantes piscinas, una en la terraza y otra al aire libre; habitaciones privadas.',
-    urlImage: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
+    images: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
   },
   {
     id: 2,
-    category: 'HOTEL',
+    category: 'Hoteles',
     name: 'Hermitage Hotel',
     location: '940 m del centro',
     description: 'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires. con 2 impresionantes piscinas, una en la terraza y otra al aire libre; habitaciones privadas.',
-    urlImage: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
+    images: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
   },
   {
     id: 3,
-    category: 'HOTEL',
+    category: 'Hoteles',
     name: 'Hermitage Hotel',
     location: '940 m del centro',
     description: 'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires. con 2 impresionantes piscinas, una en la terraza y otra al aire libre; habitaciones privadas.',
-    urlImage: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
+    images: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
   },
   {
     id: 4,
-    category: 'HOTEL',
+    category: 'Hoteles',
     name: 'Hermitage Hotel',
     location: '940 m del centro',
     description: 'En el corazón de San Telmo, disfruta de un albergue inspirado en las pasiones de Buenos Aires. con 2 impresionantes piscinas, una en la terraza y otra al aire libre; habitaciones privadas.',
-    urlImage: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
+    images: 'https://73cc8915eb9cf66dad90-91c9e0dc61e2af367a83ca09fafb7723.ssl.cf1.rackcdn.com/responsive/Native/1200px/u/Deluxe-Bedrooms.jpg'
   }
 ]
 
 const Home = () => {
   return (
     <>
+    <SearchBar/>
     <section className='categories'>
       <h2>Buscar por tipo de alojamiento</h2>
       <div className='categories-grid'>
         {categories.slice(0,4).map(
-          category => <Link to="/"><CategoryCard key={category.id} category={category}/></Link>
+          category =>
+            <Link key={category.id} to={`/categories/${category.title}`}>
+              <CategoryCard key={category.id} category={category}/>
+            </Link>
         )}
       </div>
     </section>

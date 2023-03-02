@@ -1,6 +1,6 @@
-form {
+.forms {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 100px - 75px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,7 +8,7 @@ form {
   gap: 20px;
 }
 
-form div {
+.forms div {
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -16,87 +16,87 @@ form div {
   gap: 5px;
 }
 
-form div label {
+.forms div label {
   font-size: 0.8rem;
   font-weight: bold;
 }
 
-form div input {
+.forms div input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
 }
 
-form div input:focus {
+.forms div input:focus {
   padding: 10px;
   border: 1px solid #F0572D;
 }
 
-form button {
+.forms button {
   width: 60%;
   padding: 10px;
   border: none;
   border-radius: 5px;
   background-color: #F0572D;
-  color: #fff;
-  font-weight: bold;
+  color: white;
+  font-weight: 700;
   cursor: pointer;
 }
 
-.changeForm {
+.forms .changeForm {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.changeForm p, .changeForm a {
+.forms .changeForm p, .forms .changeForm a {
   font-size: 0.8rem;
   text-align: center;
 }
 
-.changeForm p {
+.forms .changeForm p {
   color: #191B1D;
 }
 
-.changeForm a {
+.forms .changeForm a {
   color: #F0572D;
 }
 
-.errors {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.errors p {
-  margin: 0;
-  padding: 5px 10px;
-  background-color: #b92800;
-  font-size: 0.8rem;
-  border-radius: 5px;
+.forms .error {
+  font-size: 0.7rem;
+  text-align: right;
+  color: red;
 }
 
 @media (min-width: 480px) {
 
-  form div, form button {
+  .forms {
+    height: calc(100vh - 105px - 60px); 
+  }
+
+  .forms div, .forms button {
     width: 40%;
   }
 
-  form div label {
+  .forms div label {
     font-size: 1rem;
     font-weight: bold;
   }
 
-  .changeForm p, .changeForm a {
+  .forms .changeForm p, .forms .changeForm a {
     font-size: 1rem;
+  }
+
+  .forms .error {
+    font-size: 0.8rem;
   }
 
 }
 
 @media (min-width: 1200px) {
 
-  form div, form button {
+  .forms div, .forms button {
     width: 25%;
   }
 

@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { showSignupErrors } from '../utils/signupValidations'
+import {
+  validateFirstAndLastName,
+  validateEmail,
+  validatePassword,
+  comparePasswords
+} from '../utils/signupValidations'
 
 import '../styles/forms.css'
 
 const Signup = () => {
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [ user, setUser ] = useState({
     firstName: '',
@@ -17,35 +22,40 @@ const Signup = () => {
     confirmPassword: ''
   })
 
-  const [ errors, setErrors ] = useState([])
+  const [errors, setErrors] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let errorsArray = showSignupErrors(
-      user.firstName,
-      user.lastName,
-      user.email,
-      user.password,
-      user.confirmPassword
-    )
-    if (errorsArray.length > 0) {
-      setErrors(errorsArray)
-    } else if (errorsArray.length === 0) {
+    const arrayErrors = Object.values(errors)
+    if (arrayErrors.every((error) => error === false)) {
       alert('¡Registro exitoso!')
       navigate('/login')
+    } else {
+      alert('Hay errores en el formulario')
     }
   }
-  
-  const handleChange = (e) => {
+
+  const handleChange = (name, value) => {
+    setErrors({ ...errors, [name]: false })
     setUser({
       ...user,
-      [e.target.name]: e.target.value.trim()
+      [name]: value.trim()
     })
+  }
+
+  const handleError = (name) => {
+    setErrors({ ...errors, [name]: true })
   }
 
   return (
     <>
-      <form action='' onSubmit={handleSubmit}>
+      <form action='' className='forms' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='firstName'>Nombre</label>
           <input
@@ -53,8 +63,13 @@ const Signup = () => {
             id='firstName'
             name='firstName'
             placeholder='John'
-            onChange={handleChange}
+            onChange={
+              (e) => validateFirstAndLastName(e.target.value)
+              ? handleChange(e.target.name, e.target.value)
+              : handleError(e.target.name)
+            }
           />
+          {errors.firstName && <p className='error'>Debes ingresar un nombre válido</p>}
         </div>
         <div>
           <label htmlFor='lastName'>Apellido</label>
@@ -63,8 +78,13 @@ const Signup = () => {
             id='lastName'
             name='lastName'
             placeholder='Doe'
-            onChange={handleChange}
+            onChange={
+             (e) =>  validateFirstAndLastName(e.target.value)
+             ? handleChange(e.target.name, e.target.value)
+             : handleError(e.target.name)
+            }
           />
+          {errors.lastName && <p className='error'>Debes ingresar un apellido válido</p>}
         </div>
         <div>
           <label htmlFor='email'>Correo eléctronico</label>
@@ -72,9 +92,14 @@ const Signup = () => {
             type='email'
             id='email'
             name='email'
-            placeholder='jhon@mail.com'
-            onChange={handleChange}
+            placeholder='john@mail.com'
+            onChange={
+              (e) => validateEmail(e.target.value)
+              ? handleChange(e.target.name, e.target.value)
+              : handleError(e.target.name)
+            }
           />
+          {errors.email && <p className='error'>Debes ingresar un correo válido</p>}
         </div>
         <div>
           <label htmlFor='password'>Contraseña</label>
@@ -83,8 +108,13 @@ const Signup = () => {
             id='password'
             name='password'
             placeholder='******'
-            onChange={handleChange}
+            onChange={
+              (e) => validatePassword(e.target.value)
+              ? handleChange(e.target.name, e.target.value)
+              : handleError(e.target.name)
+            }
           />
+          {errors.password && <p className='error'>La contraseña debe tener al menos 6 caracteres</p>}
         </div>
         <div>
           <label htmlFor='confirmPassword'>Confirmar contraseña</label>
@@ -93,11 +123,13 @@ const Signup = () => {
             id='confirmPassword'
             name='confirmPassword'
             placeholder='******'
-            onChange={handleChange}
+            onChange={
+              (e) => comparePasswords(user.password, e.target.value)
+              ? handleChange(e.target.name, e.target.value)
+              : handleError(e.target.name)
+            }
           />
-        </div>
-        <div className='errors'>
-          {errors.map((error, index) => <p key={index}>{error}</p>)}
+          {errors.confirmPassword && <p className='error'>Ambas contraseñas deben ser iguales</p>}
         </div>
         <button type='submit'>Crear cuenta</button>
         <div className='changeForm'>

@@ -14,19 +14,20 @@ const Login = () => {
     password: ''
   })
 
-  const [ error, setError ] = useState('')
-
+  const [ error, setError ] = useState({
+    status: 200,
+    message: ''
+  })
+  
   const handleSubmit = (e) => {
     e.preventDefault()
-    let textError = loginCredentials(
-      user.email,
-      user.password
-    )
-    if (textError !== 200) {
-      setError(textError)
-    } else if (textError === 200) {
+    const response = loginCredentials(user.email, user.password)
+    console.log(response)
+    if (response.status === 200) {
       alert('¡Ingreso exitoso!')
       navigate('/')
+    } else {
+      setError(response)
     }
   }
 
@@ -39,14 +40,14 @@ const Login = () => {
 
   return (
     <>
-      <form action='' onSubmit={handleSubmit}>
+      <form action='' className='forms' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='email'>Correo eléctronico</label>
           <input
             type='email'
             id='email'
             name='email'
-            placeholder='jhon@mail.com'
+            placeholder='john@mail.com'
             onChange={handleChange}
           />
         </div>
@@ -60,9 +61,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <div className='errors'>
-          {error.length > 0 && <p>{error}</p>}
-        </div>
+        {error.status !== 200 && <p className='error'>{error.message}</p>}
         <button type='submit'>Ingresar</button>
         <div className='changeForm'>
           <p>¿Aún no tienes cuenta?</p>

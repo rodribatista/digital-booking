@@ -7,6 +7,7 @@ import General from './pages/General'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import FilterProducts from './pages/FilterProducts'
 
 import './styles/index.css'
 
@@ -20,6 +21,8 @@ root.render(
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path="/categories/:category" element={<FilterProducts/>}/>
+          <Route path="/cities/:city" element={<FilterProducts/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
