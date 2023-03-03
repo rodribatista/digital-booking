@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -14,20 +16,20 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "features")
+public class Feature {
 
   @Id
+  @Null(message = "No se debe especificar un id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank(message = "Título no puede estar vacío")
   @Column(name = "title")
   private String title;
 
-  @Column(name = "description")
-  private String description;
-
-  @Column(name = "image_url")
-  private String imageUrl;
+  @JsonIgnore
+  @ManyToMany(mappedBy = "features", fetch = FetchType.LAZY)
+  private Set<Product> products;
 
 }

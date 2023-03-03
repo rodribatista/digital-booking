@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 @Table(name = "products")
 public class Product {
 
@@ -32,5 +33,11 @@ public class Product {
   @JoinColumn(name = "categories_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private Category category;
+
+  @ManyToMany(cascade = CascadeType.MERGE)
+  @JoinTable(name = "product_has_features",
+    joinColumns = {@JoinColumn(name = "product_id")},
+    inverseJoinColumns = {@JoinColumn(name = "features_id")})
+  private Set<Feature> features;
 
 }

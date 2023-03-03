@@ -7,8 +7,6 @@ import com.example.booking.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @AllArgsConstructor
 @Service
 public class CategoryService {
@@ -35,13 +33,11 @@ public class CategoryService {
     throws NotFoundException {
     if (!categoryRepository.existsById(id))
       throw new NotFoundException("No existe categoría con id " + id);
-    categoryRepository.update(
-      id,
-      categoryRequest.getTitle(),
-      categoryRequest.getDescription(),
-      categoryRequest.getImageUrl()
-    );
-    return getCategory(id);
+    var category = getCategory(id);
+    category.setTitle(categoryRequest.getTitle());
+    category.setDescription(categoryRequest.getDescription());
+    category.setImageUrl(categoryRequest.getImageUrl());
+    return category;
   }
 
   public Category deleteCategory(Long id)
