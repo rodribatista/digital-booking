@@ -3,6 +3,7 @@ package com.example.booking.services;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Feature;
 import com.example.booking.models.Product;
+import com.example.booking.payload.requests.AddressRequest;
 import com.example.booking.payload.requests.ProductRequest;
 import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class ProductService {
   private ProductRepository productRepository;
   private CategoryService categoryService;
   private FeatureService featureService;
+  private AddressService addressService;
 
   public Product getProduct(Long id)
     throws NotFoundException {
@@ -33,7 +35,9 @@ public class ProductService {
       null,
       productRequest.getTitle(),
       productRequest.getDescription(),
-      productRequest.getAddress(),
+      addressService.createAddress(
+        newAddressRequest(productRequest)
+      ),
       true,
       categoryService.getCategory(productRequest.getCategory_id()),
       getFeatures(productRequest.getFeatures_id())
@@ -48,7 +52,9 @@ public class ProductService {
     var product = getProduct(id);
     product.setTitle(productRequest.getTitle());
     product.setDescription(productRequest.getDescription());
-    product.setAddress(productRequest.getAddress());
+    product.setAddress(
+      addressService.updateAddress(id, newAddressRequest(productRequest))
+    );
     product.setCategory(categoryService.getCategory(productRequest.getCategory_id()));
     product.setFeatures(getFeatures(productRequest.getFeatures_id()));
     return product;
@@ -70,6 +76,14 @@ public class ProductService {
           throw new RuntimeException(e);
         }
       }).collect(Collectors.toSet());
+  }
+
+  public AddressRequest newAddressRequest(ProductRequest productRequest) {
+    return new AddressRequest(
+      productRequest.getAddress_street(),
+      productRequest.getAddress_number(),
+      productRequest.getCity_id()
+    );
   }
 
 }

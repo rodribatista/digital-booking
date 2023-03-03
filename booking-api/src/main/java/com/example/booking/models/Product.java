@@ -25,7 +25,10 @@ public class Product {
 
   private String description;
 
-  private String address;
+  @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+  @JoinColumn(name = "address_id")
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  private Address address;
 
   private Boolean availability;
 
