@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Feature;
+import com.example.booking.payload.requests.FeatureRequest;
 import com.example.booking.repositories.FeatureRepository;
 import com.example.booking.services.FeatureService;
 import lombok.AllArgsConstructor;
@@ -26,13 +27,13 @@ public class FeatureController {
 
   @PostMapping()
   public ResponseEntity<Feature> createFeature(
-    @Valid @RequestBody Feature feature,
+    @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
   ) throws BadRequestException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
-      .body(featureService.createFeature(feature));
+      .body(featureService.createFeature(featureRequest));
   }
 
   @GetMapping()
@@ -49,13 +50,13 @@ public class FeatureController {
   @PutMapping("/{id}")
   public ResponseEntity<Feature> updateFeature(
     @PathVariable Long id,
-    @Valid @RequestBody Feature feature,
+    @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
   ) throws NotFoundException, BadRequestException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
-      .body(featureService.updateFeature(id, feature));
+      .body(featureService.updateFeature(id, featureRequest));
   }
 
   @DeleteMapping ("/{id}")
