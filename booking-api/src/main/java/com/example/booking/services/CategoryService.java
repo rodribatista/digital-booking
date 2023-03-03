@@ -1,6 +1,5 @@
 package com.example.booking.services;
 
-import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Category;
 import com.example.booking.payload.requests.CategoryRequest;
@@ -8,16 +7,21 @@ import com.example.booking.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @AllArgsConstructor
 @Service
 public class CategoryService {
 
   private CategoryRepository categoryRepository;
 
-  public Category createCategory(CategoryRequest categoryRequest)
-    throws BadRequestException {
-    if (categoryRequest.getTitle().isBlank() || categoryRequest.getImageUrl().isBlank())
-      throw new BadRequestException("Hay campos obligatorios no completados");
+  public Category getCategory(Long id)
+    throws NotFoundException {
+    return categoryRepository.findById(id)
+      .orElseThrow(() -> new NotFoundException("No existe categoría con id " + id));
+  }
+
+  public Category createCategory(CategoryRequest categoryRequest) {
     var category = new Category(
       null,
       categoryRequest.getTitle(),
@@ -28,9 +32,7 @@ public class CategoryService {
   }
 
   public Category updateCategory(Long id, CategoryRequest categoryRequest)
-    throws NotFoundException, BadRequestException {
-    if (categoryRequest.getTitle().isBlank() || categoryRequest.getImageUrl().isBlank())
-      throw new BadRequestException("Hay campos obligatorios no completados");
+    throws NotFoundException {
     if (!categoryRepository.existsById(id))
       throw new NotFoundException("No existe categoría con id " + id);
     categoryRepository.update(
@@ -39,14 +41,12 @@ public class CategoryService {
       categoryRequest.getDescription(),
       categoryRequest.getImageUrl()
     );
-    return categoryRepository.findById(id).orElseThrow();
+    return getCategory(id);
   }
 
   public Category deleteCategory(Long id)
     throws NotFoundException {
-    if (!categoryRepository.existsById(id))
-      throw new NotFoundException("No existe categoría con id " + id);
-    var categoryDeleted = categoryRepository.findById(id).orElseThrow();
+    var categoryDeleted = getCategory(id);
     categoryRepository.deleteById(id);
     return categoryDeleted;
   }
