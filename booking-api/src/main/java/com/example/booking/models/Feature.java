@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -20,11 +18,9 @@ import java.util.Set;
 public class Feature {
 
   @Id
-  @Null(message = "No se debe especificar un id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank(message = "Título no puede estar vacío")
   @Column(name = "title")
   private String title;
 
