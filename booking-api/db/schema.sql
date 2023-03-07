@@ -1,20 +1,4 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema db_booking
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema db_booking
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `db_booking` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+CREATE SCHEMA IF NOT EXISTS `db_booking`;
 USE `db_booking` ;
 
 -- -----------------------------------------------------
@@ -24,10 +8,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`countries` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(255) NULL DEFAULT NULL,
   `name` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -41,10 +22,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`cities` (
   INDEX `FK6gatmv9dwedve82icy8wrkdmk` (`country_id` ASC) VISIBLE,
   CONSTRAINT `FK6gatmv9dwedve82icy8wrkdmk`
     FOREIGN KEY (`country_id`)
-    REFERENCES `db_booking`.`countries` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `db_booking`.`countries` (`id`));
 
 
 -- -----------------------------------------------------
@@ -59,10 +37,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`addresses` (
   INDEX `FK9fkb8qaj71tiyr9htkmn7r8y5` (`city_id` ASC) VISIBLE,
   CONSTRAINT `FK9fkb8qaj71tiyr9htkmn7r8y5`
     FOREIGN KEY (`city_id`)
-    REFERENCES `db_booking`.`cities` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `db_booking`.`cities` (`id`));
 
 
 -- -----------------------------------------------------
@@ -73,10 +48,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`categories` (
   `description` VARCHAR(255) NULL DEFAULT NULL,
   `image_url` VARCHAR(255) NULL DEFAULT NULL,
   `title` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -85,10 +57,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `db_booking`.`features` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -109,10 +78,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`products` (
     REFERENCES `db_booking`.`addresses` (`id`),
   CONSTRAINT `FKgro094vh0dp0tly1225wk8u37`
     FOREIGN KEY (`categories_id`)
-    REFERENCES `db_booking`.`categories` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `db_booking`.`categories` (`id`));
 
 
 -- -----------------------------------------------------
@@ -126,10 +92,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`images` (
   INDEX `FK2qty0rxjl77o9udosj4em7mrm` (`producto_id` ASC) VISIBLE,
   CONSTRAINT `FK2qty0rxjl77o9udosj4em7mrm`
     FOREIGN KEY (`producto_id`)
-    REFERENCES `db_booking`.`products` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `db_booking`.`products` (`id`));
 
 
 -- -----------------------------------------------------
@@ -145,12 +108,4 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`product_has_features` (
     REFERENCES `db_booking`.`products` (`id`),
   CONSTRAINT `FKhop3mw2hkpqupxkpoca8ppj0w`
     FOREIGN KEY (`features_id`)
-    REFERENCES `db_booking`.`features` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+    REFERENCES `db_booking`.`features` (`id`));
