@@ -23,7 +23,7 @@ public class City {
   @Column(name = "name")
   private String name;
 
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "country_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private Country country;

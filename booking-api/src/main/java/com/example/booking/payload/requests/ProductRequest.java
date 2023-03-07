@@ -26,8 +26,6 @@ public class  ProductRequest {
   @NotBlank(message = "Numero no puede estar vacío")
   private String address_number;
 
-  private String address_apartment;
-
   @NotNull(message = "Ciudad no puede ser nulo")
   @Min(message = "Ciudad debe ser un valor mayor a 1", value = 1)
   private Long city_id;
@@ -38,5 +36,8 @@ public class  ProductRequest {
 
   @NotNull(message = "Característica no puede ser nulo")
   private List<Long> features_id;
+
+  @NotNull(message = "Imagen no puede ser nulo")
+  private List<String> images_url;
 
 }

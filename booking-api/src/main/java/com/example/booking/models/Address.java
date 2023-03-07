@@ -26,7 +26,7 @@ public class Address {
   @Column(name = "number")
   private String number;
 
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "city_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private City city;

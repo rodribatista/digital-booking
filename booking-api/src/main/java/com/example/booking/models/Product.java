@@ -25,22 +25,26 @@ public class Product {
 
   private String description;
 
-  @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "address_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private Address address;
 
-  private Boolean availability;
-
-  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "categories_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private Category category;
 
-  @ManyToMany(cascade = CascadeType.MERGE)
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "product_has_features",
     joinColumns = {@JoinColumn(name = "product_id")},
     inverseJoinColumns = {@JoinColumn(name = "features_id")})
   private Set<Feature> features;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "producto_id")
+  private Set<Image> images;
+
+  private Boolean availability;
 
 }

@@ -2,8 +2,10 @@ package com.example.booking.services;
 
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Feature;
+import com.example.booking.models.Image;
 import com.example.booking.models.Product;
 import com.example.booking.payload.requests.AddressRequest;
+import com.example.booking.payload.requests.ImageRequest;
 import com.example.booking.payload.requests.ProductRequest;
 import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class ProductService {
   private CategoryService categoryService;
   private FeatureService featureService;
   private AddressService addressService;
+  private ImageService imageService;
 
   public Product getProduct(Long id)
     throws NotFoundException {
@@ -36,11 +39,11 @@ public class ProductService {
       productRequest.getTitle(),
       productRequest.getDescription(),
       addressService.createAddress(
-        newAddressRequest(productRequest)
-      ),
-      true,
+        newAddressRequest(productRequest)),
       categoryService.getCategory(productRequest.getCategory_id()),
-      getFeatures(productRequest.getFeatures_id())
+      handlerFeatures(productRequest.getFeatures_id()),
+      handlerImages(productRequest.getImages_url()),
+      true
     );
     return productRepository.save(product);
   }
@@ -53,10 +56,9 @@ public class ProductService {
     product.setTitle(productRequest.getTitle());
     product.setDescription(productRequest.getDescription());
     product.setAddress(
-      addressService.updateAddress(id, newAddressRequest(productRequest))
-    );
+      addressService.updateAddress(id, newAddressRequest(productRequest)));
     product.setCategory(categoryService.getCategory(productRequest.getCategory_id()));
-    product.setFeatures(getFeatures(productRequest.getFeatures_id()));
+    product.setFeatures(handlerFeatures(productRequest.getFeatures_id()));
     return product;
   }
 
@@ -67,7 +69,7 @@ public class ProductService {
     return productDeleted;
   }
 
-  public Set<Feature> getFeatures(List<Long> featuresList) {
+  public Set<Feature> handlerFeatures(List<Long> featuresList) {
     return featuresList.stream()
       .map(feature_id -> {
         try {
@@ -84,6 +86,13 @@ public class ProductService {
       productRequest.getAddress_number(),
       productRequest.getCity_id()
     );
+  }
+
+  private Set<Image> handlerImages(List<String> urlList) {
+    return urlList.stream()
+      .map(url ->
+        imageService.createImage(new ImageRequest(url))
+      ).collect(Collectors.toSet());
   }
 
 }

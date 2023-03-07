@@ -1,3 +1,5 @@
+USE `db_booking` ;
+
 INSERT INTO `categories` (id, title, description, image_url) VALUES (
     1,
     'Hoteles',
