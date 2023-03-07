@@ -20,8 +20,17 @@ public class  ProductRequest {
   @NotBlank(message = "Descripción no puede estar vacío")
   private String description;
 
-  @NotBlank(message = "Dirección no puede estar vacío")
-  private String address;
+  @NotBlank(message = "Calle no puede estar vacío")
+  private String address_street;
+
+  @NotBlank(message = "Numero no puede estar vacío")
+  private String address_number;
+
+  private String address_apartment;
+
+  @NotNull(message = "Ciudad no puede ser nulo")
+  @Min(message = "Ciudad debe ser un valor mayor a 1", value = 1)
+  private Long city_id;
 
   @NotNull(message = "Categoría no puede ser nulo")
   @Min(message = "Categoría debe ser un valor mayor a 1", value = 1)
