@@ -1,6 +1,7 @@
 package com.example.booking.services;
 
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.models.Address;
 import com.example.booking.models.Feature;
 import com.example.booking.models.Image;
 import com.example.booking.models.Product;
@@ -11,7 +12,7 @@ import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,11 +26,33 @@ public class ProductService {
   private FeatureService featureService;
   private AddressService addressService;
   private ImageService imageService;
+  private CityService cityService;
 
   public Product getProduct(Long id)
     throws NotFoundException {
     return productRepository.findById(id)
       .orElseThrow(() -> new NotFoundException("No existe producto con id " + id));
+  }
+
+  public List<Product> getAllProductsRandom() {
+    var randomList = productRepository.findAll();
+    Collections.shuffle(randomList);
+    return randomList;
+  }
+
+  public List<Product> getAllProductsHasCategory(Long id)
+    throws NotFoundException {
+    return productRepository.
+      searchAllByCategory(categoryService.getCategory(id));
+  }
+
+  public List<Product> getAllProductsHasCity(Long id)
+    throws NotFoundException {
+    List<Address> addressesList = productRepository
+      .searchAllAddressByCity(cityService.getCity(id));
+    return addressesList.stream().map(
+      address -> productRepository.searchByAddress(address))
+      .collect(Collectors.toList());
   }
 
   public Product createProduct(ProductRequest productRequest)

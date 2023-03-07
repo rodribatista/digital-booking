@@ -25,15 +25,12 @@ public class ProductController {
   private ProductRepository productRepository;
   private ProductService productService;
 
-  @PostMapping()
-  public ResponseEntity<Product> createProduct(
-    @Valid @RequestBody ProductRequest productRequest,
-    BindingResult bindingResult
-  ) throws BadRequestException, NotFoundException {
-    if (bindingResult.hasErrors())
-      throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
-    return ResponseEntity.status(HttpStatus.CREATED)
-      .body(productService.createProduct(productRequest));
+  @GetMapping("/{id}")
+  public ResponseEntity<Product> getProduct(
+    @PathVariable Long id
+  ) throws NotFoundException {
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(productService.getProduct(id));
   }
 
   @GetMapping()
@@ -46,12 +43,49 @@ public class ProductController {
       .body(products);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Product> getProduct(
+  @GetMapping("/random")
+  public ResponseEntity<List<Product>> getAllProductsRandom() {
+    var products = productService.getAllProductsRandom();
+    if (products.isEmpty())
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body(products);
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(products);
+  }
+
+  @GetMapping("/categories/{id}")
+  public ResponseEntity<List<Product>> getAllProductsHasCategory(
     @PathVariable Long id
   ) throws NotFoundException {
+    var products = productService.getAllProductsHasCategory(id);
+    if (products.isEmpty())
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body(products);
     return ResponseEntity.status(HttpStatus.OK)
-      .body(productService.getProduct(id));
+      .body(products);
+  }
+
+  @GetMapping("/cities/{id}")
+  public ResponseEntity<List<Product>> getAllProductsHasCity(
+    @PathVariable Long id
+  ) throws NotFoundException {
+    var products = productService.getAllProductsHasCity(id);
+    if (products.isEmpty())
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body(products);
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(products);
+  }
+
+  @PostMapping()
+  public ResponseEntity<Product> createProduct(
+    @Valid @RequestBody ProductRequest productRequest,
+    BindingResult bindingResult
+  ) throws BadRequestException, NotFoundException {
+    if (bindingResult.hasErrors())
+      throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
+    return ResponseEntity.status(HttpStatus.CREATED)
+      .body(productService.createProduct(productRequest));
   }
 
   @Transactional
