@@ -31,18 +31,18 @@ public class Product {
   private Address address;
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "categories_id")
+  @JoinColumn(name = "category_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private Category category;
 
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "product_has_features",
     joinColumns = {@JoinColumn(name = "product_id")},
-    inverseJoinColumns = {@JoinColumn(name = "features_id")})
+    inverseJoinColumns = {@JoinColumn(name = "feature_id")})
   private Set<Feature> features;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "producto_id")
+  @JoinColumn(name = "product_id")
   private Set<Image> images;
 
   private Boolean availability;

@@ -69,15 +69,15 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`products` (
   `description` VARCHAR(255) NULL DEFAULT NULL,
   `title` VARCHAR(255) NULL DEFAULT NULL,
   `address_id` BIGINT NULL DEFAULT NULL,
-  `categories_id` BIGINT NULL DEFAULT NULL,
+  `category_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `FK5x0dxcwl286wp420yw1vhdxy7` (`address_id` ASC) VISIBLE,
-  INDEX `FKgro094vh0dp0tly1225wk8u37` (`categories_id` ASC) VISIBLE,
+  INDEX `FKgro094vh0dp0tly1225wk8u37` (`category_id` ASC) VISIBLE,
   CONSTRAINT `FK5x0dxcwl286wp420yw1vhdxy7`
     FOREIGN KEY (`address_id`)
     REFERENCES `db_booking`.`addresses` (`id`),
   CONSTRAINT `FKgro094vh0dp0tly1225wk8u37`
-    FOREIGN KEY (`categories_id`)
+    FOREIGN KEY (`category_id`)
     REFERENCES `db_booking`.`categories` (`id`));
 
 
@@ -87,11 +87,11 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`products` (
 CREATE TABLE IF NOT EXISTS `db_booking`.`images` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `url` VARCHAR(255) NULL DEFAULT NULL,
-  `producto_id` BIGINT NULL DEFAULT NULL,
+  `product_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `FK2qty0rxjl77o9udosj4em7mrm` (`producto_id` ASC) VISIBLE,
+  INDEX `FK2qty0rxjl77o9udosj4em7mrm` (`product_id` ASC) VISIBLE,
   CONSTRAINT `FK2qty0rxjl77o9udosj4em7mrm`
-    FOREIGN KEY (`producto_id`)
+    FOREIGN KEY (`product_id`)
     REFERENCES `db_booking`.`products` (`id`));
 
 
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`images` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_booking`.`product_has_features` (
   `product_id` BIGINT NOT NULL,
-  `features_id` BIGINT NOT NULL,
-  PRIMARY KEY (`product_id`, `features_id`),
-  INDEX `FKhop3mw2hkpqupxkpoca8ppj0w` (`features_id` ASC) VISIBLE,
+  `feature_id` BIGINT NOT NULL,
+  PRIMARY KEY (`product_id`, `feature_id`),
+  INDEX `FKhop3mw2hkpqupxkpoca8ppj0w` (`feature_id` ASC) VISIBLE,
   CONSTRAINT `FKhkps2og9oos7tqyehfgxq3r74`
     FOREIGN KEY (`product_id`)
     REFERENCES `db_booking`.`products` (`id`),
   CONSTRAINT `FKhop3mw2hkpqupxkpoca8ppj0w`
-    FOREIGN KEY (`features_id`)
+    FOREIGN KEY (`feature_id`)
     REFERENCES `db_booking`.`features` (`id`));
