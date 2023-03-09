@@ -53,7 +53,7 @@ public class ProductController {
       .body(products);
   }
 
-  @GetMapping("/categories/{id}")
+  @GetMapping("/filter/category={id}")
   public ResponseEntity<List<Product>> getAllProductsHasCategory(
     @PathVariable Long id
   ) throws NotFoundException {
@@ -65,7 +65,7 @@ public class ProductController {
       .body(products);
   }
 
-  @GetMapping("/cities/{id}")
+  @GetMapping("/filter/city={id}")
   public ResponseEntity<List<Product>> getAllProductsHasCity(
     @PathVariable Long id
   ) throws NotFoundException {
