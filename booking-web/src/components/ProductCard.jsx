@@ -15,27 +15,27 @@ const ProductCard = ({product}) => {
     <div className='productCard'>
       <div className='productCardImage'>
         <img className='fav' src={fav} alt="" />
-        <img className='img' src={product.images} alt="" />
+        <img className='img' src={product.images[0].url} alt="" />
       </div>
       <div className='productCardInfo'>
         <div>
-          <h2>{product.category.toUpperCase()}</h2>
-          <h1>{product.name}</h1>
+          <h2>{product.category.title.toUpperCase()}</h2>
+          <h1>{product.title}</h1>
         </div>
         <div className='productCardLocation'>
           <img src={pointer} alt="" />
-          <h3>{product.location}</h3>
+          <h3>{`${product.address.street} ${product.address.number}, ${product.address.city.name}`}</h3>
         </div>
         <div>
           <p>
-            {product.description.length > 150 ?
-              `${product.description.substring(0, 150)}...`
+            {product.description.length > 100 ?
+              `${product.description.substring(0, 100)}...`
             : product.description}
           </p>
         </div>
         <button
           onClick={handleClick}
-          value={product.name}
+          value={product.title}
         >
           Ver detalle
         </button>

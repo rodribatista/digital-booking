@@ -5,43 +5,12 @@ import pointer from '../assets/icons/pointer_outline.svg'
 
 import '../styles/citiesList.css'
 
-const cities = [
-  {
-    "name": "Buenos Aires",
-    "country": "Argentina"
-  },
-  {
-    "name": "Córdoba",
-    "country": "Argentina"
-  },
-  {
-    "name": "Rosario",
-    "country": "Argentina"
-  },
-  {
-    "name": "Mendoza",
-    "country": "Argentina"
-  },
-  {
-    "name": "La Plata",
-    "country": "Argentina"
-  },
-  {
-    "name": "Mar del Plata",
-    "country": "Argentina"
-  },
-  {
-    "name": "Salta",
-    "country": "Argentina"
-  }
-]
-
-const CitiesList = ({cityValue, setCityValue, setShowList}) => {
-
-  const [citiesList, setCitiesList] = useState(cities)
+const CitiesList = ({cities, cityValue, setCityValue, setShowList}) => {
+  
+  const [citiesList, setCitiesList] = useState(cities ? cities : [])
 
   useEffect(()=>{
-    setCitiesList(filterCities(cityValue, cities))
+    setCitiesList(filterCities(cityValue, cities ? cities : []))
   }, [cityValue])
 
   const handleClick = (e) => {
@@ -52,16 +21,16 @@ const CitiesList = ({cityValue, setCityValue, setShowList}) => {
   return (
     <ul className='citiesList'>
       {citiesList.length > 0 ?
-        citiesList.slice(0,5).map((city, index) => (
+        citiesList.slice(0,5).map((city) => (
           <li
-            key={index}
+            key={city.id}
             id={city.name}
             onClick={handleClick}
           >
             <img src={pointer} alt=''/>
             <div>
               <p>{city.name}</p>
-              <span>{city.country}</span>
+              <span>{city.country.name}</span>
             </div>
           </li>
         )) :

@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { endpoint } from '../utils/utils'
 import CitiesList from './CitiesList'
 
 import pointer from '../assets/icons/pointer_solid.svg'
@@ -9,6 +11,17 @@ import '../styles/searchBar.css'
 const SearchBar = () => {
 
   const navigate = useNavigate()
+
+  const [cities, setCities] = useState()
+
+  useEffect(() => {
+    axios.get(`${endpoint}/cities`)
+    .then(response => {
+      setCities(response.data)})
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
 
   const [cityValue, setCityValue] = useState('')
   const [showList, setShowList] = useState(false)
@@ -38,6 +51,7 @@ const SearchBar = () => {
             />
           </div>
           {showList && <CitiesList
+            cities={cities}
             cityValue={cityValue}
             setCityValue={setCityValue}
             setShowList={setShowList}

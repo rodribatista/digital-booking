@@ -84,7 +84,7 @@ const City = () => {
   
   return (
     <section className='filterProducts'>
-      <h2>Resultados para {params.city}</h2>
+      <h2>Resultados para {params.city ? params.city : params.category}</h2>
       <div className='filterProducts-grid'>
         {productsFilter.map(
           product => <ProductCard key={product.id} product={product}/>

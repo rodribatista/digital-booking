@@ -44,7 +44,8 @@
 .productCardInfo h2 {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #31363F;
+  color: #abb0b6;
+;
 }
 
 .productCardInfo h3 {
@@ -106,3 +107,4 @@
   }
 
 }
+
