@@ -11,22 +11,22 @@ import '../styles/home.css'
 
 const Home = () => {
 
-  const [ products, setProducts ] = useState()
   const [ categories, setCategories ] = useState()
+  const [ products, setProducts ] = useState()
 
   useEffect(() => {
-    axios.get(`${endpoint}/products`)
+    axios.get(`${endpoint}/categories`)
     .then(response => {
-      setProducts(response.data)})
+      setCategories(response.data)})
     .catch(e => {
       console.log(e);
     })
   }, [])
 
   useEffect(() => {
-    axios.get(`${endpoint}/categories`)
+    axios.get(`${endpoint}/products`)
     .then(response => {
-      setCategories(response.data)})
+      setProducts(response.data)})
     .catch(e => {
       console.log(e);
     })
@@ -40,7 +40,7 @@ const Home = () => {
       <div className='categories-grid'>
         {categories?.slice(0,4).map(
           category =>
-            <Link key={category.id} to={`/categories/${category.title}`}>
+            <Link key={category.id} to={`/products/category=/${category.title}`}>
               <CategoryCard key={category.id} category={category}/>
             </Link>
         )}

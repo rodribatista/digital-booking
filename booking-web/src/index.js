@@ -21,8 +21,10 @@ root.render(
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path="/categories/:category" element={<FilterProducts/>}/>
-          <Route path="/cities/:city" element={<FilterProducts/>}/>
+          <Route path='/products/category=/:value'
+            element={<FilterProducts type={'category'}/>}/>
+          <Route path='/products/city=/:value'
+            element={<FilterProducts type={'city'}/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

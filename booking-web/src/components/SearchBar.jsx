@@ -32,7 +32,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate(`/cities/${cityValue}`)
+    navigate(`/products/city=/${cityValue}`)
   }
 
   return (
