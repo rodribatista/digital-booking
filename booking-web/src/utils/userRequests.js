@@ -1,4 +1,5 @@
 const user_db = {
+  name: 'John Doe',
   email: 'john@mail.com',
   password: 'password'
 }
@@ -17,7 +18,7 @@ export const loginCredentials = (email, password) => {
   } else if (email === user_db.email && password === user_db.password) {
     return {
       status: 200,
-      message: 'Inicio de sesión exitoso'
+      name: user_db.name,
     }
   } else {
     return {

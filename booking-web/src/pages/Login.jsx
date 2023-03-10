@@ -24,6 +24,7 @@ const Login = () => {
     const response = loginCredentials(user.email, user.password)
     console.log(response)
     if (response.status === 200) {
+      localStorage.setItem('user', response.name)
       alert('¡Ingreso exitoso!')
       navigate('/')
     } else {
