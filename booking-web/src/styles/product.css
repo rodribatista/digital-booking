@@ -72,7 +72,7 @@
 .productGallery p {
   position: absolute;
   right: calc(15% + 20px);
-  bottom: 40px;
+  bottom: 20px;
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
