@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 import CitiesList from './CitiesList'
+import Calendar from './Calendar'
 
 import pointer from '../assets/icons/pointer_solid.svg'
+import calendar from '../assets/icons/calendar.svg'
+import x_mark from '../assets/icons/x_mark.svg'
 
 import '../styles/searchBar.css'
 
@@ -23,41 +26,67 @@ const SearchBar = () => {
     })
   }, [])
 
+  const [showCitiesList, setShowCitiesList] = useState(false)
+  const [showCalendar, setShowCalendar] = useState(false)
+
   const [cityValue, setCityValue] = useState('')
-  const [showList, setShowList] = useState(false)
-  
-  const handleCityValue = (e) => {
-    setCityValue(e.target.value)
-  }
+  const [dateSelected, setDateSelected] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate(`/products/city=/${cityValue}`)
+    if (cityValue.length > 0) {
+      navigate(`/products/city=/${cityValue}`)}
   }
 
   return (
     <section className="searchBar">
       <h2>Busca ofertas en hoteles, casas y mucho más</h2>
       <form onSubmit={handleSubmit}>
-        <div className='searchCityContainer'>
-          <div className='searchCity'>
+        <div className='searchCityDateContainer'>
+          <div className='searchCityDateInput'>
             <img src={pointer} alt=""/>
             <input
-              onFocus={() => setShowList(true)}
-              onChange={handleCityValue}
+              onFocus={() => setShowCitiesList(true)}
+              onChange={(e) => setCityValue(e.target.value)}
               type="text"
               placeholder="¿A dónde vamos?"
               value={cityValue}
             />
+            {cityValue.length > 0 && <img src={x_mark} alt="" 
+              className='closeIcon'
+              onClick={() => setCityValue('')}/>}
           </div>
-          {showList && <CitiesList
+          {showCitiesList && <CitiesList
+            onBlur={() => setShowCitiesList(false)}
             cities={cities}
             cityValue={cityValue}
             setCityValue={setCityValue}
-            setShowList={setShowList}
+            setShowList={setShowCitiesList}
           />}
         </div>
-        <button type="submit">Buscar</button>
+        <div className='searchCityDateContainer'>
+          <div className='searchCityDateInput'>
+            <img src={calendar} alt=""/>
+            <input
+              /* onFocus={() => setShowCalendar(true)} */
+              onChange={(e) => setDateSelected(e.target.value)}
+              type="text"
+              placeholder="Check-in / Check-out"
+              value={dateSelected}
+            />
+            {dateSelected.length > 0 && <img src={x_mark} alt=""
+              className='closeIcon'
+              onClick={() => setDateSelected('')}/>}
+          </div>
+          {showCalendar && <Calendar
+            dateSelected={dateSelected}
+            setDateSelected={setDateSelected}
+            setShowCalendar={setShowCalendar}
+          />}
+        </div>
+        {cityValue.length > 0 ?
+          <button type="submit">Buscar</button>
+        : <button type="submit" disabled>Buscar</button>}
       </form>
     </section>
   )  
