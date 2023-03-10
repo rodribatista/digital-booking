@@ -6,8 +6,8 @@ USE `db_booking` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_booking`.`countries` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `code` VARCHAR(255) NULL DEFAULT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
+  `code` VARCHAR(2) NULL DEFAULT NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`countries` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_booking`.`cities` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   `country_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `FK6gatmv9dwedve82icy8wrkdmk` (`country_id` ASC) VISIBLE,
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`cities` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_booking`.`addresses` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `number` VARCHAR(255) NULL DEFAULT NULL,
-  `street` VARCHAR(255) NULL DEFAULT NULL,
+  `number` VARCHAR(5) NULL DEFAULT NULL,
+  `street` VARCHAR(50) NULL DEFAULT NULL,
   `city_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `FK9fkb8qaj71tiyr9htkmn7r8y5` (`city_id` ASC) VISIBLE,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`categories` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(255) NULL DEFAULT NULL,
   `image_url` VARCHAR(255) NULL DEFAULT NULL,
-  `title` VARCHAR(255) NULL DEFAULT NULL,
+  `title` VARCHAR(25) NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`categories` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_booking`.`features` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NULL DEFAULT NULL,
+  `title` VARCHAR(25) NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -66,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `db_booking`.`features` (
 CREATE TABLE IF NOT EXISTS `db_booking`.`products` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `availability` BIT(1) NULL DEFAULT NULL,
-  `description` VARCHAR(255) NULL DEFAULT NULL,
-  `title` VARCHAR(255) NULL DEFAULT NULL,
+  `description` VARCHAR(1255) NULL DEFAULT NULL,
+  `title` VARCHAR(50) NULL DEFAULT NULL,
   `address_id` BIGINT NULL DEFAULT NULL,
   `category_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),

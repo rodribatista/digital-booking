@@ -84,7 +84,13 @@ INSERT INTO `products` (id, title, description, category_id, address_id, availab
 );
 INSERT INTO `products` (id, title, description, category_id, address_id, availability) VALUES(
 	4, 'Hotel TreintaSeis',
-    'Hotel en Mar del Plata con centro de conferencias.',
+    'El Hotel Treinta-Seis se encuentra en Mar del Plata, a 600 metros de la playa de La Perla, y ofrece alojamiento de 4 estrellas, jardín, terraza y bar. Este hotel de 4 estrellas cuenta con centro de fitness y habitaciones con aire acondicionado, WiFi gratuita y baño privado. El hotel cuenta con bañera de hidromasaje y servicio de habitaciones.
+    
+    Todos los alojamientos incluyen hervidor de agua. Algunas habitaciones del Hotel Treinta-Seis tienen balcón y todas incluyen TV de pantalla plana.
+    
+    El establecimiento sirve un desayuno buffet. El personal de la recepción del Hotel Treinta-Seis está disponible las 24 horas.
+    
+    Cerca del hotel hay varios lugares de interés, como la playa de Bristol, el casino central de Mar del Plata y la catedral de Mar del Plata. El aeropuerto más cercano es el aeropuerto internacional Astor Piazzolla, ubicado a 7 km del Hotel Treinta-Seis.',
     1, 4, true
 );
 
