@@ -37,9 +37,9 @@ const FilterProducts = ({type}) => {
     <section className='filterProducts'>
       <h2>Resultados para {params.value}</h2>
       <div className='filterProducts-grid'>
-        {productsList?.map(
+        {productsList.length > 0 ? productsList?.map(
           product => <ProductCard key={product.id} product={product}/>
-        )}
+        ) : <p>No hay resultados para esta búsqueda</p>}
       </div>
     </section>
   )
