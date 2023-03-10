@@ -26,6 +26,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+  font-size: 0.8rem;
 }
 
 .forms div input:focus {
@@ -82,6 +83,10 @@
   .forms div label {
     font-size: 1rem;
     font-weight: bold;
+  }
+
+  .forms div input {
+    font-size: 1rem;
   }
 
   .forms .changeForm p, .forms .changeForm a {

@@ -24,7 +24,7 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    axios.get(`${endpoint}/products`)
+    axios.get(`${endpoint}/products/random`)
     .then(response => {
       setProducts(response.data)})
     .catch(e => {
