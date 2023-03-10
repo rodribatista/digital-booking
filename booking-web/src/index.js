@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import FilterProducts from './pages/FilterProducts'
+import Product from './pages/Product'
 
 import './styles/index.css'
 
@@ -21,8 +22,8 @@ root.render(
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/products/:id'
-            element={<div>Producto</div>}/>
+          <Route path='/products/id=/:id'
+            element={<Product/>}/>
           <Route path='/products/category=/:value'
             element={<FilterProducts type={'category'}/>}/>
           <Route path='/products/city=/:value'
