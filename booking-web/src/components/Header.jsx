@@ -35,9 +35,12 @@ const Header = () => {
       </nav>
       {showNav &&
         <nav className='onMobile mobileNav'>
-          <button className='onMobile' onClick={handleCloseNav}>
-            <img src={close} alt="Logo Digital Booking"/>
-          </button>
+          <div>
+            <button className='onMobile' onClick={handleCloseNav}>
+              <img src={close} alt="Logo Digital Booking"/>
+            </button>
+            <h3>MENU</h3>
+          </div>
           <ul>
             <Link to='/login' onClick={handleCloseNav}>
               <li>Iniciar Sesión</li>
