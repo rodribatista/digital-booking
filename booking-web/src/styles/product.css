@@ -4,6 +4,14 @@
   padding: 20px 10%;
 }
 
+.productPage h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #31363F;
+  border-bottom: solid 2px #31363F;
+  padding-bottom: 20px;
+}
+
 .productHeader {
   flex-direction: row;
   align-items: center;
@@ -12,13 +20,17 @@
 }
 
 .productHeader h1 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: white;
 }
 
-.productHeader h2 {
+.productHeader h3 {
   font-size: 1rem;
   color: #DFE4EA;
+}
+
+.productHeader img {
+  cursor: pointer;
 }
 
 .productLocation {
@@ -27,18 +39,22 @@
   gap: 20px;
 }
 
-.productLocation h3 {
+.productLocation h4 {
   font-size: 1rem;
 }
 
 .productDescription {
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .productDescription p {
   font-size: 0.9rem;
+}
+
+.productFeatures {
+  flex-direction: column;
+  gap: 25px;
 }
 
 .productFeatures ul {
@@ -60,7 +76,7 @@
   width: 20px;
 }
 
-.productFeatures ul li h4 {
+.productFeatures ul li h5 {
   font-weight: normal;
   font-size: 0.9rem;
 }
