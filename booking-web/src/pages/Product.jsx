@@ -9,6 +9,8 @@ import pointer from '../assets/icons/pointer_solid.svg'
 import feature_1 from '../assets/icons/features/feature_1.svg'
 
 import '../styles/product.css'
+import Carousel from '../components/Carousel'
+import SlideGallery from '../components/SlideGallery'
 
 const Product = () => {
 
@@ -16,6 +18,7 @@ const Product = () => {
   const navigate = useNavigate()
 
   const [ product, setProduct ] = useState()
+  const [ showCarousel, setShowCarousel ] = useState(false)
 
   useEffect(() => {
     axios.get(`${endpoint}/products/${id}`)
@@ -45,6 +48,20 @@ const Product = () => {
             ${product.address.city.name}, 
             ${product.address.city.country.name}`}</h4>
           </section>
+          <SlideGallery className='onMobile'
+            images={product.images}/>
+          <div className='productGallery'>
+            <img src={product.images[0].url} alt="" />
+            <div className='grid'>
+              {product.images.slice(1,5).map(
+                image => <img src={image.url} alt="" key={image.id}/>)}
+            </div>
+            <p onClick={() => setShowCarousel(true)}>Ver más...</p>
+          </div>
+          {showCarousel &&
+            <Carousel
+              images={product.images}
+              setShowCarousel={setShowCarousel}/>}
           <section className='productDescription'>
             <h2>Alojate con nosotros en {product.address.city.name}</h2>
             <p>{product.description}</p>
