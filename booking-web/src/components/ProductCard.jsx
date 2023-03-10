@@ -24,7 +24,7 @@ const ProductCard = ({product}) => {
         </div>
         <div className='productCardLocation'>
           <img src={pointer} alt="" />
-          <h3>{`${product.address.street} ${product.address.number}, ${product.address.city.name}`}</h3>
+          <h3>{`${product.address.city.name}, ${product.address.city.country.code}`}</h3>
         </div>
         <div>
           <p>
