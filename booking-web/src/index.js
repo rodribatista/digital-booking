@@ -21,6 +21,8 @@ root.render(
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/products/:id'
+            element={<div>Producto</div>}/>
           <Route path='/products/category=/:value'
             element={<FilterProducts type={'category'}/>}/>
           <Route path='/products/city=/:value'
