@@ -19,6 +19,13 @@ public class CategoryService {
       .orElseThrow(() -> new NotFoundException("No existe categoría con id " + id));
   }
 
+  public Category getCategoryByTitle(String title)
+    throws NotFoundException {
+    var category = categoryRepository.findByTitle(title);
+    if (category == null) throw new NotFoundException("No existe categoría con título " + title);
+    return category;
+  }
+
   public Category createCategory(CategoryRequest categoryRequest) {
     var category = new Category(
       null,

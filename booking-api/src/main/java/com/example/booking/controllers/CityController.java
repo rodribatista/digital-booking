@@ -46,6 +46,14 @@ public class CityController {
       .body(countries);
   }
 
+  @GetMapping("/name={name}")
+  public ResponseEntity<City> getCityByName(
+    @PathVariable String name
+  ) throws NotFoundException {
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(cityService.getCityByName(name));
+  }
+
   @Transactional
   @PutMapping("/{id}")
   public ResponseEntity<City> updateCity(

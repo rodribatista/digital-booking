@@ -20,6 +20,13 @@ public class CityService {
       .orElseThrow(() -> new NotFoundException("No existe ciudad con id " + id));
   }
 
+  public City getCityByName(String name)
+    throws NotFoundException {
+    var city = cityRepository.findByName(name);
+    if (city == null) throw new NotFoundException("No existe ciudad con nombre " + name);
+    return city;
+  }
+
   public City createCity(CityRequest cityRequest)
     throws NotFoundException {
     var city = new City(

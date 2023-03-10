@@ -46,6 +46,14 @@ public class CategoryController {
       .body(categories);
   }
 
+  @GetMapping("/title={title}")
+  public ResponseEntity<Category> getCategoryByTitle(
+    @PathVariable String title
+    ) throws NotFoundException {
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(categoryService.getCategoryByTitle(title));
+  }
+
   @Transactional
   @PutMapping("/{id}")
   public ResponseEntity<Category> updateCategory(
