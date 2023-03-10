@@ -1,16 +1,20 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import fav from '../assets/icons/heart_fav.svg'
 import pointer from '../assets/icons/pointer_solid.svg'
 
 import '../styles/productCard.css'
 
-const handleClick = (e) => {
-  e.preventDefault()
-  alert(`Ir a página de ${e.target.value}`)
-}
-
 const ProductCard = ({product}) => {
+
+  const navigate = useNavigate()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate(`/products/id=/${e.target.id}`)
+  }
+
   return (
     <div className='productCard'>
       <div className='productCardImage'>
@@ -35,7 +39,7 @@ const ProductCard = ({product}) => {
         </div>
         <button
           onClick={handleClick}
-          value={product.title}
+          id={product.id}
         >
           Ver detalle
         </button>
