@@ -36,6 +36,7 @@ const CitiesList = ({cities, cityValue, setCityValue, setShowList}) => {
         )) :
         <p>No hay destinos para mostrar</p>
       }
+      <p onClick={() => setShowList(false)}>Cerrar</p>
     </ul>
   )
 }
