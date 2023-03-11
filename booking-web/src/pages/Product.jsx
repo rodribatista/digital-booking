@@ -56,7 +56,7 @@ const Product = () => {
               {product.images.slice(1,5).map(
                 image => <img src={image.url} alt="" key={image.id}/>)}
             </div>
-            <p onClick={() => setShowCarousel(true)}>Ver más...</p>
+            <p onClick={() => setShowCarousel(true)}>Ver galería</p>
           </div>
           {showCarousel &&
             <Carousel
