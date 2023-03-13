@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { fetchData } from '../utils/utils'
+import { endpoint } from '../utils/utils'
 import { filterCities } from '../utils/citiesList'
 
 import pointer from '../assets/icons/pointer_outline.svg'
 
 import '../styles/citiesList.css'
 
-const CitiesList = ({cities, cityValue, setCityValue, setShowList}) => {
+const citiesData = fetchData(`${endpoint}/cities`)
+
+const CitiesList = ({cityValue, setCityValue, setShowList}) => {
   
+  const cities = citiesData.read()
   const [citiesList, setCitiesList] = useState(cities ? cities : [])
 
   useEffect(()=>{

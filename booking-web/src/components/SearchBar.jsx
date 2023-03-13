@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { endpoint } from '../utils/utils'
+
 import CitiesList from './CitiesList'
 import Calendar from './Calendar'
 
@@ -14,17 +13,6 @@ import '../styles/searchBar.css'
 const SearchBar = () => {
 
   const navigate = useNavigate()
-
-  const [cities, setCities] = useState()
-
-  useEffect(() => {
-    axios.get(`${endpoint}/cities`)
-    .then(response => {
-      setCities(response.data)})
-    .catch(e => {
-      console.log(e);
-    })
-  }, [])
 
   const [showCitiesList, setShowCitiesList] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -58,7 +46,6 @@ const SearchBar = () => {
           </div>
           {showCitiesList && <CitiesList
             onBlur={() => setShowCitiesList(false)}
-            cities={cities}
             cityValue={cityValue}
             setCityValue={setCityValue}
             setShowList={setShowCitiesList}

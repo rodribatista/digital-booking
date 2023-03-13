@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import close from '../assets/icons/x_mark.svg'
 import goBack from '../assets/icons/carousel_back.svg'
 import goNext from '../assets/icons/carousel_next.svg'
 
