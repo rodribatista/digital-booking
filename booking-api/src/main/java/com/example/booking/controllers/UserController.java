@@ -34,8 +34,11 @@ public class UserController {
 
   @PostMapping("/auth")
   public ResponseEntity<AuthToken> authenticateUser(
-    @RequestBody UserLogin userLogin
-  ) throws AuthenticationException {
+    @Valid @RequestBody UserLogin userLogin,
+    BindingResult bindingResult
+  ) throws BadRequestException, AuthenticationException {
+    if (bindingResult.hasErrors())
+      throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     Authentication authentication = authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(
         userLogin.getEmail(),
