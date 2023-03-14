@@ -26,4 +26,11 @@ public class GlobalExceptions {
       .body(exception.getMessage());
   }
 
+  @ExceptionHandler(EmailAlreadyExistsException.class)
+  public ResponseEntity<String> emailAlreadyExistsException(EmailAlreadyExistsException exception) {
+    log.error(HttpStatus.CONFLICT + " - " + exception.getMessage());
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+      .body(exception.getMessage());
+  }
+
 }
