@@ -1,5 +1,5 @@
 export const validateFirstAndLastName = name => {
-  return name.length >= 2
+  return name.length >= 3
 }
 
 export const validateEmail = email => {

@@ -21,14 +21,18 @@ const Login = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const response = loginCredentials(user.email, user.password)
-    console.log(response)
-    if (response.status === 200) {
-      localStorage.setItem('user', response.name)
-      alert('¡Ingreso exitoso!')
-      navigate('/')
+    const userValues = Object.values(user)
+    if (userValues.every((value) => value.length > 0)) {
+      const response = loginCredentials(user.email, user.password)
+      if (response.status === 200) {
+        localStorage.setItem('user', response.name)
+        alert('¡Ingreso exitoso!')
+        navigate('/')
+      } else {
+        setError(response)
+      }
     } else {
-      setError(response)
+      alert('Se deben completar todos los campos')
     }
   }
 

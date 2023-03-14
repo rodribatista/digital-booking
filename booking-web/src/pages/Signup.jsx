@@ -32,24 +32,34 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const arrayErrors = Object.values(errors)
-    if (arrayErrors.every((error) => error === false)) {
-      alert('¡Registro exitoso!')
-      navigate('/login')
+    const userValues = Object.values(user)
+    if (userValues.every((value) => value.length > 0)) {
+      const arrayErrors = Object.values(errors)
+      if (arrayErrors.every((error) => error === false)) {
+        alert('¡Registro exitoso!')
+        navigate('/login')
+      } else {
+        alert('Hay errores en el formulario')
+      }
     } else {
-      alert('Hay errores en el formulario')
+      alert('Se deben completar todos los campos')
     }
   }
 
   const handleChange = (name, value) => {
-    setErrors({ ...errors, [name]: false })
     setUser({
       ...user,
       [name]: value.trim()
     })
+    setErrors({ ...errors, [name]: false })
+
   }
 
-  const handleError = (name) => {
+  const handleError = (name, value) => {
+    setUser({
+      ...user,
+      [name]: value.trim()
+    })
     setErrors({ ...errors, [name]: true })
   }
 
@@ -66,7 +76,7 @@ const Signup = () => {
             onChange={
               (e) => validateFirstAndLastName(e.target.value)
               ? handleChange(e.target.name, e.target.value)
-              : handleError(e.target.name)
+              : handleError(e.target.name, e.target.value)
             }
           />
           {errors.firstName && <p className='error'>Debes ingresar un nombre válido</p>}
@@ -81,7 +91,7 @@ const Signup = () => {
             onChange={
              (e) =>  validateFirstAndLastName(e.target.value)
              ? handleChange(e.target.name, e.target.value)
-             : handleError(e.target.name)
+             : handleError(e.target.name, e.target.value)
             }
           />
           {errors.lastName && <p className='error'>Debes ingresar un apellido válido</p>}
@@ -96,7 +106,7 @@ const Signup = () => {
             onChange={
               (e) => validateEmail(e.target.value)
               ? handleChange(e.target.name, e.target.value)
-              : handleError(e.target.name)
+              : handleError(e.target.name, e.target.value)
             }
           />
           {errors.email && <p className='error'>Debes ingresar un correo válido</p>}
@@ -111,7 +121,7 @@ const Signup = () => {
             onChange={
               (e) => validatePassword(e.target.value)
               ? handleChange(e.target.name, e.target.value)
-              : handleError(e.target.name)
+              : handleError(e.target.name, e.target.value)
             }
           />
           {errors.password && <p className='error'>La contraseña debe tener al menos 6 caracteres</p>}
@@ -126,7 +136,7 @@ const Signup = () => {
             onChange={
               (e) => comparePasswords(user.password, e.target.value)
               ? handleChange(e.target.name, e.target.value)
-              : handleError(e.target.name)
+              : handleError(e.target.name, e.target.value)
             }
           />
           {errors.confirmPassword && <p className='error'>Ambas contraseñas deben ser iguales</p>}
