@@ -32,10 +32,12 @@ const CitiesList = ({cityValue, setCityValue, setShowList}) => {
             id={city.name}
             onClick={handleClick}
           >
-            <img src={pointer} alt=''/>
-            <div>
-              <p>{city.name}</p>
-              <span>{city.country.name}</span>
+            <img src={pointer} alt=''
+              id={city.name}/>
+            <div id={city.name}>
+              <p id={city.name}>{city.name}</p>
+              <span
+                id={city.name}>{city.country.name}</span>
             </div>
           </li>
         )) :
