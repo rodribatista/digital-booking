@@ -24,7 +24,7 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
     Map<String, Object> data = new HashMap<>();
     data.put("timestamp", new Date());
     data.put("status",HttpStatus.FORBIDDEN.value());
-    data.put("message", "Access Denied, Bad Credentials!! Try again!");
+    data.put("message", "Access Denied - Bad Credentials");
     data.put("path", request.getRequestURL().toString());
 
     OutputStream out = response.getOutputStream();
