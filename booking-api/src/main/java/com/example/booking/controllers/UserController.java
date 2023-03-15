@@ -46,7 +46,9 @@ public class UserController {
       ));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     final String token = jwtTokenUtil.generateToken(authentication);
-    return ResponseEntity.status(HttpStatus.OK).body(new AuthToken(token));
+    final User user = userService.searchUserByEmail(userLogin.getEmail());
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(new AuthToken(user.getFirstName() +" "+ user.getLastName(),token));
   }
 
   @PostMapping("/signup")

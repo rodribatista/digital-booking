@@ -29,6 +29,11 @@ public class UserService implements UserDetailsService {
   @Autowired
   private BCryptPasswordEncoder bcryptEncoder;
 
+  public User searchUserByEmail(String email) {
+    return userRepository.findByEmail(email).orElseThrow(
+      () -> new UsernameNotFoundException("Invalid username or password."));
+  }
+
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(email).orElseThrow(
       () -> new UsernameNotFoundException("Invalid username or password."));
