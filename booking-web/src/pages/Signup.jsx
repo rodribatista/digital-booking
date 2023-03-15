@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { endpoint } from '../utils/utils'
 
 import {
   validateFirstAndLastName,
@@ -30,14 +32,26 @@ const Signup = () => {
     confirmPassword: false
   })
 
+  const handleResponse = (response) => {
+    if (response.status === 201) {
+      alert('Registro exitoso!')
+      navigate('/login')
+    } else {
+      alert(`ERROR: ${response.status} - ${response.data}`)
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const userValues = Object.values(user)
     if (userValues.every((value) => value.length > 0)) {
       const arrayErrors = Object.values(errors)
       if (arrayErrors.every((error) => error === false)) {
-        alert('¡Registro exitoso!')
-        navigate('/login')
+        axios.post(`${endpoint}/users/signup`, user)
+        .then((response) =>
+          handleResponse(response))
+        .catch(error =>
+          handleResponse(error.response))
       } else {
         alert('Hay errores en el formulario')
       }

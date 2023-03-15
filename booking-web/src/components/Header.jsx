@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import logo from '../assets/images/logo.svg'
 import nav from '../assets/icons/nav_mobile.svg'
@@ -18,6 +18,7 @@ const Header = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem('user')
+    alert('Cierre de sesión exitoso!')
   }
 
   return (
@@ -42,7 +43,7 @@ const Header = () => {
       {userLogued &&
         <div className='onDesktop'>
           <div className='userLog'>
-            <p>Hola, <span>{localStorage.getItem('user')}</span></p>
+            <p>Hola, <span>{JSON.parse(localStorage.getItem('user')).name}</span></p>
             <button className='closeLog' onClick={handleLogOut}>Cerrar sesión</button>
           </div>
         </div>

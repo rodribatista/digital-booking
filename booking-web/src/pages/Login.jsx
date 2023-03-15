@@ -1,7 +1,7 @@
 import React, { useState }from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { loginCredentials } from '../utils/userRequests'
+import axios from 'axios'
+import { endpoint } from '../utils/utils'
 
 import '../styles/forms.css'
 
@@ -14,23 +14,32 @@ const Login = () => {
     password: ''
   })
 
-  const [ error, setError ] = useState({
-    status: 200,
-    message: ''
-  })
+  const [ error, setError ] = useState('')
+
+  const handleResponse = (response) => {
+    if (response.status === 200) {
+      alert('Ingreso exitoso!')
+      localStorage.setItem(
+        'user', JSON.stringify({
+          name: response.data.user,
+          token: response.data.token
+        }))
+      navigate('/')
+    } else {
+      setError('Por favor vuelva a intentarlo, sus credenciales son inválidas')
+    }
+  }
   
   const handleSubmit = (e) => {
     e.preventDefault()
+    setError('')
     const userValues = Object.values(user)
     if (userValues.every((value) => value.length > 0)) {
-      const response = loginCredentials(user.email, user.password)
-      if (response.status === 200) {
-        localStorage.setItem('user', response.name)
-        alert('¡Ingreso exitoso!')
-        navigate('/')
-      } else {
-        setError(response)
-      }
+      axios.post(`${endpoint}/users/auth`, user)
+      .then((response) =>
+        handleResponse(response))
+      .catch(error =>
+        handleResponse(error.response))
     } else {
       alert('Se deben completar todos los campos')
     }
@@ -66,7 +75,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        {error.status !== 200 && <p className='error'>{error.message}</p>}
+        {error.length > 0 && <p className='error'>{error}</p>}
         <button type='submit'>Ingresar</button>
         <div className='changeForm'>
           <p>¿Aún no tienes cuenta?</p>
