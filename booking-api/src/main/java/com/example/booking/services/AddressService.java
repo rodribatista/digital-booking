@@ -22,12 +22,12 @@ public class AddressService {
 
   public Address createAddress(AddressRequest addressRequest)
     throws NotFoundException {
-    var address = new Address(
-      null,
-      addressRequest.getStreet(),
-      addressRequest.getNumber(),
-      cityService.getCity(addressRequest.getCity_id())
-    );
+    var address = Address.builder()
+      .id(null)
+      .street(addressRequest.getStreet())
+      .number(addressRequest.getNumber())
+      .city(cityService.getCity(addressRequest.getCity_id()))
+      .build();
     return addressRepository.save(address);
   }
 

@@ -21,11 +21,11 @@ public class CountryService {
   }
 
   public Country createCountry(CountryRequest countryRequest) {
-    var country = new Country(
-      null,
-      countryRequest.getName(),
-      countryRequest.getCode()
-    );
+    var country = Country.builder()
+      .id(null)
+      .name(countryRequest.getName())
+      .code(countryRequest.getCode())
+      .build();
     return countryRepository.save(country);
   }
 

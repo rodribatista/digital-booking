@@ -23,11 +23,10 @@ public class FeatureService {
   }
 
   public Feature createFeature(FeatureRequest featureRequest) {
-    var feature = new Feature(
-      null,
-      featureRequest.getTitle(),
-      new HashSet<>()
-    );
+    var feature = Feature.builder()
+      .id(null)
+      .title(featureRequest.getTitle())
+      .build();
     return featureRepository.save(feature);
   }
 

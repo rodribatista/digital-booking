@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 import com.example.booking.config.TokenProvider;
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.EmailAlreadyExistsException;
+import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.payload.responses.AuthToken;
 import com.example.booking.payload.requests.UserLogin;
 import com.example.booking.payload.requests.UserSignup;
@@ -55,7 +56,7 @@ public class UserController {
   public ResponseEntity<User> registerNewUser(
     @Valid @RequestBody UserSignup userRequest,
     BindingResult bindingResult
-    ) throws BadRequestException, EmailAlreadyExistsException {
+    ) throws BadRequestException, EmailAlreadyExistsException, NotFoundException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)

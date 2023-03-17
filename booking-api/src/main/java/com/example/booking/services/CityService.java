@@ -22,18 +22,17 @@ public class CityService {
 
   public City getCityByName(String name)
     throws NotFoundException {
-    var city = cityRepository.findByName(name);
-    if (city == null) throw new NotFoundException("No existe ciudad con nombre " + name);
-    return city;
+    return cityRepository.findByName(name).orElseThrow(
+      () -> new NotFoundException("No existe ciudad con nombre " + name));
   }
 
   public City createCity(CityRequest cityRequest)
     throws NotFoundException {
-    var city = new City(
-      null,
-      cityRequest.getName(),
-      countryService.getCountry(cityRequest.getCountry_id())
-    );
+    var city = City.builder()
+      .id(null)
+      .name(cityRequest.getName())
+      .country(countryService.getCountry(cityRequest.getCountry_id()))
+      .build();
     return cityRepository.save(city);
   }
 

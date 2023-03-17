@@ -21,18 +21,17 @@ public class CategoryService {
 
   public Category getCategoryByTitle(String title)
     throws NotFoundException {
-    var category = categoryRepository.findByTitle(title);
-    if (category == null) throw new NotFoundException("No existe categoría con título " + title);
-    return category;
+    return categoryRepository.findByTitle(title).orElseThrow(
+        () -> new NotFoundException("No existe categoría con título " + title));
   }
 
   public Category createCategory(CategoryRequest categoryRequest) {
-    var category = new Category(
-      null,
-      categoryRequest.getTitle(),
-      categoryRequest.getDescription(),
-      categoryRequest.getImageUrl()
-    );
+    var category = Category.builder()
+      .id(null)
+      .title(categoryRequest.getTitle())
+      .description(categoryRequest.getDescription())
+      .imageUrl(categoryRequest.getImageUrl())
+      .build();
     return categoryRepository.save(category);
   }
 

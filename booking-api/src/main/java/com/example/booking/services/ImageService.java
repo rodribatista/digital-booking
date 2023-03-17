@@ -22,10 +22,10 @@ public class ImageService {
   }
 
   public Image createImage(ImageRequest imageRequest) {
-    var image = new Image(
-      null,
-      imageRequest.getUrl()
-    );
+    var image = Image.builder()
+      .id(null)
+      .url(imageRequest.getUrl())
+      .build();
     return imageRepository.save(image);
   }
 

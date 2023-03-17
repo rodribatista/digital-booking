@@ -1,16 +1,14 @@
 package com.example.booking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -23,9 +21,5 @@ public class Feature {
 
   @Column(name = "title")
   private String title;
-
-  @JsonIgnore
-  @ManyToMany(mappedBy = "features")
-  private Set<Product> products;
 
 }

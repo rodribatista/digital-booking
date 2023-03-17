@@ -28,10 +28,9 @@ public class ProductService {
   private ImageService imageService;
   private CityService cityService;
 
-  public Product getProduct(Long id)
-    throws NotFoundException {
-    return productRepository.findById(id)
-      .orElseThrow(() -> new NotFoundException("No existe producto con id " + id));
+  public Product getProduct(Long id) throws NotFoundException {
+    return productRepository.findById(id).orElseThrow(
+      () -> new NotFoundException("No existe producto con id " + id));
   }
 
   public List<Product> getAllProductsRandom() {
@@ -57,22 +56,25 @@ public class ProductService {
 
   public Product createProduct(ProductRequest productRequest)
     throws NotFoundException {
-    var product = new Product(
-      null,
-      productRequest.getTitle(),
-      productRequest.getDescription(),
-      addressService.createAddress(
-        newAddressRequest(productRequest)),
-      categoryService.getCategory(productRequest.getCategory_id()),
-      handlerFeatures(productRequest.getFeatures_id()),
-      handlerImages(productRequest.getImages_url()),
-      true
-    );
+    var product = Product.builder()
+      .id(null)
+      .title(productRequest.getTitle())
+      .description(productRequest.getDescription())
+      .address(addressService.createAddress(
+        newAddressRequest(productRequest)))
+      .category(categoryService.getCategory(
+        productRequest.getCategory_id()))
+      .features(
+        handlerFeatures(productRequest.getFeatures_id()))
+      .images(handlerImages(productRequest.getImages_url()))
+      .availability(true)
+      .build();
     return productRepository.save(product);
   }
 
-  public Product updateProduct(Long id, ProductRequest productRequest)
-    throws NotFoundException {
+  public Product updateProduct(
+    Long id, ProductRequest productRequest
+  ) throws NotFoundException {
     if (!productRepository.existsById(id))
       throw new NotFoundException("No existe producto con id " + id);
     var product = getProduct(id);
@@ -80,7 +82,8 @@ public class ProductService {
     product.setDescription(productRequest.getDescription());
     product.setAddress(
       addressService.updateAddress(id, newAddressRequest(productRequest)));
-    product.setCategory(categoryService.getCategory(productRequest.getCategory_id()));
+    product.setCategory(
+      categoryService.getCategory(productRequest.getCategory_id()));
     product.setFeatures(handlerFeatures(productRequest.getFeatures_id()));
     return product;
   }
@@ -92,7 +95,8 @@ public class ProductService {
     return productDeleted;
   }
 
-  public Set<Feature> handlerFeatures(List<Long> featuresList) {
+  public Set<Feature> handlerFeatures(
+    List<Long> featuresList) {
     return featuresList.stream()
       .map(feature_id -> {
         try {
@@ -103,7 +107,8 @@ public class ProductService {
       }).collect(Collectors.toSet());
   }
 
-  public AddressRequest newAddressRequest(ProductRequest productRequest) {
+  public AddressRequest newAddressRequest(
+    ProductRequest productRequest) {
     return new AddressRequest(
       productRequest.getAddress_street(),
       productRequest.getAddress_number(),
@@ -113,9 +118,9 @@ public class ProductService {
 
   private Set<Image> handlerImages(List<String> urlList) {
     return urlList.stream()
-      .map(url ->
-        imageService.createImage(new ImageRequest(url))
-      ).collect(Collectors.toSet());
+      .map(
+        url -> imageService.createImage(new ImageRequest(url)))
+      .collect(Collectors.toSet());
   }
 
 }
