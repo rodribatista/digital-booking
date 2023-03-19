@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -95,7 +94,7 @@ public class ProductService {
     return productDeleted;
   }
 
-  public Set<Feature> handlerFeatures(
+  public List<Feature> handlerFeatures(
     List<Long> featuresList) {
     return featuresList.stream()
       .map(feature_id -> {
@@ -104,7 +103,7 @@ public class ProductService {
         } catch (NotFoundException e) {
           throw new RuntimeException(e);
         }
-      }).collect(Collectors.toSet());
+      }).collect(Collectors.toList());
   }
 
   public AddressRequest newAddressRequest(
@@ -116,11 +115,11 @@ public class ProductService {
     );
   }
 
-  private Set<Image> handlerImages(List<String> urlList) {
+  private List<Image> handlerImages(List<String> urlList) {
     return urlList.stream()
       .map(
         url -> imageService.createImage(new ImageRequest(url)))
-      .collect(Collectors.toSet());
+      .collect(Collectors.toList());
   }
 
 }
