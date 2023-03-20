@@ -25,7 +25,7 @@ public class Address {
   @Column(name = "number", nullable = false, length = 10)
   private String number;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "city_id", nullable = false)
   private City city;
 

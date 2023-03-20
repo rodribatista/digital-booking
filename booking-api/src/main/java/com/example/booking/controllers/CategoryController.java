@@ -2,6 +2,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.exceptions.SQLIntegrityException;
 import com.example.booking.models.Category;
 import com.example.booking.payload.requests.CategoryRequest;
 import com.example.booking.repositories.CategoryRepository;
@@ -29,7 +30,7 @@ public class CategoryController {
   public ResponseEntity<Category> createCategory(
     @Valid @RequestBody CategoryRequest categoryRequest,
     BindingResult bindingResult
-  ) throws BadRequestException {
+  ) throws BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -60,7 +61,7 @@ public class CategoryController {
     @PathVariable Long id,
     @Valid @RequestBody CategoryRequest categoryRequest,
     BindingResult bindingResult
-  ) throws NotFoundException, BadRequestException {
+  ) throws NotFoundException, BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
@@ -70,7 +71,7 @@ public class CategoryController {
   @DeleteMapping ("/{id}")
   public ResponseEntity<Category> deleteCategory(
     @PathVariable Long id
-  ) throws NotFoundException {
+  ) throws NotFoundException, SQLIntegrityException {
     return ResponseEntity.status(HttpStatus.OK)
       .body(categoryService.deleteCategory(id));
   }

@@ -102,11 +102,12 @@ public class ProductController {
   }
 
   @DeleteMapping ("/{id}")
-  public ResponseEntity<Product> deleteProduct(
+  public ResponseEntity<String> deleteProduct(
     @PathVariable Long id
   ) throws NotFoundException {
+    productService.deleteProduct(id);
     return ResponseEntity.status(HttpStatus.OK)
-      .body(productService.deleteProduct(id));
+      .body("Producto eliminado correctamente");
   }
 
 }

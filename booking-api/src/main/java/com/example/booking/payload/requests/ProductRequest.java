@@ -17,13 +17,14 @@ public class  ProductRequest {
   private String title;
 
   @Length(min = 100, message = "Descripción debe tener al menos 100 caracteres")
+  @Length(max = 1250, message = "Descripción puede contener máximo 1250 caracteres")
   @NotBlank(message = "Descripción no puede estar vacío")
   private String description;
 
   @NotBlank(message = "Calle no puede estar vacío")
   private String address_street;
 
-  @NotBlank(message = "Numero no puede estar vacío")
+  @NotBlank(message = "Nro puerta no puede estar vacío")
   private String address_number;
 
   @NotNull(message = "Ciudad no puede ser nulo")
@@ -34,10 +35,10 @@ public class  ProductRequest {
   @Min(message = "Categoría debe ser un valor mayor a 1", value = 1)
   private Long category_id;
 
-  @NotNull(message = "Característica no puede ser nulo")
+  @NotNull(message = "Características no puede ser nulo")
   private List<Long> features_id;
 
-  @NotNull(message = "Imagen no puede ser nulo")
-  private List<String> images_url;
+  @NotNull(message = "Imagenes no puede ser nulo")
+  private List<ImageRequest> images_url;
 
 }

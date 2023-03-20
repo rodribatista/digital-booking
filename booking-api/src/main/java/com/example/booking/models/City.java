@@ -21,7 +21,7 @@ public class City {
   @Column(name = "name", unique = true, nullable = false, length = 50)
   private String name;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "country_id", nullable = false)
   private Country country;
 

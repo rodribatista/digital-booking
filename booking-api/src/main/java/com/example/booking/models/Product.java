@@ -19,7 +19,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "title", unique = true, nullable = false, length = 50)
+  @Column(name = "title", nullable = false, length = 50)
   private String title;
 
   @Column(name = "description", length = 1250)
@@ -29,18 +29,20 @@ public class Product {
   @JoinColumn(name = "address_id", unique = true, nullable = false)
   private Address address;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "product_has_features",
     joinColumns = {@JoinColumn(name = "product_id")},
     inverseJoinColumns = {@JoinColumn(name = "feature_id")})
+  @OrderBy("id")
   private List<Feature> features;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "product_id")
+  @OrderBy("id")
   private List<Image> images;
 
   @Column(name = "availability")

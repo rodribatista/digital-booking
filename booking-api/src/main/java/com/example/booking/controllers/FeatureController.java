@@ -2,6 +2,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.exceptions.SQLIntegrityException;
 import com.example.booking.models.Feature;
 import com.example.booking.payload.requests.FeatureRequest;
 import com.example.booking.repositories.FeatureRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class FeatureController {
   public ResponseEntity<Feature> createFeature(
     @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
-  ) throws BadRequestException {
+  ) throws BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -52,7 +54,7 @@ public class FeatureController {
     @PathVariable Long id,
     @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
-  ) throws NotFoundException, BadRequestException {
+  ) throws NotFoundException, BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
@@ -62,7 +64,7 @@ public class FeatureController {
   @DeleteMapping ("/{id}")
   public ResponseEntity<Feature> deleteFeature(
     @PathVariable Long id
-  ) throws NotFoundException {
+  ) throws NotFoundException, SQLIntegrityConstraintViolationException {
     return ResponseEntity.status(HttpStatus.OK)
       .body(featureService.deleteFeature(id));
   }

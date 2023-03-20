@@ -1,6 +1,7 @@
 package com.example.booking.services;
 
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.exceptions.SQLIntegrityException;
 import com.example.booking.models.Category;
 import com.example.booking.payload.requests.CategoryRequest;
 import com.example.booking.repositories.CategoryRepository;
@@ -25,31 +26,39 @@ public class CategoryService {
         () -> new NotFoundException("No existe categoría con título " + title));
   }
 
-  public Category createCategory(CategoryRequest categoryRequest) {
+  public Category createCategory(CategoryRequest categoryRequest) throws SQLIntegrityException {
     var category = Category.builder()
       .id(null)
       .title(categoryRequest.getTitle())
       .description(categoryRequest.getDescription())
       .imageUrl(categoryRequest.getImageUrl())
       .build();
-    return categoryRepository.save(category);
+    try { return categoryRepository.save(category); }
+    catch (Exception e) {
+      throw new SQLIntegrityException(
+        "SQLIntegrityException has accured - " +  e.getCause().getCause().getMessage()); }
   }
 
   public Category updateCategory(Long id, CategoryRequest categoryRequest)
-    throws NotFoundException {
-    if (!categoryRepository.existsById(id))
-      throw new NotFoundException("No existe categoría con id " + id);
+    throws NotFoundException, SQLIntegrityException {
     var category = getCategory(id);
-    category.setTitle(categoryRequest.getTitle());
-    category.setDescription(categoryRequest.getDescription());
-    category.setImageUrl(categoryRequest.getImageUrl());
+    try {
+      category.setTitle(categoryRequest.getTitle());
+      category.setDescription(categoryRequest.getDescription());
+      category.setImageUrl(categoryRequest.getImageUrl()); }
+    catch (Exception e) {
+      throw new SQLIntegrityException(
+        "SQLIntegrityException has accured - " +  e.getCause().getCause().getMessage()); }
     return category;
   }
 
   public Category deleteCategory(Long id)
-    throws NotFoundException {
+    throws NotFoundException, SQLIntegrityException {
     var categoryDeleted = getCategory(id);
-    categoryRepository.deleteById(id);
+    try { categoryRepository.delete(categoryDeleted); }
+    catch (Exception e) {
+      throw new SQLIntegrityException(
+        "SQLIntegrityException has accured - " +  e.getCause().getCause().getMessage()); }
     return categoryDeleted;
   }
 

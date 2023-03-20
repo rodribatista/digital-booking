@@ -33,4 +33,11 @@ public class GlobalExceptions {
       .body(exception.getMessage());
   }
 
+  @ExceptionHandler(SQLIntegrityException.class)
+  public ResponseEntity<String> conflict(SQLIntegrityException exception) {
+    log.error(HttpStatus.CONFLICT + " - " + exception.getMessage());
+    return ResponseEntity.status(HttpStatus.CONFLICT)
+      .body(exception.getMessage());
+  }
+
 }

@@ -2,6 +2,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.exceptions.SQLIntegrityException;
 import com.example.booking.models.Country;
 import com.example.booking.payload.requests.CountryRequest;
 import com.example.booking.repositories.CountryRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class CountryController {
   public ResponseEntity<Country> createCountry(
     @Valid @RequestBody CountryRequest countryRequest,
     BindingResult bindingResult
-  ) throws BadRequestException {
+  ) throws BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -52,7 +54,7 @@ public class CountryController {
     @PathVariable Long id,
     @Valid @RequestBody CountryRequest countryRequest,
     BindingResult bindingResult
-  ) throws NotFoundException, BadRequestException {
+  ) throws NotFoundException, BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
@@ -62,7 +64,7 @@ public class CountryController {
   @DeleteMapping ("/{id}")
   public ResponseEntity<Country> deleteCountry(
     @PathVariable Long id
-  ) throws NotFoundException {
+  ) throws NotFoundException, SQLIntegrityException {
     return ResponseEntity.status(HttpStatus.OK)
       .body(countryService.deleteCountry(id));
   }
