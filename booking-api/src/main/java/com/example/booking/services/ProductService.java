@@ -71,8 +71,6 @@ public class ProductService {
   public Product updateProduct(
     Long id, ProductRequest productRequest
   ) throws NotFoundException {
-    if (!productRepository.existsById(id))
-      throw new NotFoundException("No existe producto con id " + id);
     var product = getProduct(id);
     product.setTitle(productRequest.getTitle());
     product.setDescription(productRequest.getDescription());

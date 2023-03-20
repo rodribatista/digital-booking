@@ -34,7 +34,7 @@ public class User {
   @Column(name = "password", nullable = false, length = 250)
   private String password;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "role_id", nullable = false)
   private Role role;
 

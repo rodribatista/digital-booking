@@ -3,6 +3,9 @@ package com.example.booking.services;
 import com.example.booking.exceptions.EmailAlreadyExistsException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.User;
+import com.example.booking.payload.requests.UserEmail;
+import com.example.booking.payload.requests.UserInfo;
+import com.example.booking.payload.requests.UserPass;
 import com.example.booking.payload.requests.UserSignup;
 import com.example.booking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +58,7 @@ public class UserService implements UserDetailsService {
     return authorities;
   }
 
-  public User registerNewUser(UserSignup userDto)
+  public User createUser(UserSignup userDto)
       throws EmailAlreadyExistsException, NotFoundException {
     if(userRepository.existsByEmail(userDto.getEmail()))
       throw new EmailAlreadyExistsException("Ya existe un usuario con este email");
@@ -67,6 +70,38 @@ public class UserService implements UserDetailsService {
         .password(bcryptEncoder.encode(userDto.getPassword()))
         .role(roleService.findByTitle("USER"))
         .build());
+  }
+
+  public User updateUser(
+    Long id, UserInfo userInfo
+  ) throws NotFoundException {
+    var user = searchUserById(id);
+    user.setFirstName(userInfo.getFirstName());
+    user.setLastName(userInfo.getLastName());
+    return user;
+  }
+
+  public User updateUserEmail(
+    Long id, UserEmail userEmail
+  ) throws NotFoundException {
+    var user = searchUserById(id);
+    user.setEmail(userEmail.getEmail());
+    return user;
+  }
+
+  public void updateUserPassword(
+    Long id, UserPass userPass
+  ) throws NotFoundException {
+    var user = searchUserById(id);
+    user.setPassword(
+      bcryptEncoder.encode(userPass.getPassword()));
+  }
+
+  public User deleteUser(Long id)
+    throws NotFoundException {
+    var userDeleted = searchUserById(id);
+    userRepository.delete(userDeleted);
+    return userDeleted;
   }
 
 }

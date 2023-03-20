@@ -17,9 +17,8 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint, Seriali
   public void commence(HttpServletRequest request,
                        HttpServletResponse response,
                        AuthenticationException authException) throws IOException {
-
-    System.out.println("Ejecutando UnauthorizedEntryPoint");
-    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: No autorizado");
+    //System.out.println("Ejecutando UnauthorizedEntryPoint");
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Las credenciales no son válidas");
   }
 
 }
