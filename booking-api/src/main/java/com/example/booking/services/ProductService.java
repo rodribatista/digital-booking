@@ -2,11 +2,7 @@ package com.example.booking.services;
 
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Address;
-import com.example.booking.models.Feature;
-import com.example.booking.models.Image;
 import com.example.booking.models.Product;
-import com.example.booking.payload.requests.AddressRequest;
-import com.example.booking.payload.requests.ImageRequest;
 import com.example.booking.payload.requests.ProductRequest;
 import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -14,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -24,7 +19,6 @@ public class ProductService {
   private ProductRepository productRepository;
   private CategoryService categoryService;
   private FeatureService featureService;
-  private AddressService addressService;
   private ImageService imageService;
   private CityService cityService;
 
@@ -60,13 +54,13 @@ public class ProductService {
       .id(null)
       .title(productRequest.getTitle())
       .description(productRequest.getDescription())
-      .address(addressService.createAddress(
-        newAddressRequest(productRequest)))
-      .category(categoryService.getCategory(
-        productRequest.getCategory_id()))
-      .features(
-        handlerFeatures(productRequest.getFeatures_id()))
-      .images(handlerImages(productRequest.getImages_url()))
+      .address(handlerAddress(productRequest))
+      .category(categoryService
+        .getCategory(productRequest.getCategory_id()))
+      .features(featureService
+        .getFeatures(productRequest.getFeatures_id()))
+      .images(imageService
+        .createImages(productRequest.getImages_url()))
       .availability(true)
       .build();
     return productRepository.save(product);
@@ -80,47 +74,32 @@ public class ProductService {
     var product = getProduct(id);
     product.setTitle(productRequest.getTitle());
     product.setDescription(productRequest.getDescription());
-    product.setAddress(
-      addressService.updateAddress(id, newAddressRequest(productRequest)));
-    product.setCategory(
-      categoryService.getCategory(productRequest.getCategory_id()));
-    product.setFeatures(handlerFeatures(productRequest.getFeatures_id()));
+    product.setAddress(handlerAddress(productRequest));
+    product.setCategory(categoryService
+      .getCategory(productRequest.getCategory_id()));
+    product.setFeatures(featureService
+      .getFeatures(productRequest.getFeatures_id()));
+    product.setImages(imageService
+      .createImages(productRequest.getImages_url()));
     return product;
   }
 
-  public Product deleteProduct(Long id)
+  public void deleteProduct(Long id)
     throws NotFoundException {
     var productDeleted = getProduct(id);
-    productRepository.deleteById(id);
-    return productDeleted;
+    productRepository.delete(productDeleted);
+    //return productDeleted;
   }
 
-  public Set<Feature> handlerFeatures(
-    List<Long> featuresList) {
-    return featuresList.stream()
-      .map(feature_id -> {
-        try {
-          return featureService.getFeature(feature_id);
-        } catch (NotFoundException e) {
-          throw new RuntimeException(e);
-        }
-      }).collect(Collectors.toSet());
-  }
-
-  public AddressRequest newAddressRequest(
-    ProductRequest productRequest) {
-    return new AddressRequest(
-      productRequest.getAddress_street(),
-      productRequest.getAddress_number(),
-      productRequest.getCity_id()
-    );
-  }
-
-  private Set<Image> handlerImages(List<String> urlList) {
-    return urlList.stream()
-      .map(
-        url -> imageService.createImage(new ImageRequest(url)))
-      .collect(Collectors.toSet());
+  private Address handlerAddress(
+    ProductRequest productRequest
+  ) throws NotFoundException {
+    return Address.builder()
+      .id(null)
+      .street(productRequest.getAddress_street())
+      .number(productRequest.getAddress_number())
+      .city(cityService.getCity(productRequest.getCity_id()))
+      .build();
   }
 
 }

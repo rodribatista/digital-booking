@@ -1,6 +1,5 @@
 package com.example.booking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,15 +14,15 @@ import javax.persistence.*;
 public class City {
 
   @Id
+  @Column(name = "id", unique = true, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "name", unique = true, nullable = false, length = 50)
   private String name;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "country_id")
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "country_id", nullable = false)
   private Country country;
 
 }

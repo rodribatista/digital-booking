@@ -16,10 +16,11 @@ import java.util.Set;
 public class Feature {
 
   @Id
+  @Column(name = "id", unique = true, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "title")
+  @Column(name = "title", unique = true, nullable = false, length = 50)
   private String title;
 
 }

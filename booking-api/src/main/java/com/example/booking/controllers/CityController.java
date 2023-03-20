@@ -2,6 +2,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.NotFoundException;
+import com.example.booking.exceptions.SQLIntegrityException;
 import com.example.booking.models.City;
 import com.example.booking.payload.requests.CityRequest;
 import com.example.booking.repositories.CityRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class CityController {
   public ResponseEntity<City> createCity(
     @Valid @RequestBody CityRequest cityRequest,
     BindingResult bindingResult
-  ) throws BadRequestException, NotFoundException {
+  ) throws BadRequestException, NotFoundException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -60,7 +62,7 @@ public class CityController {
     @PathVariable Long id,
     @Valid @RequestBody CityRequest cityRequest,
     BindingResult bindingResult
-  ) throws NotFoundException, BadRequestException {
+  ) throws NotFoundException, BadRequestException, SQLIntegrityException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
@@ -70,7 +72,7 @@ public class CityController {
   @DeleteMapping ("/{id}")
   public ResponseEntity<City> deleteCity(
     @PathVariable Long id
-  ) throws NotFoundException {
+  ) throws NotFoundException, SQLIntegrityException {
     return ResponseEntity.status(HttpStatus.OK)
       .body(cityService.deleteCity(id));
   }

@@ -15,18 +15,18 @@ import javax.persistence.*;
 public class Address {
 
   @Id
+  @Column(name = "id", unique = true, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "street")
+  @Column(name = "street", nullable = false, length = 100)
   private String street;
 
-  @Column(name = "number")
+  @Column(name = "number", nullable = false, length = 10)
   private String number;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "city_id")
-  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "city_id", nullable = false)
   private City city;
 
 }
