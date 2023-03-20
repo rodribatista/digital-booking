@@ -37,7 +37,7 @@ public class UserController {
   public ResponseEntity<AuthToken> authenticateUser(
     @Valid @RequestBody UserLogin userLogin,
     BindingResult bindingResult
-  ) throws BadRequestException, AuthenticationException {
+  ) throws BadRequestException, AuthenticationException, NotFoundException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     Authentication authentication = authenticationManager.authenticate(

@@ -4,6 +4,7 @@ import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Address;
 import com.example.booking.models.Product;
 import com.example.booking.payload.requests.ProductRequest;
+import com.example.booking.repositories.AddressRepository;
 import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class ProductService {
   private CategoryService categoryService;
   private FeatureService featureService;
   private ImageService imageService;
+  private AddressRepository addressRepository;
   private CityService cityService;
 
   public Product getProduct(Long id) throws NotFoundException {
@@ -41,8 +43,8 @@ public class ProductService {
 
   public List<Product> getAllProductsHasCity(Long id)
     throws NotFoundException {
-    List<Address> addressesList = productRepository
-      .searchAllAddressByCity(cityService.getCity(id));
+    List<Address> addressesList = addressRepository
+      .findAllByCity(cityService.getCity(id));
     return addressesList.stream().map(
       address -> productRepository.searchByAddress(address))
       .collect(Collectors.toList());

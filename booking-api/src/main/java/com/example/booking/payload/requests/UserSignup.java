@@ -1,6 +1,5 @@
 package com.example.booking.payload.requests;
 
-import com.example.booking.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;

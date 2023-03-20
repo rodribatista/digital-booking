@@ -13,9 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -30,14 +28,24 @@ public class UserService implements UserDetailsService {
   @Autowired
   private BCryptPasswordEncoder bcryptEncoder;
 
-  public User searchUserByEmail(String email) {
+  public User searchUserById(Long id) throws NotFoundException {
+    return userRepository.findById(id).orElseThrow(
+      () -> new NotFoundException("No existe un usuario con id " + id));
+  }
+
+  public User searchUserByEmail(String email) throws NotFoundException {
     return userRepository.findByEmail(email).orElseThrow(
-      () -> new UsernameNotFoundException("Invalid username or password."));
+      () -> new NotFoundException("No existe usuario asociado a " + email));
   }
 
   public UserDetails loadUserByUsername(String email)
       throws UsernameNotFoundException {
-    var user = searchUserByEmail(email);
+    User user = null;
+    try {
+      user = searchUserByEmail(email);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
     return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
   }
 
@@ -51,17 +59,14 @@ public class UserService implements UserDetailsService {
       throws EmailAlreadyExistsException, NotFoundException {
     if(userRepository.existsByEmail(userDto.getEmail()))
       throw new EmailAlreadyExistsException("Ya existe un usuario con este email");
-    return userRepository.save(newUserFromDTO(userDto));
-  }
-
-  private User newUserFromDTO(UserSignup userDto) throws NotFoundException {
-    return User.builder()
-      .firstName(userDto.getFirstName())
-      .lastName(userDto.getLastName())
-      .email(userDto.getEmail())
-      .password(bcryptEncoder.encode(userDto.getPassword()))
-      .role(roleService.findByTitle("USER"))
-      .build();
+    return userRepository.save(
+      User.builder()
+        .firstName(userDto.getFirstName())
+        .lastName(userDto.getLastName())
+        .email(userDto.getEmail())
+        .password(bcryptEncoder.encode(userDto.getPassword()))
+        .role(roleService.findByTitle("USER"))
+        .build());
   }
 
 }
