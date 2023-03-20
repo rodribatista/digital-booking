@@ -1,4 +1,4 @@
-USE `db_booking`;
+USE `booking_hotel`;
 
 -- -----------------------------------------------------
 -- Table `categories`
@@ -98,71 +98,49 @@ INSERT INTO `products` (id, title, description, category_id, address_id, availab
 -- Table `images`
 -- -----------------------------------------------------
 INSERT INTO `images` (id, url, product_id) VALUES(
-	1, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/bedf1e5a.jpg', 1
-);
+	1, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/bedf1e5a.jpg', 1);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	2, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/e2ab3a82.jpg', 1
-);
+	2, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/e2ab3a82.jpg', 1);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	3, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/cb7f9724.jpg', 1
-);
+	3, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/cb7f9724.jpg', 1);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	4, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/315fa4e7.jpg', 1
-);
+	4, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/315fa4e7.jpg', 1);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	5, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/de486181.jpg', 1
-);
+	5, 'https://images.trvl-media.com/lodging/1000000/550000/547000/546934/de486181.jpg', 1);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	6, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/15bec18c.jpg', 2
-);
+	6, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/15bec18c.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	7, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/e16d817d.jpg', 2
-);
+	7, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/e16d817d.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	8, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/8d4c1b77.jpg', 2
-);
+	8, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/8d4c1b77.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	9, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/67ac2a6f.jpg', 2
-);
+	9, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/67ac2a6f.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	10, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/889471f2.jpg', 2
-);
+	10, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/889471f2.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	11, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/83377114.jpg', 2
-);
+	11, 'https://images.trvl-media.com/lodging/10000000/9750000/9745700/9745625/83377114.jpg', 2);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	12, 'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/69ace544.jpg', 3
-);
+	12, 'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/69ace544.jpg', 3);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	13, 'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/3be89e0e.jpg', 3
-);
+	13, 'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/3be89e0e.jpg', 3);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	14,'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/2824fb9a.jpg', 3
-);
+	14,'https://images.trvl-media.com/lodging/1000000/530000/523400/523305/2824fb9a.jpg', 3);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	15, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/3f91e0f4.jpg', 4
-);
+	15, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/3f91e0f4.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	16, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/01b9d05d.jpg', 4
-);
+	16, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/01b9d05d.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	17, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/58efde70.jpg', 4
-);
+	17, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/58efde70.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	18, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/3e1d8cff.jpg', 4
-);
+	18, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/3e1d8cff.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	19, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/cbeab648.jpg', 4
-);
+	19, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/cbeab648.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	20, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/5d7cdae5.jpg', 4
-);
+	20, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/5d7cdae5.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	21, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/d708fe7a.jpg', 4
-);
+	21, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/d708fe7a.jpg', 4);
 INSERT INTO `images` (id, url, product_id) VALUES(
-	22, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/c5c7fa98.jpg', 4
-);
+	22, 'https://images.trvl-media.com/lodging/90000000/89680000/89673100/89673045/c5c7fa98.jpg', 4);
 
 -- -----------------------------------------------------
 -- Table `producto_has_caracteristica`
@@ -189,3 +167,9 @@ INSERT INTO `product_has_features` (product_id, feature_id) VALUES(4,3);
 INSERT INTO `product_has_features` (product_id, feature_id) VALUES(4,4);
 INSERT INTO `product_has_features` (product_id, feature_id) VALUES(4,6);
 INSERT INTO `product_has_features` (product_id, feature_id) VALUES(4,7);
+
+-- -----------------------------------------------------
+-- Table `roles`
+-- -----------------------------------------------------
+INSERT INTO `roles` (id, title) VALUES(1, 'ADMIN');
+INSERT INTO `roles` (id, title) VALUES(2, 'USER');
