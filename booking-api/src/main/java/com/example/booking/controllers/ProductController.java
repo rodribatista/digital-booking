@@ -77,6 +77,33 @@ public class ProductController {
       .body(products);
   }
 
+  @GetMapping("/filter/checkIn={dateIn}/checkOut={dateOut}")
+  public ResponseEntity<List<Product>> getAllProductsHasBooking(
+    @PathVariable String dateIn,
+    @PathVariable String dateOut) {
+    var products = productService
+      .getAllProductsHasBooking(dateIn, dateOut);
+    if (products.isEmpty())
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body(products);
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(products);
+  }
+
+  @GetMapping("/filter/checkIn={dateIn}/checkOut={dateOut}/city={idCity}")
+  public ResponseEntity<List<Product>> getAllProductsHasBooking(
+    @PathVariable String dateIn,
+    @PathVariable String dateOut,
+    @PathVariable Long idCity) throws NotFoundException {
+    var products = productService
+      .getAllProductsHasCityAndBooking(dateIn, dateOut, idCity);
+    if (products.isEmpty())
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body(products);
+    return ResponseEntity.status(HttpStatus.OK)
+      .body(products);
+  }
+
   @PostMapping()
   public ResponseEntity<Product> createProduct(
     @Valid @RequestBody ProductRequest productRequest,

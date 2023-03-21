@@ -5,13 +5,15 @@ import com.example.booking.models.Address;
 import com.example.booking.models.Product;
 import com.example.booking.payload.requests.ProductRequest;
 import com.example.booking.repositories.AddressRepository;
+import com.example.booking.repositories.BookingRepository;
 import com.example.booking.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -23,6 +25,7 @@ public class ProductService {
   private ImageService imageService;
   private AddressRepository addressRepository;
   private CityService cityService;
+  private BookingRepository bookingRepository;
 
   public Product getProduct(Long id) throws NotFoundException {
     return productRepository.findById(id).orElseThrow(
@@ -43,11 +46,26 @@ public class ProductService {
 
   public List<Product> getAllProductsHasCity(Long id)
     throws NotFoundException {
-    List<Address> addressesList = addressRepository
-      .findAllByCity(cityService.getCity(id));
-    return addressesList.stream().map(
-      address -> productRepository.searchByAddress(address))
-      .collect(Collectors.toList());
+    return productRepository
+      .searchAllByAddress_City(cityService.getCity(id));
+  }
+
+  public List<Product> getAllProductsHasBooking(
+    String checkIn, String checkOut) {
+    return productRepository.
+      searchAllByDates(
+        formatStringToLocalDate(checkIn),
+        formatStringToLocalDate(checkOut));
+  }
+
+  public List<Product> getAllProductsHasCityAndBooking(
+    String checkIn, String checkOut, Long idCity
+  ) throws NotFoundException {
+    return productRepository
+      .searchAllByDatesAndCity(
+        formatStringToLocalDate(checkIn),
+        formatStringToLocalDate(checkOut),
+        cityService.getCity(idCity));
   }
 
   public Product createProduct(ProductRequest productRequest)
@@ -100,6 +118,11 @@ public class ProductService {
       .number(productRequest.getAddress_number())
       .city(cityService.getCity(productRequest.getCity_id()))
       .build();
+  }
+
+  public LocalDate formatStringToLocalDate(String date){
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    return LocalDate.parse(date,dtf);
   }
 
 }
