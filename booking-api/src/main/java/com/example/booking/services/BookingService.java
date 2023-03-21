@@ -1,5 +1,6 @@
 package com.example.booking.services;
 
+import com.example.booking.exceptions.ConflictException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Booking;
 import com.example.booking.payload.requests.BookingRequest;
@@ -39,17 +40,19 @@ public class BookingService {
   }
 
   public Booking createBooking(BookingRequest bookingRequest)
-    throws NotFoundException {
+    throws NotFoundException, ConflictException {
+    var product = productService.getProduct(bookingRequest.getProduct_id());
+    var dateCheckIn = formatStringToLocalDate(bookingRequest.getDateCheckIn());
+    var dateCheckOut = formatStringToLocalDate(bookingRequest.getDateCheckOut());
+    if(existBookingByDate(bookingRequest.getProduct_id(), dateCheckIn, dateCheckOut))
+      throw new ConflictException("Ya existen reservas para las fechas indicadas");
     var booking = Booking.builder()
       .id(null)
       .arrivedTime(
         formatStringToLocalTime(bookingRequest.getArrivedTime()))
-      .dateCheckIn(
-        formatStringToLocalDate(bookingRequest.getDateCheckIn()))
-      .dateCheckOut(
-        formatStringToLocalDate(bookingRequest.getDateCheckOut()))
-      .product(productService
-        .getProduct(bookingRequest.getProduct_id()))
+      .dateCheckIn(dateCheckIn)
+      .dateCheckOut(dateCheckOut)
+      .product(product)
       .user(userService
         .searchUserById(bookingRequest.getUser_id()))
       .build();
@@ -76,14 +79,24 @@ public class BookingService {
     return bookingDeleted;
   }
 
-  public LocalTime formatStringToLocalTime(String time){
+  private LocalTime formatStringToLocalTime(String time){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
     return LocalTime.parse(time,dtf);
   }
 
-  public LocalDate formatStringToLocalDate(String date){
+  private LocalDate formatStringToLocalDate(String date){
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     return LocalDate.parse(date,dtf);
+  }
+
+  private Boolean existBookingByDate(
+    Long product_id, LocalDate checkIn, LocalDate checkOut)
+    throws NotFoundException {
+    var listBookings = getAllBookingsHasProduct(product_id);
+    return listBookings.stream()
+      .anyMatch(booking ->
+        checkIn.isBefore(booking.getDateCheckOut())
+          && checkOut.isAfter(booking.getDateCheckIn()));
   }
 
 }

@@ -1,8 +1,6 @@
 package com.example.booking.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +14,13 @@ public class GlobalExceptions {
   public ResponseEntity<String> badRequest(BadRequestException exception) {
     log.error(HttpStatus.BAD_REQUEST + " - " + exception.getMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+      .body(exception.getMessage());
+  }
+
+  @ExceptionHandler(ConflictException.class)
+  public ResponseEntity<String> conflict(ConflictException exception) {
+    log.error(HttpStatus.CONFLICT + " - " + exception.getMessage());
+    return ResponseEntity.status(HttpStatus.CONFLICT)
       .body(exception.getMessage());
   }
 

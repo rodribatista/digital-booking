@@ -1,6 +1,7 @@
 package com.example.booking.controllers;
 
 import com.example.booking.exceptions.BadRequestException;
+import com.example.booking.exceptions.ConflictException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Booking;
 import com.example.booking.payload.requests.BookingRequest;
@@ -63,7 +64,7 @@ public class BookingController {
   public ResponseEntity<Booking> createBooking(
     @Valid @RequestBody BookingRequest bookingRequest,
     BindingResult bindingResult
-  ) throws BadRequestException, NotFoundException {
+  ) throws BadRequestException, NotFoundException, ConflictException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
