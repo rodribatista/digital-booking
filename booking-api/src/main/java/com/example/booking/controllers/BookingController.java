@@ -8,6 +8,7 @@ import com.example.booking.services.BookingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,7 @@ public class BookingController {
   }
 
   @PostMapping()
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Booking> createBooking(
     @Valid @RequestBody BookingRequest bookingRequest,
     BindingResult bindingResult
