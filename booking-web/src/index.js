@@ -11,6 +11,7 @@ import FilterProducts from './pages/FilterProducts'
 import Product from './pages/Product'
 
 import './styles/index.css'
+import Booking from './pages/Booking'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -22,12 +23,14 @@ root.render(
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/products/id=/:id'
-            element={<Product/>}/>
-          <Route path='/products/category=/:value'
+          <Route path='/products/category/:value'
             element={<FilterProducts type={'category'}/>}/>
-          <Route path='/products/city=/:value'
+          <Route path='/products/city/:value'
             element={<FilterProducts type={'city'}/>}/>
+          <Route path='/products/id/:id'
+            element={<Product/>}/>
+          <Route path='/products/id=/:id/booking'
+            element={<Booking/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

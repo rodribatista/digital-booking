@@ -3,8 +3,8 @@ import axios from 'axios'
 
 const useFetch = (url) => {
 
-  const [response, setResponse] = useState(null)
-  const [error, setError] = useState(null)
+  const [response, setResponse] = useState()
+  const [error, setError] = useState()
   const [loading, setLoading] = useState(null)
 
   useEffect(() => {

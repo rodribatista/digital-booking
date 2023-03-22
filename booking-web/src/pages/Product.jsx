@@ -1,54 +1,23 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
+import { getIcon } from '../utils/iconsFeatures'
 
-import Carousel from '../components/Carousel'
-import SlideGallery from '../components/SlideGallery'
+import Carousel from '../components/product/Carousel'
+import SlideGallery from '../components/product/SlideGallery'
 
-import goback from '../assets/icons/atomo_back.svg'
 import pointer from '../assets/icons/pointer_solid.svg'
 
-import feature_1 from '../assets/icons/features/feature_1.svg'
-import feature_2 from '../assets/icons/features/feature_2.svg'
-import feature_3 from '../assets/icons/features/feature_3.svg'
-import feature_4 from '../assets/icons/features/feature_4.svg'
-import feature_5 from '../assets/icons/features/feature_5.svg'
-import feature_6 from '../assets/icons/features/feature_6.svg'
-import feature_7 from '../assets/icons/features/feature_7.svg'
-import feature_8 from '../assets/icons/features/feature_8.svg'
-
 import '../styles/product.css'
-
-const getIcon = (feature) => {
-  switch (feature) {
-    case 1:
-      return feature_1
-    case 2:
-      return feature_2
-    case 3:
-      return feature_3
-    case 4:
-      return feature_4
-    case 5:
-      return feature_5
-    case 6:
-      return feature_6
-    case 7:
-      return feature_7
-    case 8:
-      return feature_8
-    default:
-      break;
-  }
-}
+import ProductHeader from '../components/product/ProductHeader'
 
 const Product = () => {
 
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { state } = useLocation()
 
-  const { response, error, loading } = useFetch(`${endpoint}/products/${id}`)
+  const { response, error, loading } = useFetch(
+    `${endpoint}/products/${state.id}`)
 
   const [ showCarousel, setShowCarousel ] = useState(false)
 
@@ -58,14 +27,9 @@ const Product = () => {
       {error && <h2>{error.message}</h2>}
       {response != null &&
         <div className='productPage'>
-          <section className='productHeader'>
-            <div>
-              <h3>{response.category.title.toUpperCase()}</h3>
-              <h1>{response.title}</h1>
-            </div>
-            <img src={goback} alt="Flecha para volver atras"
-              onClick={() => navigate(-1)}/>
-          </section>
+
+          <ProductHeader product={response}/>
+
           <section className='productLocation'>
             <img src={pointer} alt="Icono de ubicación" />
             <h4>{`${response.address.street} 
@@ -73,6 +37,7 @@ const Product = () => {
             ${response.address.city.name}, 
             ${response.address.city.country.name}`}</h4>
           </section>
+
           <SlideGallery className='onMobile'
             images={response.images}/>
           <div className='productGallery'>
@@ -87,10 +52,12 @@ const Product = () => {
             <Carousel
               images={response.images}
               setShowCarousel={setShowCarousel}/>}
+
           <section className='productDescription'>
             <h2>Alojate con nosotros en {response.address.city.name}</h2>
             <p>{response.description}</p>
           </section>
+
           <section className='productFeatures'>
             <h2>¿Qué ofrece este lugar?</h2>
             <ul>
@@ -102,6 +69,7 @@ const Product = () => {
                 ))}
             </ul>
           </section>
+
         </div>
       }
     </>

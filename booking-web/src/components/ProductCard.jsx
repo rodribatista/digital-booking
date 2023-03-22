@@ -12,7 +12,8 @@ const ProductCard = ({product}) => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    navigate(`/products/id=/${e.target.id}`)
+    navigate(`/products/id/${e.target.value}`,
+      { state: { id: e.target.id }})
   }
 
   return (
@@ -40,6 +41,7 @@ const ProductCard = ({product}) => {
         <button
           onClick={handleClick}
           id={product.id}
+          value={product.title}
         >
           Ver detalle
         </button>

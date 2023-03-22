@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import logo from '../assets/images/logo.svg'
-import nav from '../assets/icons/nav_mobile.svg'
-import close from '../assets/icons/x_mark.svg'
+import logo from '../../assets/images/logo.svg'
+import nav from '../../assets/icons/nav_mobile.svg'
+import close from '../../assets/icons/x_mark.svg'
 
-import '../styles/header.css'
+import '../../styles/header.css'
 
-const Header = () => {
+const Header = ({userLogued, userInfo}) => {
 
   const [ showNav, setShowNav ] = useState(false)
-  const [ userLogued ] = useState(localStorage.getItem('user') ? true : false)
 
   const handleCloseNav = () => {
     setShowNav(false)
@@ -43,11 +42,10 @@ const Header = () => {
       {userLogued &&
         <div className='onDesktop'>
           <div className='userLog'>
-            <p>Hola, <span>{JSON.parse(localStorage.getItem('user')).name}</span></p>
+            <p>Hola, <span>{userInfo}</span></p>
             <button className='closeLog' onClick={handleLogOut}>Cerrar sesión</button>
           </div>
-        </div>
-      }
+        </div>}
       {showNav &&
         <nav className='onMobile mobileNav'>
           <div>
@@ -55,7 +53,7 @@ const Header = () => {
               <img src={close} alt="Logo Digital Booking"/>
             </button>
             {userLogued ? 
-              <h3>Hola, <span>{localStorage.getItem('user')}</span></h3>
+              <h3>Hola, <span>{userInfo}</span></h3>
             : <h3>MENU</h3>}
           </div>
           {!userLogued &&

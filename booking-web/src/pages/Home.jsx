@@ -26,7 +26,8 @@ const Home = () => {
           <Suspense fallback={<div>Cargando categorías...</div>}>
             {categories?.slice(0,4).map(
               category =>
-                <Link key={category.id} to={`/products/category=/${category.title}`}>
+                <Link key={category.id} to={`/products/category/${category.title}`}
+                  state={{ id: category.id }}>
                   <CategoryCard key={category.id} category={category}/>
                 </Link>
             )}

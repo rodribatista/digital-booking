@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect }from 'react'
 import { Outlet } from 'react-router-dom'
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from '../components/general/Header'
+import Footer from '../components/general/Footer'
 
 const General = () => {
+
+  const userLogued = localStorage.getItem('user') ? true : false
+  const [ userInfo, setUserInfo ] = useState()
+
+  useEffect(() => {
+    if (userLogued) {
+      setUserInfo('John Doe')}
+    else {
+      setUserInfo('No hay información del usuario')}
+  }, [userLogued])
+  
   return (
     <>
-      <Header/>
+      <Header
+        userLogued={userLogued} userInfo={userInfo}/>
       <Outlet/>
       <Footer/>
     </>

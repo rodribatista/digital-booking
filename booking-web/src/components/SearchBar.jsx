@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import CitiesList from './CitiesList'
+import CitiesList from './searchBar/CitiesList'
 import Calendar from './Calendar'
 
 import pointer from '../assets/icons/pointer_solid.svg'
@@ -17,13 +17,14 @@ const SearchBar = () => {
   const [showCitiesList, setShowCitiesList] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
 
+  const [cityId, setCityId] = useState('')
   const [cityValue, setCityValue] = useState('')
-  const [dateSelected, setDateSelected] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (cityValue.length > 0) {
-      navigate(`/products/city=/${cityValue}`)}
+      navigate(`/products/city/${cityValue}`,
+        { state: { id: cityId }})}
   }
 
   return (
@@ -48,6 +49,7 @@ const SearchBar = () => {
             onBlur={() => setShowCitiesList(false)}
             cityValue={cityValue}
             setCityValue={setCityValue}
+            setCityId={setCityId}
             setShowList={setShowCitiesList}
           />}
         </div>
@@ -55,25 +57,17 @@ const SearchBar = () => {
           <div className='searchCityDateInput'>
             <img src={calendar} alt=""/>
             <input
-              /* onFocus={() => setShowCalendar(true)} */
-              onChange={(e) => setDateSelected(e.target.value)}
               type="text"
               placeholder="Check-in / Check-out"
-              value={dateSelected}
             />
-            {dateSelected.length > 0 && <img src={x_mark} alt=""
-              className='closeIcon'
-              onClick={() => setDateSelected('')}/>}
+            {cityValue.length > 0 && <img src={x_mark} alt=""
+              className='closeIcon'/>}
           </div>
           {showCalendar && <Calendar
-            dateSelected={dateSelected}
-            setDateSelected={setDateSelected}
             setShowCalendar={setShowCalendar}
           />}
         </div>
-        {cityValue.length > 0 ?
-          <button type="submit">Buscar</button>
-        : <button type="submit" disabled>Buscar</button>}
+        <button type="submit">Buscar</button>
       </form>
     </section>
   )  

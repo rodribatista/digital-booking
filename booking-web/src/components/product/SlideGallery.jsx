@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import goBack from '../assets/icons/carousel_back.svg'
-import goNext from '../assets/icons/carousel_next.svg'
+import goBack from '../../assets/icons/carousel_back.svg'
+import goNext from '../../assets/icons/carousel_next.svg'
 
-import '../styles/slideGallery.css'
+import '../../styles/slideGallery.css'
 
 const SlideGallery = ({images}) => {
 

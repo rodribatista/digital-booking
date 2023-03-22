@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import facebook from '../assets/icons/social_fb.svg'
-import instagram from '../assets/icons/social_ig.svg'
-import twitter from '../assets/icons/social_tw.svg'
-import linkedin from '../assets/icons/social_lk.svg'
+import facebook from '../../assets/icons/social_fb.svg'
+import instagram from '../../assets/icons/social_ig.svg'
+import twitter from '../../assets/icons/social_tw.svg'
+import linkedin from '../../assets/icons/social_lk.svg'
 
-import '../styles/footer.css'
+import '../../styles/footer.css'
 
 const Footer = () => {
   return (
