@@ -20,13 +20,12 @@ const Login = () => {
     if (response.status === 200) {
       alert('Ingreso exitoso!')
       localStorage.setItem(
-        'user', JSON.stringify({
-          name: response.data.user,
-          token: response.data.token
-        }))
+        'token', response.data.token)
       navigate('/')
+    } else if (response.status === 401) {
+      setError('Credenciales invalidas. Por favor, intente nuevamente.')
     } else {
-      setError('Por favor vuelva a intentarlo, sus credenciales son inválidas')
+      setError(response.data)
     }
   }
   

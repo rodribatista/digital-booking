@@ -6,7 +6,7 @@ import Footer from '../components/general/Footer'
 
 const General = () => {
 
-  const userLogued = localStorage.getItem('user') ? true : false
+  const userLogued = localStorage.getItem('token') ? true : false
   const [ userInfo, setUserInfo ] = useState()
 
   useEffect(() => {

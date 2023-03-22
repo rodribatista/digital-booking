@@ -37,7 +37,7 @@ const Signup = () => {
       alert('Registro exitoso!')
       navigate('/login')
     } else {
-      alert(`ERROR: ${response.status} - ${response.data}`)
+      alert(`ERROR: ${response.data}`)
     }
   }
 
@@ -61,19 +61,12 @@ const Signup = () => {
   }
 
   const handleChange = (name, value) => {
-    setUser({
-      ...user,
-      [name]: value.trim()
-    })
+    setUser({...user, [name]: value.trim()})
     setErrors({ ...errors, [name]: false })
-
   }
 
   const handleError = (name, value) => {
-    setUser({
-      ...user,
-      [name]: value.trim()
-    })
+    setUser({...user, [name]: value.trim()})
     setErrors({ ...errors, [name]: true })
   }
 

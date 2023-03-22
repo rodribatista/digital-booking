@@ -7,7 +7,7 @@ import close from '../../assets/icons/x_mark.svg'
 
 import '../../styles/header.css'
 
-const Header = ({userLogued, userInfo}) => {
+const Header = ({ userLogued, userInfo }) => {
 
   const [ showNav, setShowNav ] = useState(false)
 
@@ -16,7 +16,7 @@ const Header = ({userLogued, userInfo}) => {
   }
 
   const handleLogOut = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
     alert('Cierre de sesión exitoso!')
   }
 
