@@ -11,6 +11,7 @@ import com.example.booking.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,12 +33,13 @@ public class UserController {
   private TokenProvider jwtTokenUtil;
   private UserService userService;
 
-  @GetMapping("/{id}")
+  @PreAuthorize("hasRole('USER')")
+  @GetMapping
   public ResponseEntity<User> getUser(
-    @PathVariable Long id
-  ) throws NotFoundException {
+    @RequestHeader String Authorization
+  ) throws BadRequestException, NotFoundException {
     return ResponseEntity.status(HttpStatus.OK)
-      .body(userService.searchUserById(id));
+      .body(userService.getUserFromToken(Authorization));
   }
 
   @PostMapping("/auth")
@@ -53,9 +55,8 @@ public class UserController {
         userLogin.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     final String token = jwtTokenUtil.generateToken(authentication);
-    final User user = userService.searchUserByEmail(userLogin.getEmail());
     return ResponseEntity.status(HttpStatus.OK)
-      .body(new AuthToken(user.getFirstName() +" "+ user.getLastName(),token));
+      .body(new AuthToken(token));
   }
 
   @PostMapping("/signup")

@@ -26,8 +26,4 @@ public class BookingRequest {
   @Min(message = "Producto debe ser un valor mayor a 1", value = 1)
   private Long product_id;
 
-  @NotNull(message = "Usuario no puede ser nulo")
-  @Min(message = "Usuario debe ser un valor mayor a 1", value = 1)
-  private Long user_id;
-
 }

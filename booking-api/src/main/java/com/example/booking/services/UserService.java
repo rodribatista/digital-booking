@@ -1,5 +1,7 @@
 package com.example.booking.services;
 
+import com.example.booking.config.TokenProvider;
+import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.EmailAlreadyExistsException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.User;
@@ -31,6 +33,9 @@ public class UserService implements UserDetailsService {
   @Autowired
   private BCryptPasswordEncoder bcryptEncoder;
 
+  @Autowired
+  private TokenProvider jwtTokenUtil;
+
   public User searchUserById(Long id) throws NotFoundException {
     return userRepository.findById(id).orElseThrow(
       () -> new NotFoundException("No existe un usuario con id " + id));
@@ -56,6 +61,16 @@ public class UserService implements UserDetailsService {
     Set<SimpleGrantedAuthority> authorities = new HashSet<>();
     authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getTitle()));
     return authorities;
+  }
+
+  public User getUserFromToken(String token
+  ) throws BadRequestException, NotFoundException {
+    var authorization = token.replace("Bearer ", "");
+    var userEmail = jwtTokenUtil.getUsernameFromToken(authorization);
+    var userDetail = loadUserByUsername(userEmail);
+    if (!jwtTokenUtil.validateToken(authorization, userDetail))
+      throw new BadRequestException("Token invalido");
+    return searchUserByEmail(userEmail);
   }
 
   public User createUser(UserSignup userDto)

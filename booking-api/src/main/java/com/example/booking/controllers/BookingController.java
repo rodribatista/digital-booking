@@ -46,12 +46,12 @@ public class BookingController {
       .body(bookings);
   }
 
-  @GetMapping("/filter/user={id}")
+  @GetMapping("/filter/users")
   public ResponseEntity<List<Booking>> getAllBookingsHasUser(
-    @PathVariable Long id
-  ) throws NotFoundException {
+    @RequestHeader String Authorization
+  ) throws NotFoundException, BadRequestException {
     var bookings = bookingService
-      .getAllBookingsHasUser(id);
+      .getAllBookingsHasUser(Authorization);
     if (bookings.isEmpty())
       return ResponseEntity.status(HttpStatus.NO_CONTENT)
         .body(bookings);
@@ -62,26 +62,14 @@ public class BookingController {
   @PostMapping()
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Booking> createBooking(
+    @RequestHeader String Authorization,
     @Valid @RequestBody BookingRequest bookingRequest,
     BindingResult bindingResult
   ) throws BadRequestException, NotFoundException, ConflictException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.CREATED)
-      .body(bookingService.createBooking(bookingRequest));
-  }
-
-  @Transactional
-  @PutMapping("/{id}")
-  public ResponseEntity<Booking> updateBooking(
-    @PathVariable Long id,
-    @Valid @RequestBody BookingRequest bookingRequest,
-    BindingResult bindingResult
-  ) throws NotFoundException, BadRequestException {
-    if (bindingResult.hasErrors())
-      throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
-    return ResponseEntity.status(HttpStatus.OK)
-      .body(bookingService.updateBooking(id, bookingRequest));
+      .body(bookingService.createBooking(Authorization, bookingRequest));
   }
 
   @DeleteMapping ("/{id}")

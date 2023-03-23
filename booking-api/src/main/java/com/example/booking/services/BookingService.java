@@ -1,5 +1,6 @@
 package com.example.booking.services;
 
+import com.example.booking.exceptions.BadRequestException;
 import com.example.booking.exceptions.ConflictException;
 import com.example.booking.exceptions.NotFoundException;
 import com.example.booking.models.Booking;
@@ -33,17 +34,18 @@ public class BookingService {
       searchAllByProduct(productService.getProduct(id));
   }
 
-  public List<Booking> getAllBookingsHasUser(Long id)
-    throws NotFoundException {
-    return bookingRepository.
-      searchAllByUser(userService.searchUserById(id));
+  public List<Booking> getAllBookingsHasUser(String token)
+    throws NotFoundException, BadRequestException {
+    var user = userService.getUserFromToken(token);
+    return bookingRepository.searchAllByUser(user);
   }
 
-  public Booking createBooking(BookingRequest bookingRequest)
-    throws NotFoundException, ConflictException {
+  public Booking createBooking(String token, BookingRequest bookingRequest)
+    throws NotFoundException, ConflictException, BadRequestException {
     var product = productService.getProduct(bookingRequest.getProduct_id());
     var dateCheckIn = formatStringToLocalDate(bookingRequest.getDateCheckIn());
     var dateCheckOut = formatStringToLocalDate(bookingRequest.getDateCheckOut());
+    var user = userService.getUserFromToken(token);
     if(existBookingByDate(bookingRequest.getProduct_id(), dateCheckIn, dateCheckOut))
       throw new ConflictException("Ya existen reservas para las fechas indicadas");
     var booking = Booking.builder()
@@ -53,23 +55,9 @@ public class BookingService {
       .dateCheckIn(dateCheckIn)
       .dateCheckOut(dateCheckOut)
       .product(product)
-      .user(userService
-        .searchUserById(bookingRequest.getUser_id()))
+      .user(user)
       .build();
     return bookingRepository.save(booking);
-  }
-
-  public Booking updateBooking(
-    Long id, BookingRequest bookingRequest
-  ) throws NotFoundException {
-    var booking = getBooking(id);
-    booking.setArrivedTime(
-      formatStringToLocalTime(bookingRequest.getArrivedTime()));
-    booking.setDateCheckIn(
-      formatStringToLocalDate(bookingRequest.getDateCheckIn()));
-    booking.setDateCheckOut(
-      formatStringToLocalDate(bookingRequest.getDateCheckOut()));
-    return booking;
   }
 
   public Booking deleteBooking(Long id)
