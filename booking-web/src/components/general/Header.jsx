@@ -37,7 +37,7 @@ const Header = () => {
         <img src={nav} alt="Logo Digital Booking" />
       </button>
       {!userInfo && (
-        <nav className="onDesktop">
+        <nav className="tabletNav">
           <ul>
             <Link to="/login">
               <li>Iniciar Sesión</li>
@@ -49,7 +49,7 @@ const Header = () => {
         </nav>
       )}
       {userInfo && (
-        <div className="onDesktop">
+        <div className="tabletNav">
           <div className="userLog">
             <p>
               Hola, <span>{`${userInfo.firstName} ${userInfo.lastName}`}</span>

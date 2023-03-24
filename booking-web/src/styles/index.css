@@ -46,10 +46,6 @@ a {
     font-size: 14px;
   }
 
-  /* .onDesktop {
-    display: block;
-  } */
-
   .onMobile {
     display: none;
   }
