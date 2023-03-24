@@ -23,8 +23,8 @@ const Login = () => {
         'token', response.data.token)
       navigate('/')
     } else if (response.status === 401) {
-      setError('Credenciales invalidas. Por favor, intente nuevamente.')
-    } else {
+      setError('Credenciales invalidas. Intente nuevamente.')
+    } else  {
       setError(response.data)
     }
   }
@@ -40,7 +40,7 @@ const Login = () => {
       .catch(error =>
         handleResponse(error.response))
     } else {
-      alert('Se deben completar todos los campos')
+      setError('Se deben completar todos los campos')
     }
   }
 

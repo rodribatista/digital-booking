@@ -32,17 +32,20 @@ const Signup = () => {
     confirmPassword: false
   })
 
+  const [ error, setError ] = useState('')
+
   const handleResponse = (response) => {
     if (response.status === 201) {
       alert('Registro exitoso!')
       navigate('/login')
     } else {
-      alert(`ERROR: ${response.data}`)
+      setError(response.data)
     }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setError('')
     const userValues = Object.values(user)
     if (userValues.every((value) => value.length > 0)) {
       const arrayErrors = Object.values(errors)
@@ -53,10 +56,10 @@ const Signup = () => {
         .catch(error =>
           handleResponse(error.response))
       } else {
-        alert('Hay errores en el formulario')
+        setError('Hay errores en el formulario')
       }
     } else {
-      alert('Se deben completar todos los campos')
+      setError('Se deben completar todos los campos')
     }
   }
 
@@ -148,6 +151,7 @@ const Signup = () => {
           />
           {errors.confirmPassword && <p className='error'>Ambas contraseñas deben ser iguales</p>}
         </div>
+        {error.length > 0 && <p className='error'>{error}</p>}
         <button type='submit'>Crear cuenta</button>
         <div className='changeForm'>
           <p>¿Ya tienes una cuenta?</p>
