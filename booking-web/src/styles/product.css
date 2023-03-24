@@ -120,10 +120,68 @@
   font-size: 0.9rem;
 }
 
+.productDates {
+  flex-direction: column;
+  margin-bottom: 40px;
+  gap: 25px;
+}
+
+.productDates > div {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.productStartBooking {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  padding-bottom: 15px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(25, 27, 29, .2);
+  gap: 15px;
+}
+
+.productStartBooking p {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.productStartBooking button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #F0572D;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @media (min-width: 480px) {
 
   .productFeatures ul {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .productStartBooking {
+    padding: 15px;
+    flex-direction: row;
+  }
+
+  .productStartBooking p {
+    font-size: 0.9rem;
+  }
+
+  .productStartBooking button {
+    width: 40%;
   }
 
 }
@@ -132,6 +190,21 @@
 
   .productGallery {
     display: flex;
+  }
+
+  .productDates > div {
+    flex-direction: row;
+  }
+
+  .productStartBooking {
+    width: 50%;
+    padding: 20px;
+    padding-bottom: 15px;
+    flex-direction: column;
+  }
+
+  .productStartBooking button {
+    width: 80%;
   }
 
 }

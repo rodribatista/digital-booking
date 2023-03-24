@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import CitiesList from './searchBar/CitiesList'
-import Calendar from './Calendar'
+import { CalendarMobile, CalendarDesktop } from './searchBar/Calendar'
 
 import pointer from '../assets/icons/pointer_solid.svg'
 import calendar from '../assets/icons/calendar.svg'
@@ -17,14 +17,21 @@ const SearchBar = () => {
   const [showCitiesList, setShowCitiesList] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
 
-  const [cityId, setCityId] = useState('')
-  const [cityValue, setCityValue] = useState('')
+  const [cityId, setCityId] = useState('') 
+  const [cityValue, setCityValue] = useState('') 
+
+  const [dateRange, setDateRange] = useState([null, null])
+  const [startDate, endDate] = dateRange
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (cityValue.length > 0) {
       navigate(`/products/city/${cityValue}`,
         { state: { id: cityId }})}
+  }
+
+  const handleDate = (date) => {
+    return date.toLocaleDateString("es-CL")
   }
 
   return (
@@ -57,17 +64,31 @@ const SearchBar = () => {
           <div className='searchCityDateInput'>
             <img src={calendar} alt=""/>
             <input
+              onFocus={() => setShowCalendar(true)}
               type="text"
               placeholder="Check-in / Check-out"
+              value={startDate != null && endDate != null ?
+                handleDate(startDate) + ' / ' + handleDate(endDate) : ''}
             />
-            {cityValue.length > 0 && <img src={x_mark} alt=""
-              className='closeIcon'/>}
+            {startDate && <img src={x_mark} alt=""
+              className='closeIcon'
+              onClick={() => setDateRange([null, null])}/>}
           </div>
-          {showCalendar && <Calendar
+          {showCalendar && <CalendarMobile
+            startDate={startDate}
+            endDate={endDate}
+            setDateRange={setDateRange}
+            setShowCalendar={setShowCalendar}
+          />}
+          {showCalendar && <CalendarDesktop
+            startDate={startDate}
+            endDate={endDate}
+            setDateRange={setDateRange}
             setShowCalendar={setShowCalendar}
           />}
         </div>
-        <button type="submit">Buscar</button>
+        <button type="submit"
+          className='searchButton'>Buscar</button>
       </form>
     </section>
   )  

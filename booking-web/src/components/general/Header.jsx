@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext }  from '../../hooks/userContext'
 
 import logo from '../../assets/images/logo.svg'
 import nav from '../../assets/icons/nav_mobile.svg'
@@ -7,13 +8,20 @@ import close from '../../assets/icons/x_mark.svg'
 
 import '../../styles/header.css'
 
-const Header = ({ userLogued, userInfo }) => {
+const Header = () => {
 
+  const { userInfo, setUserInfo, fetchUserInfo } = useContext(UserContext)
   const [ showNav, setShowNav ] = useState(false)
+  
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      fetchUserInfo()
+    } else {
+      setUserInfo(null)
+    }})
 
   const handleCloseNav = () => {
-    setShowNav(false)
-  }
+    setShowNav(false)}
 
   const handleLogOut = () => {
     localStorage.removeItem('token')
@@ -22,52 +30,67 @@ const Header = ({ userLogued, userInfo }) => {
 
   return (
     <header>
-      <Link to='/' className='logo'>
-        <img src={logo} alt="Logo Digital Booking"/>
+      <Link to="/" className="logo">
+        <img src={logo} alt="Logo Digital Booking" />
       </Link>
-      <button className='onMobile' onClick={() => setShowNav(true)}>
-        <img src={nav} alt="Logo Digital Booking"/>
+      <button className="onMobile" onClick={() => setShowNav(true)}>
+        <img src={nav} alt="Logo Digital Booking" />
       </button>
-      {!userLogued && 
-        <nav className='onDesktop'>
+      {!userInfo && (
+        <nav className="tabletNav">
           <ul>
-            <Link to='/login'>
+            <Link to="/login">
               <li>Iniciar Sesión</li>
             </Link>
-            <Link to='/signup'>
+            <Link to="/signup">
               <li>Crear Cuenta</li>
             </Link>
           </ul>
-        </nav>}
-      {userLogued &&
-        <div className='onDesktop'>
-          <div className='userLog'>
-            <p>Hola, <span>{userInfo}</span></p>
-            <button className='closeLog' onClick={handleLogOut}>Cerrar sesión</button>
-          </div>
-        </div>}
-      {showNav &&
-        <nav className='onMobile mobileNav'>
-          <div>
-            <button className='onMobile' onClick={handleCloseNav}>
-              <img src={close} alt="Logo Digital Booking"/>
+        </nav>
+      )}
+      {userInfo && (
+        <div className="tabletNav">
+          <div className="userLog">
+            <p>
+              Hola, <span>{`${userInfo.firstName} ${userInfo.lastName}`}</span>
+            </p>
+            <button className="closeLog" onClick={handleLogOut}>
+              Cerrar sesión
             </button>
-            {userLogued ? 
-              <h3>Hola, <span>{userInfo}</span></h3>
-            : <h3>MENU</h3>}
           </div>
-          {!userLogued &&
+        </div>
+      )}
+      {showNav && (
+        <nav className="onMobile mobileNav">
+          <div>
+            <button className="onMobile" onClick={handleCloseNav}>
+              <img src={close} alt="Logo Digital Booking" />
+            </button>
+            {userInfo ? (
+              <h3>
+                Hola, <span>{`${userInfo.firstName} ${userInfo.lastName}`}</span>
+              </h3>
+            ) : (
+              <h3>MENU</h3>
+            )}
+          </div>
+          {!userInfo && (
             <ul>
-              <Link to='/login' onClick={handleCloseNav}>
+              <Link to="/login" onClick={handleCloseNav}>
                 <li>Iniciar Sesión</li>
               </Link>
-              <Link to='/signup' onClick={handleCloseNav}>
+              <Link to="/signup" onClick={handleCloseNav}>
                 <li>Crear Cuenta</li>
               </Link>
-            </ul>}
-          {userLogued &&
-            <button className='closeLog' onClick={handleLogOut}>Cerrar sesión</button>}
-        </nav>}
+            </ul>
+          )}
+          {userInfo && (
+            <button className="closeLog" onClick={handleLogOut}>
+              Cerrar sesión
+            </button>
+          )}
+        </nav>
+      )}
     </header>
   )
 }
