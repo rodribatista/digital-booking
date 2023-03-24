@@ -1,7 +1,5 @@
-.calendar {
-  position: absolute;
+.calendarProduct {
   display: flex;
-  top: 35px;
   width: 100%;
   padding: 10px;
   flex-direction: column;
@@ -10,11 +8,14 @@
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 5px 5px rgba(25, 27, 29, .2);
-  z-index: 900;
 }
 
-.calendar > div {
+.calendarProduct > div {
   width: 100%;
+}
+
+.calendarDesktop {
+  display: none;
 }
 
 .react-datepicker {
@@ -24,27 +25,13 @@
   border: none;
 }
 
-.react-datepicker__header {
-  background-color: transparent;
-}
-
-.react-datepicker__day--in-selecting-range,
-.react-datepicker__day--in-range {
-  background-color: #ff8360;
-  border-radius: 1rem;
-  color: white;
+.react-datepicker__month-container {
+  width: 100%;
 }
 
 .react-datepicker__day--in-selecting-range:hover,
 .react-datepicker__day--in-range:hover {
   background-color: #ff8360;
-  border-radius: 0.3rem;
-  color: white;
-}
-
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-  background-color: #F0572D;
   border-radius: 1rem;
   color: white;
 }
@@ -52,13 +39,6 @@
 .react-datepicker__day--selected:hover,
 .react-datepicker__day--keyboard-selected:hover {
   background-color: #F0572D;
-  border-radius: 0.3rem;
-  color: white;
-}
-
-.react-datepicker__day--in-selecting-range:not(
-  .react-datepicker__day--in-range) {
-  background-color: #ff8360;
   border-radius: 1rem;
   color: white;
 }
@@ -66,6 +46,18 @@
 .react-datepicker__day--in-selecting-range:not(
   .react-datepicker__day--in-range):hover {
   background-color: #ff8360;
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   color: white;
+}
+
+@media (min-width: 480px) {
+
+  .calendarMobile {
+    display: none;
+  }
+
+  .calendarDesktop {
+    display: flex;
+  }
+
 }

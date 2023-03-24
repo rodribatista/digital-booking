@@ -4,13 +4,15 @@ import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
 import { getIcon } from '../utils/iconsFeatures'
 
+import ProductHeader from '../components/product/ProductHeader'
 import Carousel from '../components/product/Carousel'
 import SlideGallery from '../components/product/SlideGallery'
+import { CalendarMobile, CalendarDesktop } from '../components/product/Calendar'
 
 import pointer from '../assets/icons/pointer_solid.svg'
 
 import '../styles/product.css'
-import ProductHeader from '../components/product/ProductHeader'
+
 
 const Product = () => {
 
@@ -68,6 +70,18 @@ const Product = () => {
                 </li>
                 ))}
             </ul>
+          </section>
+
+          <section className='productDates'>
+            <h2>Fechas disponibles</h2>
+            <div>
+              <CalendarMobile/>
+              <CalendarDesktop/>
+              <div className='productStartBooking'>
+                <p>Agregá tus fechas para obtener precios exactos</p>
+                <button>Iniciar reserva</button>
+              </div>
+            </div>
           </section>
 
         </div>
