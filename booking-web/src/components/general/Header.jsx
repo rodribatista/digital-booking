@@ -5,6 +5,7 @@ import { UserContext }  from '../../hooks/userContext'
 import logo from '../../assets/images/logo.svg'
 import nav from '../../assets/icons/nav_mobile.svg'
 import close from '../../assets/icons/x_mark.svg'
+import exit from '../../assets/icons/exit.svg'
 
 import '../../styles/header.css'
 
@@ -52,11 +53,10 @@ const Header = () => {
         <div className="tabletNav">
           <div className="userLog">
             <p>
-              Hola, <span>{`${userInfo.firstName} ${userInfo.lastName}`}</span>
+              Hola,
+              <span>{`${userInfo.firstName} ${userInfo.lastName}`}</span>
             </p>
-            <button className="closeLog" onClick={handleLogOut}>
-              Cerrar sesión
-            </button>
+            <img src={exit} alt='Close session' onClick={handleLogOut}/>
           </div>
         </div>
       )}
@@ -85,9 +85,9 @@ const Header = () => {
             </ul>
           )}
           {userInfo && (
-            <button className="closeLog" onClick={handleLogOut}>
-              Cerrar sesión
-            </button>
+            <p className='closeLog'>¿Deseas<span
+                onClick={handleLogOut}> cerrar sesión</span>
+            ?</p>
           )}
         </nav>
       )}

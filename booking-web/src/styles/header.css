@@ -54,22 +54,23 @@ header .userLog {
 }
 
 header .userLog p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   color: #31363F;
   font-size: 1rem;
+  gap: 2px;
 }
 
 header .userLog p span {
   color: #F0572D;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-header .closeLog {
-  padding: 10px 20px;
-  background-color: #31363F;
-  border: none;
-  border-radius: 5px;
-  color: white;
+header .userLog img {
+  height: 25px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -93,11 +94,19 @@ header .closeLog {
 }
 
 .mobileNav div h3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
   color: white;
+  font-size: 1.2rem;
+  font-weight: normal;
 }
 
 .mobileNav div h3 span {
   color: #31363F;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .mobileNav ul {
@@ -125,6 +134,13 @@ header .closeLog {
   position: absolute;
   bottom: 40px;
   right: 15%;
+  font-size: 0.8rem;
+}
+
+.mobileNav .closeLog span {
+  font-weight: bold;
+  color: #F0572D;
+  cursor: pointer;
 }
 
 .tabletNav {

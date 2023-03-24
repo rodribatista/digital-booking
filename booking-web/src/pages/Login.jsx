@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
+import warning from '../assets/icons/warning.svg'
+
 import '../styles/forms.css'
 
 const Login = () => {
@@ -18,9 +20,9 @@ const Login = () => {
 
   const handleResponse = (response) => {
     if (response.status === 200) {
-      alert('Ingreso exitoso!')
       localStorage.setItem(
         'token', response.data.token)
+      alert('Ingreso exitoso!')
       navigate('/')
     } else if (response.status === 401) {
       setError('Credenciales invalidas. Intente nuevamente.')
@@ -74,7 +76,11 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        {error.length > 0 && <p className='error'>{error}</p>}
+        {error.length > 0 && 
+          <div className='errors'>
+            <img src={warning} alt="Icon error" />
+            <p>{error}</p>
+          </div>}
         <button type='submit'>Ingresar</button>
         <div className='changeForm'>
           <p>¿Aún no tienes cuenta?</p>

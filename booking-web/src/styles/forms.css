@@ -67,8 +67,24 @@
 .forms .error {
   font-size: 0.7rem;
   text-align: right;
-  color: red;
+  color: #B00020;
 }
+
+.forms .errors {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.forms .errors img {
+  height: 15px;
+}
+
+.forms .errors p {
+  font-size: 0.7rem;
+  color: #B00020;
+}
+
 
 @media (min-width: 480px) {
 
@@ -93,7 +109,7 @@
     font-size: 1rem;
   }
 
-  .forms .error {
+  .forms .error, .forms .errors p {
     font-size: 0.8rem;
   }
 

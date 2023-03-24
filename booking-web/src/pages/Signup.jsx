@@ -10,6 +10,8 @@ import {
   comparePasswords
 } from '../utils/signupValidations'
 
+import warning from '../assets/icons/warning.svg'
+
 import '../styles/forms.css'
 
 const Signup = () => {
@@ -151,7 +153,11 @@ const Signup = () => {
           />
           {errors.confirmPassword && <p className='error'>Ambas contraseñas deben ser iguales</p>}
         </div>
-        {error.length > 0 && <p className='error'>{error}</p>}
+        {error.length > 0 && 
+          <div className='errors'>
+            <img src={warning} alt="Icon error" />
+            <p>{error}</p>
+          </div>}
         <button type='submit'>Crear cuenta</button>
         <div className='changeForm'>
           <p>¿Ya tienes una cuenta?</p>
