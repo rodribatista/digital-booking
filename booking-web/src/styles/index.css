@@ -46,9 +46,9 @@ a {
     font-size: 14px;
   }
 
-  .onDesktop {
+  /* .onDesktop {
     display: block;
-  }
+  } */
 
   .onMobile {
     display: none;
@@ -64,6 +64,10 @@ a {
 
   .onTablet {
     display: none;
-  }	
+  }
+
+  .onDesktop {
+    display: flex;
+  }
 
 }
