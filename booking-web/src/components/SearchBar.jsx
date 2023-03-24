@@ -30,6 +30,10 @@ const SearchBar = () => {
         { state: { id: cityId }})}
   }
 
+  const handleDate = (date) => {
+    return date.toLocaleDateString("es-CL")
+  }
+
   return (
     <section className="searchBar">
       <h2>Busca ofertas en hoteles, casas y mucho más</h2>
@@ -64,8 +68,7 @@ const SearchBar = () => {
               type="text"
               placeholder="Check-in / Check-out"
               value={startDate != null && endDate != null ?
-                startDate.toLocaleDateString() + ' - ' +
-                endDate.toLocaleDateString() : ''}
+                handleDate(startDate) + ' / ' + handleDate(endDate) : ''}
             />
             {startDate && <img src={x_mark} alt=""
               className='closeIcon'
