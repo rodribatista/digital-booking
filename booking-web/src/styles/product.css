@@ -1,60 +1,56 @@
 .productPage section {
   width: 100vw;
   display: flex;
-  padding: 20px 10%;
+  padding: 15px 5%;
 }
 
 .productPage h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #31363F;
-  border-bottom: solid 2px #31363F;
-  padding-bottom: 20px;
+  border-bottom: solid 2px var(--secondary);
+  padding-bottom: 10px;
 }
 
 .productHeader {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #31363F;
+  background-color: var(--dark);
 }
 
 .productHeader h1 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: white;
 }
 
-.productHeader h3 {
-  font-size: 1rem;
-  color: #DFE4EA;
+.productHeader h4 {
+  color: var(--light);
 }
 
 .productHeader img {
+  height: 25px;
   cursor: pointer;
 }
 
 .productLocation {
   flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  background-color: var(--light);
 }
 
-.productLocation h4 {
-  font-size: 1rem;
-}
+/* --- gallery --- */
 
 .productGallery {
   display: none;
   position: relative;
   flex-direction: row;
-  padding: 0 15%;
+  padding: 25px 5%;
   gap: 10px;
 }
 
 .productGallery img {
   width: 100%;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .productGallery .grid {
@@ -69,31 +65,33 @@
   height: 100%;
 }
 
-.productGallery p {
+.productGallery button {
   position: absolute;
-  right: calc(15% + 20px);
-  bottom: 15px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 4px #31363F;
+  width: fit-content;
+  padding: 0;
+  right: calc(20px + 5%);
+  bottom: calc(15px + 25px);
+  background-color: transparent;
+  font-size: 1rem;
+  text-shadow: 2px 2px 4px var(--secondary);
   cursor: pointer;
 }
 
+/* --- end gallery --- */
+
+.productDescription,
+.productFeatures,
+.productDates {
+  flex-direction: column;
+  gap: 25px;
+}
+
 .productDescription {
-  flex-direction: column;
-  margin-top: 20px;
-  gap: 25px;
+  margin-top: 25px;
 }
 
-.productDescription p {
-  font-size: 0.9rem;
-}
-
-.productFeatures {
-  flex-direction: column;
-  margin-bottom: 40px;
-  gap: 25px;
+.productDates {
+  margin-bottom: 50px;
 }
 
 .productFeatures ul {
@@ -110,22 +108,6 @@
   align-items: center;
 }
 
-.productFeatures ul li img {
-  height: 20px;
-  width: 20px;
-}
-
-.productFeatures ul li h5 {
-  font-weight: normal;
-  font-size: 0.9rem;
-}
-
-.productDates {
-  flex-direction: column;
-  margin-bottom: 40px;
-  gap: 25px;
-}
-
 .productDates > div {
   display: flex;
   width: 100%;
@@ -134,7 +116,7 @@
   gap: 25px;
 }
 
-.productStartBooking {
+.startBooking {
   display: flex;
   width: 100%;
   height: fit-content;
@@ -149,90 +131,67 @@
   gap: 15px;
 }
 
-.productStartBooking p {
-  font-size: 0.8rem;
+.startBooking p {
   text-align: center;
 }
 
-.productStartBooking button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #F0572D;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-@media (min-width: 480px) {
+@media (min-width: 540px) {
 
   .productFeatures ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .productStartBooking {
+  .startBooking {
     padding: 15px;
     flex-direction: row;
   }
 
-  .productStartBooking p {
-    font-size: 0.9rem;
-  }
-
-  .productStartBooking button {
+  .startBooking button {
     width: 40%;
   }
 
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 1200px) {
 
   .productGallery {
     display: flex;
-  }
-
-  .productDates > div {
-    flex-direction: row;
-  }
-
-  .productStartBooking {
-    width: 50%;
-    padding: 20px;
-    padding-bottom: 15px;
-    flex-direction: column;
-  }
-
-  .productStartBooking button {
-    width: 80%;
-  }
-
-}
-
-@media (min-width: 1400px) {
-
-  .productPage section {
-    padding: 20px 15%;
   }
 
   .productFeatures ul {
     grid-template-columns: repeat(4, 1fr);
   }
 
+  .productDates > div {
+    flex-direction: row;
+  }
+
+  .startBooking {
+    width: 50%;
+    padding: 20px;
+    padding-bottom: 15px;
+    flex-direction: column;
+  }
+
+  .startBooking button {
+    width: 80%;
+  }
+
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1600px) {
 
   .productPage section {
-    padding: 20px 20%;
+    padding: 20px 10%;
   }
 
   .productGallery {
-    padding: 0 20%;
+    padding: 0 10%;
   }
 
-  .productGallery p {
-    right: calc(20% + 20px);
+  .productGallery button {
+    right: calc(25px + 10%);
+    bottom: calc(25px);
   }
 
 }

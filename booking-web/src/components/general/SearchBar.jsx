@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import CitiesList from './searchBar/CitiesList'
-import { CalendarMobile, CalendarDesktop } from './searchBar/Calendar'
+import CitiesList from '../searchBar/CitiesList'
+import { CalendarMobile, CalendarDesktop } from '../searchBar/Calendar'
 
-import pointer from '../assets/icons/pointer_solid.svg'
-import calendar from '../assets/icons/calendar.svg'
-import x_mark from '../assets/icons/x_mark.svg'
+import pointer from '../../assets/icons/pointer_solid.svg'
+import calendar from '../../assets/icons/calendar.svg'
+import x_mark from '../../assets/icons/x_mark.svg'
 
-import '../styles/searchBar.css'
+import '../../styles/searchBar.css'
 
 const SearchBar = () => {
 
@@ -38,40 +38,43 @@ const SearchBar = () => {
     <section className="searchBar">
       <h2>Busca ofertas en hoteles, casas y mucho más</h2>
       <form onSubmit={handleSubmit}>
-        <div className='searchCityDateContainer'>
-          <div className='searchCityDateInput'>
-            <img src={pointer} alt=""/>
+        <div className='searchBar-input'>
+          <div>
+            <img src={pointer} alt="" className='icons'/>
             <input
-              onFocus={() => setShowCitiesList(true)}
+              onFocus={() => {
+                setShowCitiesList(true)
+                setShowCalendar(false)}}
               onChange={(e) => setCityValue(e.target.value)}
               type="text"
               placeholder="¿A dónde vamos?"
               value={cityValue}
             />
             {cityValue.length > 0 && <img src={x_mark} alt="" 
-              className='closeIcon'
+              className='clearInput'
               onClick={() => setCityValue('')}/>}
           </div>
           {showCitiesList && <CitiesList
-            onBlur={() => setShowCitiesList(false)}
             cityValue={cityValue}
             setCityValue={setCityValue}
             setCityId={setCityId}
             setShowList={setShowCitiesList}
           />}
         </div>
-        <div className='searchCityDateContainer'>
-          <div className='searchCityDateInput'>
-            <img src={calendar} alt=""/>
+        <div className='searchBar-input'>
+          <div>
+            <img src={calendar} alt="" className='icons'/>
             <input
-              onFocus={() => setShowCalendar(true)}
+              onFocus={() => {
+                setShowCitiesList(false)
+                setShowCalendar(true)}}
               type="text"
               placeholder="Check-in / Check-out"
               value={startDate != null && endDate != null ?
                 handleDate(startDate) + ' / ' + handleDate(endDate) : ''}
             />
             {startDate && <img src={x_mark} alt=""
-              className='closeIcon'
+              className='clearInput'
               onClick={() => setDateRange([null, null])}/>}
           </div>
           {showCalendar && <CalendarMobile
@@ -87,8 +90,7 @@ const SearchBar = () => {
             setShowCalendar={setShowCalendar}
           />}
         </div>
-        <button type="submit"
-          className='searchButton'>Buscar</button>
+        <button type="submit">Buscar</button>
       </form>
     </section>
   )  

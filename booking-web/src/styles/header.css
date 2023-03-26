@@ -1,14 +1,13 @@
 header {
   position: sticky;
+  padding: 25px 5%;
   top: 0;
-  width: 100vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   box-shadow: 0px 5px 5px rgba(25, 27, 29, .2);
-  padding: 20px 10%;
   z-index: 1000;
 }
 
@@ -22,155 +21,46 @@ header .logo img {
   height: 90%;
 }
 
-header nav ul {
-  display: flex;
+.navMobileIcon {
+  height: 20px;
+}
+
+header .desktopNav {
   flex-direction: row;
   align-items: center;
   gap: 20px;
 }
 
-header nav ul a {
-  color: #F0572D;
-  font-size: 1rem;
-  padding: 10px 20px;
-  border: 1px solid #F0572D;
-  border-radius: 10px;
-}
-
-header button {
-  background-color: transparent;
-  border: none;
-}
-
-header button img {
-  height: 25px;
-}
-
-header .userLog {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-}
-
-header .userLog p {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  color: #31363F;
-  font-size: 1rem;
-  gap: 2px;
-}
-
-header .userLog p span {
-  color: #F0572D;
-  font-size: 1.2rem;
-  font-weight: bold;
+header .desktopNav a {
+  color: var(--primary);
+  font-size: .8rem;
+  padding: 10px 40px;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
 }
 
 header .userLog img {
-  height: 25px;
-  border-radius: 50%;
+  height: 20px;
+  align-self: flex-start;
   cursor: pointer;
 }
 
-.mobileNav {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80vw;
-  height: 100vh;
-  background-color: whitesmoke;
-}
-
-.mobileNav div {
-  display: flex;
-  height: 30vh;
-  flex-direction: column;
-  background-color: #F0572D;
-  padding: 40px 15% 20px 15%;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.mobileNav div h3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: normal;
-}
-
-.mobileNav div h3 span {
-  color: #31363F;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.mobileNav ul {
-  display: flex;
-  width: 100%;
-  margin-top: 50px;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 25px;
-}
-
-.mobileNav ul a {
-  width: 60%;
-  color: #31363F;
-  font-size: 1rem;
-  padding: 10px 15% 10px 0;
-  border: none;
-  border-bottom: 2px solid #F0572D;
-  border-radius: 0;
-  text-align: right;
-}
-
-.mobileNav .closeLog {
-  position: absolute;
-  bottom: 40px;
-  right: 15%;
-  font-size: 0.8rem;
-}
-
-.mobileNav .closeLog span {
-  font-weight: bold;
-  color: #F0572D;
-  cursor: pointer;
-}
-
-.tabletNav {
-  display: none;
-}
-
-@media (min-width: 480px) {
+@media (min-width: 540px) {
   
   header .logo {
     height: 65px;
   }
 
-  .tabletNav {
-    display: flex;
-  }
-
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1600px) {
 
   header {
-    padding: 20px 15%;
+    padding: 25px 10%;
   }
 
-}
-
-@media (min-width: 1800px) {
-
-  header {
-    padding: 20px 20%;
+  header .logo {
+    height: 70px;
   }
 
 }

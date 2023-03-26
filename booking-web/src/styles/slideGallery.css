@@ -1,7 +1,7 @@
 .sliderContainer {
   position: relative;
   width: 100vw;
-  height: 300px;
+  height: 250px;
   overflow: hidden;
 }
 
@@ -18,32 +18,41 @@
   cursor: pointer;
 }
 
-.sliderGoBack {
+.sliderGoBack, .sliderGoNext {
   top: calc(50% - 20px);
-  left: 5%;
+}
+
+.sliderGoBack {
+  left: 4%;
 }
 
 .sliderGoNext {
-  top: calc(50% - 20px);
-  right: 5%;
+  right: 4%;
 }
 
 .sliderContainer p {
   position: absolute;
   bottom: 5%;
   right: 5%;
-  font-size: 1rem;
+  font-size: .9rem;
   color: white;
 }
 
 @media (min-width: 480px) {
 
   .sliderContainer {
-    height: 500px;
+    height: 400px;
+  }
+
+  .sliderIcon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
   }
 
   .sliderContainer p {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
 }

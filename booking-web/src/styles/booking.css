@@ -1,0 +1,13 @@
+.bookingPage section {
+  width: 100vw;
+  display: flex;
+  padding: 15px 5%;
+}
+
+@media (min-width: 1600px) {
+
+  .bookingPage section {
+    padding: 20px 10%;
+  }
+
+}

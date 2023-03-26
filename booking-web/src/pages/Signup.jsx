@@ -78,35 +78,37 @@ const Signup = () => {
   return (
     <>
       <form action='' className='forms' onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='firstName'>Nombre</label>
-          <input
-            type='text'
-            id='firstName'
-            name='firstName'
-            placeholder='John'
-            onChange={
-              (e) => validateFirstAndLastName(e.target.value)
+        <div className='username'>
+          <div>
+            <label htmlFor='firstName'>Nombre</label>
+            <input
+              type='text'
+              id='firstName'
+              name='firstName'
+              placeholder='John'
+              onChange={
+                (e) => validateFirstAndLastName(e.target.value)
+                ? handleChange(e.target.name, e.target.value)
+                : handleError(e.target.name, e.target.value)
+              }
+            />
+            {errors.firstName && <error className='error'>Debes ingresar un nombre válido</error>}
+          </div>
+          <div>
+            <label htmlFor='lastName'>Apellido</label>
+            <input
+              type='text'
+              id='lastName'
+              name='lastName'
+              placeholder='Doe'
+              onChange={
+              (e) =>  validateFirstAndLastName(e.target.value)
               ? handleChange(e.target.name, e.target.value)
               : handleError(e.target.name, e.target.value)
-            }
-          />
-          {errors.firstName && <p className='error'>Debes ingresar un nombre válido</p>}
-        </div>
-        <div>
-          <label htmlFor='lastName'>Apellido</label>
-          <input
-            type='text'
-            id='lastName'
-            name='lastName'
-            placeholder='Doe'
-            onChange={
-             (e) =>  validateFirstAndLastName(e.target.value)
-             ? handleChange(e.target.name, e.target.value)
-             : handleError(e.target.name, e.target.value)
-            }
-          />
-          {errors.lastName && <p className='error'>Debes ingresar un apellido válido</p>}
+              }
+            />
+            {errors.lastName && <error className='error'>Debes ingresar un apellido válido</error>}
+          </div>
         </div>
         <div>
           <label htmlFor='email'>Correo eléctronico</label>
@@ -121,7 +123,7 @@ const Signup = () => {
               : handleError(e.target.name, e.target.value)
             }
           />
-          {errors.email && <p className='error'>Debes ingresar un correo válido</p>}
+          {errors.email && <error className='error'>Debes ingresar un correo válido</error>}
         </div>
         <div>
           <label htmlFor='password'>Contraseña</label>
@@ -136,7 +138,7 @@ const Signup = () => {
               : handleError(e.target.name, e.target.value)
             }
           />
-          {errors.password && <p className='error'>La contraseña debe tener al menos 6 caracteres</p>}
+          {errors.password && <error className='error'>La contraseña debe tener al menos 6 caracteres</error>}
         </div>
         <div>
           <label htmlFor='confirmPassword'>Confirmar contraseña</label>
@@ -151,15 +153,15 @@ const Signup = () => {
               : handleError(e.target.name, e.target.value)
             }
           />
-          {errors.confirmPassword && <p className='error'>Ambas contraseñas deben ser iguales</p>}
+          {errors.confirmPassword && <error className='error'>Ambas contraseñas deben ser iguales</error>}
         </div>
         {error.length > 0 && 
           <div className='errors'>
             <img src={warning} alt="Icon error" />
-            <p>{error}</p>
+            <error>{error}</error>
           </div>}
         <button type='submit'>Crear cuenta</button>
-        <div className='changeForm'>
+        <div className='changePage'>
           <p>¿Ya tienes una cuenta?</p>
           <Link to='/login'>Iniciar sesión</Link>
         </div>

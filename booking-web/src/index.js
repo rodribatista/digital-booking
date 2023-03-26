@@ -7,11 +7,11 @@ import General from './pages/General'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import FilterProducts from './pages/FilterProducts'
+import Catalog from './pages/Catalog'
 import Product from './pages/Product'
+import Booking from './pages/Booking'
 
 import './styles/index.css'
-import Booking from './pages/Booking'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -24,12 +24,12 @@ root.render(
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/products/category/:value'
-            element={<FilterProducts type={'category'}/>}/>
+            element={<Catalog type={'category'}/>}/>
           <Route path='/products/city/:value'
-            element={<FilterProducts type={'city'}/>}/>
-          <Route path='/products/id/:id'
+            element={<Catalog type={'city'}/>}/>
+          <Route path='/products/:title'
             element={<Product/>}/>
-          <Route path='/products/id=/:id/booking'
+          <Route path='/products/:title/booking'
             element={<Booking/>}/>
         </Route>
       </Routes>

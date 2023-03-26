@@ -48,7 +48,8 @@ const CitiesList = ({
         )) :
         <p>No hay destinos para mostrar</p>
       }
-      <p onClick={() => setShowList(false)}>Cerrar</p>
+      <p className='closeList'
+        onClick={() => setShowList(false)}>Cerrar</p>
     </ul>
   )
 }

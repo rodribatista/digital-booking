@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
 import { getIcon } from '../utils/iconsFeatures'
@@ -16,12 +16,19 @@ import '../styles/product.css'
 
 const Product = () => {
 
+  const navigate = useNavigate()
   const { state } = useLocation()
 
   const { response, error, loading } = useFetch(
     `${endpoint}/products/${state.id}`)
 
   const [ showCarousel, setShowCarousel ] = useState(false)
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate('booking',
+      { state: { product: response }})
+  }
 
   return (
     <>
@@ -33,23 +40,25 @@ const Product = () => {
           <ProductHeader product={response}/>
 
           <section className='productLocation'>
-            <img src={pointer} alt="Icono de ubicación" />
-            <h4>{`${response.address.street} 
+            <img src={pointer} alt="Icono de ubicación"
+              className='icons'/>
+            <p>{`${response.address.street} 
             ${response.address.number} - 
             ${response.address.city.name}, 
-            ${response.address.city.country.name}`}</h4>
+            ${response.address.city.country.name}`}</p>
           </section>
 
-          <SlideGallery className='onMobile'
-            images={response.images}/>
+          <SlideGallery images={response.images}/>
+
           <div className='productGallery'>
             <img src={response.images[0].url} alt="" />
             <div className='grid'>
               {response.images.slice(1,5).map(
                 image => <img src={image.url} alt="" key={image.id}/>)}
             </div>
-            <p onClick={() => setShowCarousel(true)}>Ver galería</p>
+            <button onClick={() => setShowCarousel(true)}>Ver galería</button>
           </div>
+
           {showCarousel &&
             <Carousel
               images={response.images}
@@ -65,8 +74,9 @@ const Product = () => {
             <ul>
               {response.features.map(feature => (
                 <li key={feature.id}>
-                  <img src={getIcon(feature.id)} alt="" />
-                  <h5>{feature.title}</h5>
+                  <img src={getIcon(feature.id)} alt=""
+                    className='icons'/>
+                  <p>{feature.title}</p>
                 </li>
                 ))}
             </ul>
@@ -77,9 +87,9 @@ const Product = () => {
             <div>
               <CalendarMobile/>
               <CalendarDesktop/>
-              <div className='productStartBooking'>
+              <div className='startBooking'>
                 <p>Agregá tus fechas para obtener precios exactos</p>
-                <button>Iniciar reserva</button>
+                <button onClick={handleClick}>Iniciar reserva</button>
               </div>
             </div>
           </section>

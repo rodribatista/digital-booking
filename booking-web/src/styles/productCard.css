@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   background-color: white;
   box-shadow: 2px 2px 5px rgba(25, 27, 29, .2);
@@ -16,12 +16,12 @@
 
 .productCardImage .fav {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 10px;
   cursor: pointer;
 }
 
-.productCardImage .img {
+.productImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -29,36 +29,10 @@
 
 .productCardInfo {
   display: flex;
-  flex-direction: column;
   width: 100%;
   padding: 15px;
+  flex-direction: column;
   gap: 15px;
-}
-
-.productCardInfo h1 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #191B1D;
-}
-
-.productCardInfo h2 {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #abb0b6;
-;
-}
-
-.productCardInfo h3 {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #191B1D;
-}
-
-.productCardInfo p {
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1rem;
-  color: #191B1D;
 }
 
 .productCardLocation {
@@ -69,42 +43,37 @@
   gap: 5px;
 }
 
-.productCardLocation img {
-  height: 15px;
+.productCardFeatures {
+  display: none;
+  flex-direction: row;
+  gap: 15px
 }
 
-.productCardInfo button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #F0572D;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-@media (min-width: 480px) {
+@media (min-width: 540px) {
 
   .productCard {
     flex-direction: row;
   }
 
   .productCardImage {
-    height: 100%;
+    height: 250px;
   }
 
-  .productCardInfo h1 {
-    font-size: 1.5rem;
-  }
-  
-  .productCardInfo h2, .productCardInfo h3 {
-    font-size: 1rem;
+  .productCardInfo {
+    justify-content: space-between;
+    gap: 0;
   }
 
-  .productCardInfo p {
-    font-size: 0.9rem;
+  .productCardFeatures {
+    display: flex;
   }
 
 }
 
+@media screen and (min-width: 940px) {
+
+  .productCardImage {
+    height: 280px;
+  }
+
+}

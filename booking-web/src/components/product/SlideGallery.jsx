@@ -10,7 +10,7 @@ const SlideGallery = ({images}) => {
   const [ currentImg, setCurrentImg ] = useState(0)
 
   return (
-    <div className='onTablet sliderContainer'>
+    <div className='onTablet onMobile sliderContainer'>
       <img src={images[currentImg]?.url} alt="" className='sliderImg'/>
       {currentImg > 0 &&
         <img src={goBack} alt="" className='sliderIcon sliderGoBack'

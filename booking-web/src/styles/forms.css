@@ -1,7 +1,8 @@
 .forms {
-  width: 100vw;
-  height: calc(100vh - 100px - 75px);
   display: flex;
+  width: 80%;
+  margin: 0 auto;
+  flex-grow: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -9,7 +10,7 @@
 }
 
 .forms div {
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,55 +18,61 @@
 }
 
 .forms div label {
-  font-size: 0.8rem;
-  font-weight: bold;
+  font-size: .7rem;
+  color: var(--secondary);
 }
 
 .forms div input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   outline: none;
-  font-size: 0.8rem;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: .8rem;
+  box-shadow: 0px 2px 2px rgba(25, 27, 29, .2);
 }
 
 .forms div input:focus {
-  padding: 10px;
-  border: 1px solid #F0572D;
+  border: 1px solid var(--primary);
+}
+
+.forms .username {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .forms button {
-  width: 60%;
+  width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #F0572D;
+  background-color: var(--primary);
   color: white;
   font-weight: 700;
   cursor: pointer;
 }
 
-.forms .changeForm {
+.forms .changePage {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.forms .changeForm p, .forms .changeForm a {
-  font-size: 0.8rem;
+.forms .changePage p, .forms .changeForm a {
   text-align: center;
 }
 
-.forms .changeForm p {
-  color: #191B1D;
+.forms .changePage p {
+  color: var(--secondary);
 }
 
-.forms .changeForm a {
-  color: #F0572D;
+.forms .changePage a {
+  font-size: .8rem;
+  color: var(--primary);
 }
 
-.forms .error {
-  font-size: 0.7rem;
+.forms error {
+  font-size: .6rem;
   text-align: right;
   color: #B00020;
 }
@@ -80,45 +87,24 @@
   height: 15px;
 }
 
-.forms .errors p {
-  font-size: 0.7rem;
-  color: #B00020;
-}
-
-
-@media (min-width: 480px) {
+@media (min-width: 540px) {
 
   .forms {
-    height: calc(100vh - 105px - 60px); 
-  }
-
-  .forms div, .forms button {
-    width: 40%;
-  }
-
-  .forms div label {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-
-  .forms div input {
-    font-size: 1rem;
-  }
-
-  .forms .changeForm p, .forms .changeForm a {
-    font-size: 1rem;
-  }
-
-  .forms .error, .forms .errors p {
-    font-size: 0.8rem;
+    width: 50%;
+    margin: 0 auto;
   }
 
 }
 
 @media (min-width: 1200px) {
 
-  .forms div, .forms button {
-    width: 25%;
+  .forms {
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .forms .username {
+    flex-direction: row;
   }
 
 }

@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer>
       <p>©2023 Digital Booking</p>
-      <div className='socials'>
+      <div className='socials onTablet onDesktop'>
         <Link to='/'>
           <img src={facebook} alt="" />
         </Link>

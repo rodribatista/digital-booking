@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-  --primary: #F0572D;
-  --secondary: #31363F;
-  --dark: #191B1D;
-  --light: #DFE4EA;
+  --primary: #1DBEB4;
+  --secondary: #383B58;
+  --dark: #545776;
+  --light: #F3F1ED;
+  --mobile: 540px;
+  --tablet: 940px;
+  --notebook: 1200px;
+  --desktop: 1600px;
 }
 
 * {
@@ -22,12 +26,31 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 18px;
   font-family: 'Roboto', sans-serif;
 }
 
 body {
-  background-color: var(--light);
+  background-color: whitesmoke;
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 25px 0;
+  gap: 25px;
+}
+
+.container {
+  width: 100vw;
+  padding: 0 5%;
 }
 
 a {
@@ -36,27 +59,81 @@ a {
   cursor: pointer;
 }
 
+h2 {
+  font-size: 1.5rem;
+  color: var(--secondary);
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--secondary);
+}
+
+h4 {
+  font-size: .8rem;
+  letter-spacing: .5px;
+  color: var(--secondary);
+  opacity: 50%;
+}
+
+p {
+  font-size: .8rem;
+  color: var(--secondary);
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary);
+  font-size: .8rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+}
+
+.icons {
+  width: 15px;
+  max-height: 18px;
+  object-fit: scale-down;
+}
+
+.onTablet {
+  display: none;
+}
+
 .onDesktop {
   display: none;
 }
 
-@media (min-width: 480px) {
+.onMobile {
+  display: flex;
+}
 
-  html {
-    font-size: 14px;
-  }
+@media (min-width: 540px) {
 
   .onMobile {
     display: none;
   }
 
+  .onTablet {
+    display: flex;
+  }
+
+}
+
+@media (min-width: 940px) {
+  
+  .icons {
+    width: 18px;
+    max-height: 20px;
+    object-fit: scale-down;
+  }
+
 }
 
 @media (min-width: 1200px) {
-
-  html {
-    font-size: 14px;
-  }
 
   .onTablet {
     display: none;
@@ -64,6 +141,14 @@ a {
 
   .onDesktop {
     display: flex;
+  }
+
+}
+
+@media (min-width: 1600px) {
+
+  .container {
+    padding: 0 10%;
   }
 
 }

@@ -79,10 +79,10 @@ const Login = () => {
         {error.length > 0 && 
           <div className='errors'>
             <img src={warning} alt="Icon error" />
-            <p>{error}</p>
+            <error>{error}</error>
           </div>}
         <button type='submit'>Ingresar</button>
-        <div className='changeForm'>
+        <div className='changePage'>
           <p>¿Aún no tienes cuenta?</p>
           <Link to='/signup'>Registrarse</Link>
         </div>

@@ -1,41 +1,23 @@
-.categories {
-  margin: 50px 0;
-  padding: 0 10%;
+.categories,
+.products  {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-.categories-grid {
+.categories-grid,
+.products-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 25px;
 }
 
-.categories > h2, .recomendations > h2 {
-  font-size: 1.5rem;
+.categories > h2,
+.products > h2 {
   text-align: left;
 }
 
-.recomendations {
-  margin: 50px 0;
-  padding: 0 10%;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.recomendations-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-gap: 25px;
-}
-
-@media (min-width: 480px) {
-
-  .categories {
-    margin: 50px 0;
-  }
+@media (min-width: 540px) {
 
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -43,35 +25,14 @@
 
 }
 
-@media (min-width: 1000px) {
-
-  .categories {
-    margin: 50px 0;
-  }
+@media (min-width: 1200px) {
 
   .categories-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
   }
 
-  .recomendations-grid {
+  .products-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
-@media (min-width: 1400px) {
-
-  .categories, .recomendations{
-    padding: 0 15%;
-  }
-
-}
-
-@media (min-width: 1800px) {
-
-  .categories, .recomendations {
-    padding: 0 20%;
   }
 
 }

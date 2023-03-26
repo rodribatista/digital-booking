@@ -7,13 +7,13 @@ const ProductHeader = ({product}) => {
   const navigate = useNavigate()
   return (
     <section className='productHeader'>
-            <div>
-              <h3>{product.category.title.toUpperCase()}</h3>
-              <h1>{product.title}</h1>
-            </div>
-            <img src={goback} alt="Flecha para volver atras"
-              onClick={() => navigate(-1)}/>
-          </section>
+      <div>
+        <h4>{product.category.title.toUpperCase()}</h4>
+        <h1>{product.title}</h1>
+      </div>
+      <img src={goback} alt="Flecha para volver atras"
+        onClick={() => navigate(-1)}/>
+    </section>
   )
 }
 
