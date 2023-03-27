@@ -10,6 +10,7 @@ import Signup from './pages/Signup'
 import Catalog from './pages/Catalog'
 import Product from './pages/Product'
 import Booking from './pages/Booking'
+import Success from './pages/Success'
 
 import './styles/index.css'
 
@@ -27,10 +28,12 @@ root.render(
             element={<Catalog type={'category'}/>}/>
           <Route path='/products/city/:value'
             element={<Catalog type={'city'}/>}/>
-          <Route path='/products/:title'
+          <Route path='/products/:value'
             element={<Product/>}/>
-          <Route path='/products/:title/booking'
+          <Route path='/products/:value/booking'
             element={<Booking/>}/>
+          <Route path='/products/:value/booking/success'
+            element={<Success/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
