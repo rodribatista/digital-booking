@@ -28,6 +28,10 @@ root.render(
             element={<Catalog type={'category'}/>}/>
           <Route path='/products/city/:value'
             element={<Catalog type={'city'}/>}/>
+          <Route path='/products/booking/:checkIn/:checkOut'
+            element={<Catalog type={'booking'}/>}/>
+          <Route path='/products/city/:value/:checkIn/:checkOut'
+            element={<Catalog type={'bookingCity'}/>}/>
           <Route path='/products/:value'
             element={<Product/>}/>
           <Route path='/products/:value/booking'

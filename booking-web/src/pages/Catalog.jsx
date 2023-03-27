@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
@@ -7,11 +7,43 @@ import ProductCard from '../components/general/ProductCard'
 
 const Catalog = ({type}) => {
 
-  const { value } = useParams()
+  const params = useParams()
+
   const { state } = useLocation()
 
-  const { response, error, loading } = useFetch(
-      `${endpoint}/products/filter/${type}=${state.id}`)
+  const [ filter, setFilter ] = useState('')
+
+  const [ urlFetch, setUrlFetch ] = useState('')
+
+  const handleDate = (date) => {
+    return date.split("-").reverse().join("-")
+  }
+
+  useEffect(() => {
+    switch (type) {
+      case 'city':
+        setFilter(`${params.value}`)
+        setUrlFetch(`${endpoint}/products/filter/city=${state?.id}`)
+        break
+      case 'category':
+        setFilter(`${params.value}`)
+        setUrlFetch(`${endpoint}/products/filter/category=${state?.id}`)
+        break
+      case 'booking':
+        setFilter(`${params.checkIn} al ${params.checkOut}`)
+        setUrlFetch(`${endpoint}/products/filter/checkIn=${handleDate(params.checkIn)}/checkOut=${handleDate(params.checkOut)}`)
+        break
+      case 'bookingCity':
+        setFilter(`${params.checkIn} al ${params.checkOut} en ${params.value}`)
+        setUrlFetch(`${endpoint}/products/filter/checkIn=${handleDate(params.checkIn)}/checkOut=${handleDate(params.checkOut)}/city=${state?.id}`)
+        break
+      default:
+        setFilter(`Se ha producido un error inesperado`)
+        break
+    }
+  }, [type, params, state])
+
+  const { response, error, loading } = useFetch(urlFetch)
 
   return (
     <>
@@ -20,7 +52,7 @@ const Catalog = ({type}) => {
       {response != null &&
       <main>
         <section className='container products'>
-          <h2>Resultados para {value}</h2>
+          <h2>Resultados para {filter}</h2>
           <div className='products-grid'>
             {response.length > 0 ? response?.map(
               product => <ProductCard key={product.id} product={product}/>

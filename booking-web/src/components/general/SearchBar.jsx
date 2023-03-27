@@ -25,9 +25,17 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (cityValue.length > 0) {
+    if (cityValue.length > 0 && !startDate && !endDate) {
       navigate(`/products/city/${cityValue}`,
-        { state: { id: cityId }})}
+        { state: { id: cityId }})
+    } else if (cityValue.length < 1 && startDate && endDate) {
+      navigate(`/products/booking/${handleDate(startDate)}/${handleDate(endDate)}`)
+    } else if (cityValue.length > 0 && startDate && endDate) {
+      navigate(`/products/city/${cityValue}/${handleDate(startDate)}/${handleDate(endDate)}`,
+        { state: { id: cityId }})
+    } else {
+      alert("Debes seleccionar datos para la búsqueda")
+    }
   }
 
   const handleDate = (date) => {

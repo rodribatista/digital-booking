@@ -46,8 +46,8 @@ const Booking = () => {
       && startDate && endDate) {
       axios.post(`${endpoint}/bookings`, {
         "arrivedTime": arrivedTime,
-        "dateCheckIn": startDate.toLocaleDateString("fr-CA"),
-        "dateCheckOut": endDate.toLocaleDateString("fr-CA"),
+        "dateCheckIn": startDate.toLocaleDateString("en-CA"),
+        "dateCheckOut": endDate.toLocaleDateString("en-CA"),
         "product_id": state.product.id
       }, { headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
