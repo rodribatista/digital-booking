@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext }  from '../../hooks/userContext'
 
@@ -12,8 +12,15 @@ import '../../styles/header.css'
 
 const Header = () => {
 
-  const { userInfo, setUserInfo } = useContext(UserContext)
+  const { userInfo, setUserInfo, fetchUserInfo } = useContext(UserContext)
   const [ showMobileNav, setShowMobileNav ] = useState(false)
+
+  useEffect(() =>{
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetchUserInfo(token)
+    }
+  }, [])
 
   const handleCloseNav = () => {
     setShowMobileNav(false)}
