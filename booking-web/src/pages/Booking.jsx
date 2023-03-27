@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { UserContext } from '../hooks/userContext'
+import axios from 'axios'
+import { endpoint } from '../utils/utils'
 
 import ProductHeader from '../components/product/ProductHeader'
 import { CalendarMobile, CalendarDesktop } from '../components/booking/Calendar'
@@ -30,16 +32,30 @@ const Booking = () => {
     return date.toLocaleDateString("es-CL")
   }
 
+  const handleResponse = (response) => {
+    if (response.status === 201) {
+      navigate('success')
+    } else {
+      alert(response.data)
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (arrivedTime && arrivedTime !== "null" 
       && startDate && endDate) {
-      alert(
-        'hora de llegada ' + arrivedTime +
-        '\nfecha de inicio ' + handleDate(startDate) +
-        '\nfecha de fin ' + handleDate(endDate)
-      )
-      navigate('success')
+      axios.post(`${endpoint}/bookings`, {
+        "arrivedTime": arrivedTime,
+        "dateCheckIn": startDate.toLocaleDateString("fr-CA"),
+        "dateCheckOut": endDate.toLocaleDateString("fr-CA"),
+        "product_id": state.product.id
+      }, { headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }})
+      .then((response) =>
+        handleResponse(response))
+      .catch(error =>
+        handleResponse(error.response))
     } else {
       alert('Por favor, completa todos los campos')
     }
