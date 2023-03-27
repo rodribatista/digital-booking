@@ -126,6 +126,7 @@
 
 .bookingInfoDates div {
   display: flex;
+  height: 50px;
   padding: 10px;
   justify-content: space-between;
   align-items: center;
@@ -198,8 +199,8 @@
 
 @media (min-width: 1600px) {
 
-  .bookingPage section {
-    padding: 20px 10%;
+  .bookingPage .productHeader {
+    padding: 15px 10%;
   }
 
   .bookingPage > div {

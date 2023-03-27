@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { UserContext } from '../hooks/userContext'
 
 import ProductHeader from '../components/product/ProductHeader'
 import { CalendarMobile, CalendarDesktop } from '../components/booking/Calendar'
@@ -12,7 +13,37 @@ import '../styles/booking.css'
 const Booking = () => {
 
   const navigate = useNavigate()
+  const { userInfo } = useContext(UserContext)
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login', { state: { from: '/booking' }})}
+  })
+
   const { state } = useLocation()
+  
+  const [arrivedTime, setArrivedTime] = useState(null)
+  const [dateRange, setDateRange] = useState([null, null])
+  const [startDate, endDate] = dateRange
+
+  const handleDate = (date) => {
+    return date.toLocaleDateString("es-CL")
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (arrivedTime && arrivedTime !== "null" 
+      && startDate && endDate) {
+      alert(
+        'hora de llegada ' + arrivedTime +
+        '\nfecha de inicio ' + handleDate(startDate) +
+        '\nfecha de fin ' + handleDate(endDate)
+      )
+      navigate('success')
+    } else {
+      alert('Por favor, completa todos los campos')
+    }
+  }
 
   return (
     <div className='bookingPage'>
@@ -28,15 +59,15 @@ const Booking = () => {
             <form>
               <div>
                 <label htmlFor="firstName">Nombre</label>
-                <input id="firstName" type="text" value="John" disabled/>
+                <input id="firstName" type="text" value={userInfo?.firstName} disabled/>
               </div>
               <div>
                 <label htmlFor="lastName">Apellido</label>
-                <input id="lastName" type="text" value="Doe" disabled/>
+                <input id="lastName" type="text" value={userInfo?.lastName} disabled/>
               </div>
               <div>
                 <label htmlFor="email">Correo electrónico</label>
-                <input id="email" type="text" value="john@doe.com" disabled/>
+                <input id="email" type="text" value={userInfo?.email} disabled/>
               </div>
             </form>
           </section>
@@ -50,8 +81,9 @@ const Booking = () => {
               </div>
               <form>
                 <label htmlFor="selectTime">Indica tu horario estimado de llegada</label>
-                <select name="selectTime" id="selectTime">
-                  <option selected>Seleccionar hora de llegada</option>
+                <select name="selectTime" id="selectTime"
+                  onChange={(e) => setArrivedTime(e.target.value)}>
+                  <option value="null" selected>Seleccionar hora de llegada</option>
                   <option value="10:00">10:00</option>
                   <option value="11:00">11:00</option>
                   <option value="12:00">12:00</option>
@@ -64,8 +96,16 @@ const Booking = () => {
 
           <section className='bookingDates'>
             <h2>Fechas disponibles</h2>
-            <CalendarMobile/>
-            <CalendarDesktop/>
+            <CalendarMobile
+              startDate={startDate}
+              endDate={endDate}
+              setDateRange={setDateRange}
+            />
+            <CalendarDesktop
+              startDate={startDate}
+              endDate={endDate}
+              setDateRange={setDateRange}
+            />
           </section>
 
         </div>
@@ -89,14 +129,15 @@ const Booking = () => {
               <div className='bookingInfoDates'>
                 <div>
                   <p>Check in</p>
-                  <h3>10/10/2023</h3>
+                  <h3>{startDate && handleDate(startDate)}</h3>
                 </div>
                 <div>
                   <p>Check out</p>
-                  <h3>15/10/2023</h3>
+                  <h3>{endDate && handleDate(endDate)}</h3>
                 </div>
               </div>
-              <button>Confirmar reserva</button>
+              <button onClick={handleSubmit}>
+                Confirmar reserva</button>
             </div>
           </div>
         </section>

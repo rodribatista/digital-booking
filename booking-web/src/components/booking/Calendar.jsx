@@ -5,12 +5,10 @@ import { registerLocale } from  "react-datepicker";
 import es from 'date-fns/locale/es';
 import 'react-datepicker/dist/react-datepicker.css'
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
 import '../../styles/calendarProduct.css'
 
-export const CalendarMobile = () => {
+export const CalendarMobile = (
+  {startDate, endDate, setDateRange}) => {
   registerLocale('es', es)
   return (
     <div className='calendarProduct calendarMobile'>
@@ -18,18 +16,20 @@ export const CalendarMobile = () => {
         inline
         locale="es"
         monthsShown={1}
+        selectsRange={true}
+        selected={startDate}
+        startDate={startDate}
+        endDate={endDate}
         minDate={new Date(Date.now())}
+        onChange={(dates) => setDateRange(dates)}
         readOnly
-        /* excludeDateIntervals={[{
-          start: subDays(new Date(), 5),
-          end: addDays(new Date(), 5)
-        }]} */
       />
     </div>
   )
 }
 
-export const CalendarDesktop = () => {
+export const CalendarDesktop = (
+  {startDate, endDate, setDateRange}) => {
   registerLocale('es', es)
   return (
     <div className='calendarProduct calendarDesktop'>
@@ -37,7 +37,12 @@ export const CalendarDesktop = () => {
         inline
         locale="es"
         monthsShown={2}
+        selectsRange={true}
+        selected={startDate}
+        startDate={startDate}
+        endDate={endDate}
         minDate={new Date(Date.now())}
+        onChange={(dates) => setDateRange(dates)}
         readOnly
       />
     </div>
