@@ -27,9 +27,9 @@ root.render(
             element={<Catalog type={'category'}/>}/>
           <Route path='/products/city/:value'
             element={<Catalog type={'city'}/>}/>
-          <Route path='/products/:title'
+          <Route path='/products/:value'
             element={<Product/>}/>
-          <Route path='/products/:title/booking'
+          <Route path='/products/:value/booking'
             element={<Booking/>}/>
         </Route>
       </Routes>

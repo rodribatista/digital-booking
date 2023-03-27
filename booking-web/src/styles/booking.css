@@ -1,13 +1,209 @@
-.bookingPage section {
-  width: 100vw;
+.bookingPage .productHeader {
   display: flex;
+  width: 100vw;
   padding: 15px 5%;
+}
+
+.bookingPage > div {
+  display: flex;
+  padding: 40px 5%;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.bookingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.bookingUser,
+.bookingTime,
+.bookingInfo,
+.bookingDates {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bookingUser form,
+.bookingTime > div,
+.bookingInfo > div {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(25, 27, 29, .2);
+}
+
+.bookingUser form,
+.bookingTime > div {
+  padding: 15px;
+}
+
+.bookingUser form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.bookingUser div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bookingUser label {
+  font-size: .8rem;
+}
+
+.bookingUser input {
+  padding: 10px;
+  background-color: #DFE4EA;
+  border: none;
+  border-radius: 5px;
+}
+
+.bookingTime > div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bookingTimeInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bookingTime span {
+  font-weight: bold;
+}
+
+.bookingTime form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bookingTime label {
+  font-size: .8rem;
+  color: var(--secondary);
+}
+
+.bookingTime select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.bookingInfo > div {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bookingInfoContainer {
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bookingInfoContainer div {
+  padding: 0;
+}
+
+.bookingInfoContainer .productCardLocation {
+  padding-bottom: 15px;
+}
+
+.bookingInfoDates {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bookingInfoDates div {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 2px #DFE4EA;
+}
+
+.bookingInfoDates h3 {
+  font-size: 1rem;
+}
+
+.bookingInfo button {
+  margin-top: 10px;
+}
+
+@media (min-width: 540px) {
+
+  .bookingUser form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bookingTime select {
+    width: 50%;
+  }
+
+  .bookingInfo > div {
+    flex-direction: row;
+  }
+
+  .bookingInfo .productCardImage {
+    width: 50%;
+  }
+
+  .bookingInfoContainer {
+    width: 50%;
+  }
+
+  .bookingInfo button {
+    width: 80%;
+  }
+
+}
+
+@media (min-width: 1200px) {
+
+  .bookingPage > div {
+    flex-direction: row;
+  }
+
+  .bookingContainer {
+    width: 65%;
+  }
+
+  .bookingInfo {
+    width: 35%;
+  }
+
+  .bookingInfo > div {
+    flex-direction: column;
+  }
+
+  .bookingInfo .productCardImage {
+    width: 100%;
+  }
+
+  .bookingInfoContainer {
+    width: 100%;
+  }
+
 }
 
 @media (min-width: 1600px) {
 
   .bookingPage section {
     padding: 20px 10%;
+  }
+
+  .bookingPage > div {
+    padding: 40px 10%;
   }
 
 }
