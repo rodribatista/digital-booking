@@ -32,6 +32,11 @@ const Booking = () => {
     return date.toLocaleDateString("es-CL")
   }
 
+  const handleFetchDate = (date) => {
+    return date.toLocaleDateString("es-CL")
+      .split("-").reverse().join("-")
+  }
+
   const handleResponse = (response) => {
     if (response.status === 201) {
       navigate('success')
@@ -46,8 +51,8 @@ const Booking = () => {
       && startDate && endDate) {
       axios.post(`${endpoint}/bookings`, {
         "arrivedTime": arrivedTime,
-        "dateCheckIn": startDate.toLocaleDateString("en-CA"),
-        "dateCheckOut": endDate.toLocaleDateString("en-CA"),
+        "dateCheckIn": handleFetchDate(startDate),
+        "dateCheckOut": handleFetchDate(endDate),
         "product_id": state.product.id
       }, { headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
