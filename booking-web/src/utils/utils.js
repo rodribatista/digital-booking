@@ -38,3 +38,13 @@ export const fetchData = (url) => {
   .then (response => response.data)
   return getSuspender(promise)
 }
+
+export const getBookings = (array) => {
+  if (array)
+    return array.map(booking => {
+      return {
+        start: new Date(booking.dateCheckIn),
+        end: new Date(booking.dateCheckOut)
+      }
+  })
+}

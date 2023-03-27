@@ -17,10 +17,12 @@ const Booking = () => {
   const navigate = useNavigate()
   const { userInfo } = useContext(UserContext)
 
+  // aca tengo que controlar la navegacion para que cuando el usuario se loguee vuelva a esta pagina
   useEffect(() => {
     if (!userInfo) {
-      navigate('/login', { state: { from: '/booking' }})}
-  })
+      navigate('/login',
+        { state: { from: '/booking' }})
+  }}, [])
 
   const { state } = useLocation()
   
@@ -121,11 +123,13 @@ const Booking = () => {
               startDate={startDate}
               endDate={endDate}
               setDateRange={setDateRange}
+              bookings={state.bookings}
             />
             <CalendarDesktop
               startDate={startDate}
               endDate={endDate}
               setDateRange={setDateRange}
+              bookings={state.bookings}
             />
           </section>
 

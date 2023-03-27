@@ -1,14 +1,15 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
-import { registerLocale } from  "react-datepicker";
+import { registerLocale } from  "react-datepicker"
+import { getBookings } from '../../utils/utils'
 
-import es from 'date-fns/locale/es';
+import es from 'date-fns/locale/es'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import '../../styles/calendarProduct.css'
 
 export const CalendarMobile = (
-  {startDate, endDate, setDateRange}) => {
+  {startDate, endDate, setDateRange, bookings}) => {
   registerLocale('es', es)
   return (
     <div className='calendarProduct calendarMobile'>
@@ -21,6 +22,7 @@ export const CalendarMobile = (
         startDate={startDate}
         endDate={endDate}
         minDate={new Date(Date.now())}
+        excludeDateIntervals={getBookings(bookings)}
         onChange={(dates) => setDateRange(dates)}
         readOnly
       />
@@ -29,7 +31,7 @@ export const CalendarMobile = (
 }
 
 export const CalendarDesktop = (
-  {startDate, endDate, setDateRange}) => {
+  {startDate, endDate, setDateRange, bookings}) => {
   registerLocale('es', es)
   return (
     <div className='calendarProduct calendarDesktop'>
@@ -42,6 +44,7 @@ export const CalendarDesktop = (
         startDate={startDate}
         endDate={endDate}
         minDate={new Date(Date.now())}
+        excludeDateIntervals={getBookings(bookings)}
         onChange={(dates) => setDateRange(dates)}
         readOnly
       />

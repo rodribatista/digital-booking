@@ -13,7 +13,6 @@ import pointer from '../assets/icons/pointer_solid.svg'
 
 import '../styles/product.css'
 
-
 const Product = () => {
 
   const navigate = useNavigate()
@@ -22,12 +21,17 @@ const Product = () => {
   const { response, error, loading } = useFetch(
     `${endpoint}/products/${state.id}`)
 
+  const bookings = useFetch(
+    `${endpoint}/bookings/filter/product=${state.id}`)
+
   const [ showCarousel, setShowCarousel ] = useState(false)
 
   const handleClick = (e) => {
     e.preventDefault()
     navigate('booking',
-      { state: { product: response }})
+      { state: { product: response,
+        bookings: bookings.response }}
+    )
   }
 
   return (
@@ -85,8 +89,8 @@ const Product = () => {
           <section className='productDates'>
             <h2>Fechas disponibles</h2>
             <div>
-              <CalendarMobile/>
-              <CalendarDesktop/>
+              <CalendarMobile bookings={bookings?.response}/>
+              <CalendarDesktop bookings={bookings?.response}/>
               <div className='startBooking'>
                 <p>Agregá tus fechas para obtener precios exactos</p>
                 <button onClick={handleClick}>Iniciar reserva</button>
