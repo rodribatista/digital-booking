@@ -1,5 +1,6 @@
-import React, { useState }from 'react'
+import React, { useState, useContext }from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext }  from '../hooks/userContext'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
@@ -10,6 +11,7 @@ import '../styles/forms.css'
 const Login = () => {
 
   const navigate = useNavigate();
+  const { fetchUserInfo } = useContext(UserContext)
 
   const [ user, setUser ] = useState({
     email: '',
@@ -22,6 +24,7 @@ const Login = () => {
     if (response.status === 200) {
       localStorage.setItem(
         'token', response.data.token)
+      fetchUserInfo(response.data.token)
       alert('Ingreso exitoso!')
       navigate('/')
     } else if (response.status === 401) {
