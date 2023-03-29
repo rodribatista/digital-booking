@@ -28,7 +28,7 @@ public class CategoryController {
   private CategoryService categoryService;
 
   @PostMapping()
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Category> createCategory(
     @Valid @RequestBody CategoryRequest categoryRequest,
     BindingResult bindingResult
@@ -59,7 +59,7 @@ public class CategoryController {
 
   @Transactional
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Category> updateCategory(
     @PathVariable Long id,
     @Valid @RequestBody CategoryRequest categoryRequest,
@@ -72,7 +72,7 @@ public class CategoryController {
   }
 
   @DeleteMapping ("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Category> deleteCategory(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityException {

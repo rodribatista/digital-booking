@@ -34,7 +34,7 @@ public class UserController {
   private UserService userService;
 
   @GetMapping
-  @PreAuthorize("hasRole('USER')")
+  @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPERADMIN')")
   public ResponseEntity<User> getUser(
     @RequestHeader String Authorization
   ) throws BadRequestException, NotFoundException {

@@ -29,7 +29,7 @@ public class FeatureController {
   private FeatureRepository featureRepository;
 
   @PostMapping()
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Feature> createFeature(
     @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
@@ -52,7 +52,7 @@ public class FeatureController {
 
   @Transactional
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Feature> updateFeature(
     @PathVariable Long id,
     @Valid @RequestBody FeatureRequest featureRequest,
@@ -65,7 +65,7 @@ public class FeatureController {
   }
 
   @DeleteMapping ("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Feature> deleteFeature(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityConstraintViolationException {

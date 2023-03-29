@@ -28,7 +28,7 @@ public class CountryController {
   private CountryRepository countryRepository;
 
   @PostMapping()
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Country> createCountry(
     @Valid @RequestBody CountryRequest countryRequest,
     BindingResult bindingResult
@@ -51,7 +51,7 @@ public class CountryController {
 
   @Transactional
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Country> updateCountry(
     @PathVariable Long id,
     @Valid @RequestBody CountryRequest countryRequest,
@@ -64,7 +64,7 @@ public class CountryController {
   }
 
   @DeleteMapping ("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<Country> deleteCountry(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityException {

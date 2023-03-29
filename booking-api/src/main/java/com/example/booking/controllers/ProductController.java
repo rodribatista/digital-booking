@@ -92,7 +92,7 @@ public class ProductController {
   }
 
   @GetMapping("/filter/checkIn={dateIn}/checkOut={dateOut}/city={idCity}")
-  public ResponseEntity<List<Product>> getAllProductsHasBooking(
+  public ResponseEntity<List<Product>> getAllProductsHasBookingAndCity(
     @PathVariable String dateIn,
     @PathVariable String dateOut,
     @PathVariable Long idCity) throws NotFoundException {

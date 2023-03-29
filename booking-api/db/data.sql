@@ -171,35 +171,40 @@ INSERT INTO `product_has_features` (product_id, feature_id) VALUES(4,7);
 -- -----------------------------------------------------
 -- Table `roles`
 -- -----------------------------------------------------
-INSERT INTO `roles` (id, title) VALUES(1, 'ADMIN');
-INSERT INTO `roles` (id, title) VALUES(2, 'USER');
+INSERT INTO `roles` (id, title) VALUES(1, 'SUPERADMIN');
+INSERT INTO `roles` (id, title) VALUES(2, 'ADMIN');
+INSERT INTO `roles` (id, title) VALUES(3, 'USER');
 
 -- -----------------------------------------------------
 -- Table `users`
 -- -----------------------------------------------------
 INSERT INTO `users` (id, first_name, last_name, email, password, role_id) VALUES(
-	1, 'John', 'Doe', 'john@doe.com', 
-    '$2a$10$hWeJ32Zyvvz1T5F9s0vc/ehnY.ixlO/fIS6e5humeF4ghMstfqq3O', 2);
+	1, 'Admin', 'Page', 'admin@booking.com', 
+    '$2a$10$k9lFPXAjYmJNphizjycH0.aqspLOF9SYyrkWXkWUF2KV2qwXb2d9.', 1);
 
 INSERT INTO `users` (id, first_name, last_name, email, password, role_id) VALUES(
-	2, 'Steve', 'Jobs', 's.jobs@mail.com', 
+	2, 'Jane', 'Doe', 'jane.doe@mail.com', 
     '$2a$10$k9lFPXAjYmJNphizjycH0.aqspLOF9SYyrkWXkWUF2KV2qwXb2d9.', 2);
     
 INSERT INTO `users` (id, first_name, last_name, email, password, role_id) VALUES(
-	3, 'Jane', 'Doe', 'jane.doe@mail.com', 
-    '$2a$10$k9lFPXAjYmJNphizjycH0.aqspLOF9SYyrkWXkWUF2KV2qwXb2d9.', 1);
+	3, 'John', 'Doe', 'john@doe.com', 
+    '$2a$10$hWeJ32Zyvvz1T5F9s0vc/ehnY.ixlO/fIS6e5humeF4ghMstfqq3O', 3);
+
+INSERT INTO `users` (id, first_name, last_name, email, password, role_id) VALUES(
+	4, 'Steve', 'Jobs', 's.jobs@mail.com', 
+    '$2a$10$k9lFPXAjYmJNphizjycH0.aqspLOF9SYyrkWXkWUF2KV2qwXb2d9.', 3);
 
 -- -----------------------------------------------------
 -- Table `bookings`
 -- -----------------------------------------------------
 INSERT INTO `bookings` (id, date_checkin, date_checkout, arrived_time, product_id, user_id)
-VALUES(1, '2023-04-07', '2023-04-09', '10:00:00', 1, 1);
+VALUES(1, '2023-04-07', '2023-04-09', '10:00:00', 1, 3);
 
 INSERT INTO `bookings` (id, date_checkin, date_checkout, arrived_time, product_id, user_id)
-VALUES(2, '2023-04-10', '2023-04-20', '09:00:00', 1, 2);
+VALUES(2, '2023-04-10', '2023-04-20', '09:00:00', 1, 4);
 
 INSERT INTO `bookings` (id, date_checkin, date_checkout, arrived_time, product_id, user_id)
-VALUES(3, '2023-04-20', '2023-04-23', '14:00:00', 4, 2);
+VALUES(3, '2023-04-20', '2023-04-23', '14:00:00', 4, 4);
 
 INSERT INTO `bookings` (id, date_checkin, date_checkout, arrived_time, product_id, user_id)
-VALUES(4, '2023-04-21', '2023-04-23', '10:00:00', 1, 1);
+VALUES(4, '2023-04-21', '2023-04-23', '10:00:00', 1, 3);

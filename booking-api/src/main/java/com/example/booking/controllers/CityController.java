@@ -28,7 +28,7 @@ public class CityController {
   private CityRepository cityRepository;
 
   @PostMapping()
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<City> createCity(
     @Valid @RequestBody CityRequest cityRequest,
     BindingResult bindingResult
@@ -59,7 +59,7 @@ public class CityController {
 
   @Transactional
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<City> updateCity(
     @PathVariable Long id,
     @Valid @RequestBody CityRequest cityRequest,
@@ -72,7 +72,7 @@ public class CityController {
   }
 
   @DeleteMapping ("/{id}")
-  @PreAuthorize("hasRole('MANAGER')")
+  @PreAuthorize("hasRole('SUPERADMIN')")
   public ResponseEntity<City> deleteCity(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityException {
