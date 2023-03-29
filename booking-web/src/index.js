@@ -11,6 +11,7 @@ import Catalog from './pages/Catalog'
 import Product from './pages/Product'
 import Booking from './pages/Booking'
 import Success from './pages/Success'
+import Admin from './pages/Admin'
 
 import './styles/index.css'
 
@@ -21,9 +22,11 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route element={<General/>}>
+
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+
           <Route path='/products/category/:value'
             element={<Catalog type={'category'}/>}/>
           <Route path='/products/city/:value'
@@ -32,12 +35,19 @@ root.render(
             element={<Catalog type={'booking'}/>}/>
           <Route path='/products/city/:value/:checkIn/:checkOut'
             element={<Catalog type={'bookingCity'}/>}/>
+
           <Route path='/products/:value'
             element={<Product/>}/>
           <Route path='/products/:value/booking'
             element={<Booking/>}/>
           <Route path='/products/:value/booking/success'
             element={<Success/>}/>
+
+          <Route path='/products/admin'
+            element={<Admin/>}/>
+          <Route path='/products/admin/success'
+            element={<Success/>}/>
+
         </Route>
       </Routes>
     </BrowserRouter>

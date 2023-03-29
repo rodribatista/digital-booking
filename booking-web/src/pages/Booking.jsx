@@ -41,7 +41,8 @@ const Booking = () => {
 
   const handleResponse = (response) => {
     if (response.status === 201) {
-      navigate('success')
+      navigate('success',
+        { state: { from: 'booking' }})
     } else {
       alert(response.data)
     }
@@ -66,6 +67,12 @@ const Booking = () => {
     } else {
       alert('Por favor, completa todos los campos')
     }
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate(`/products/${e.target.value}`,
+      { state: { id: e.target.id }})
   }
 
   return (

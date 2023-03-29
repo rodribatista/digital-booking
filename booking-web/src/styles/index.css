@@ -98,6 +98,10 @@ button {
   cursor: pointer;
 }
 
+input, select, textarea {
+  font-size: .8rem;
+}
+
 .icons {
   width: 15px;
   max-height: 18px;

@@ -1,0 +1,105 @@
+.adminHeader {
+  display: flex;
+  padding: 15px 5%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--dark);
+}
+
+.adminHeader h1 {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.adminHeader img {
+  height: 25px;
+  cursor: pointer;
+}
+
+.adminPage section {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 5%;
+  gap: 10px;
+}
+
+.adminPage section > form {
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  flex-direction: column;
+  gap: 25px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(25, 27, 29, .2);
+}
+
+.adminPage .contInputs {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.adminPage .contLine {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.adminPage input,
+.adminPage select,
+.adminPage textarea {
+  padding: 10px;
+  border: solid 1px var(--light);
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(25, 27, 29, .2);
+  background-color: white;
+  resize: none;
+}
+
+#contFeatures {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+
+#contFeatures div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.adminPage button {
+  align-self: center;
+}
+
+@media (min-width: 540px) {
+
+  .adminPage .contLine {
+    flex-direction: row;
+  }
+
+  #contFeatures {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adminPage button {
+    width: 50%;
+  }
+
+}
+
+@media (min-width: 940px) {
+
+  #contFeatures {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .adminPage button {
+    width: 30%;
+  }
+
+}
