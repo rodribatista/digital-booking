@@ -47,6 +47,7 @@ public class BookingController {
   }
 
   @GetMapping("/filter/users")
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<List<Booking>> getAllBookingsHasUser(
     @RequestHeader String Authorization
   ) throws NotFoundException, BadRequestException {
@@ -73,7 +74,8 @@ public class BookingController {
   }
 
   @DeleteMapping ("/{id}")
-  public ResponseEntity<Booking> deleteProduct(
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  public ResponseEntity<Booking> deleteBooking(
     @PathVariable Long id
   ) throws NotFoundException {
     return ResponseEntity.status(HttpStatus.OK)

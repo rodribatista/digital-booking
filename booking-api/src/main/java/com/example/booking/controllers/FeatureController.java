@@ -10,6 +10,7 @@ import com.example.booking.services.FeatureService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class FeatureController {
   private FeatureRepository featureRepository;
 
   @PostMapping()
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Feature> createFeature(
     @Valid @RequestBody FeatureRequest featureRequest,
     BindingResult bindingResult
@@ -50,6 +52,7 @@ public class FeatureController {
 
   @Transactional
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Feature> updateFeature(
     @PathVariable Long id,
     @Valid @RequestBody FeatureRequest featureRequest,
@@ -62,6 +65,7 @@ public class FeatureController {
   }
 
   @DeleteMapping ("/{id}")
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Feature> deleteFeature(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityConstraintViolationException {

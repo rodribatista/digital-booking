@@ -10,6 +10,7 @@ import com.example.booking.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class CategoryController {
   private CategoryService categoryService;
 
   @PostMapping()
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Category> createCategory(
     @Valid @RequestBody CategoryRequest categoryRequest,
     BindingResult bindingResult
@@ -57,6 +59,7 @@ public class CategoryController {
 
   @Transactional
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Category> updateCategory(
     @PathVariable Long id,
     @Valid @RequestBody CategoryRequest categoryRequest,
@@ -69,6 +72,7 @@ public class CategoryController {
   }
 
   @DeleteMapping ("/{id}")
+  @PreAuthorize("hasRole('MANAGER')")
   public ResponseEntity<Category> deleteCategory(
     @PathVariable Long id
   ) throws NotFoundException, SQLIntegrityException {

@@ -88,33 +88,33 @@ public class UserService implements UserDetailsService {
   }
 
   public User updateUser(
-    Long id, UserInfo userInfo
-  ) throws NotFoundException {
-    var user = searchUserById(id);
+    String token, UserInfo userInfo
+  ) throws NotFoundException, BadRequestException {
+    var user = getUserFromToken(token);
     user.setFirstName(userInfo.getFirstName());
     user.setLastName(userInfo.getLastName());
     return user;
   }
 
   public User updateUserEmail(
-    Long id, UserEmail userEmail
-  ) throws NotFoundException {
-    var user = searchUserById(id);
+    String token, UserEmail userEmail
+  ) throws NotFoundException, BadRequestException {
+    var user = getUserFromToken(token);
     user.setEmail(userEmail.getEmail());
     return user;
   }
 
   public void updateUserPassword(
-    Long id, UserPass userPass
-  ) throws NotFoundException {
-    var user = searchUserById(id);
+    String token, UserPass userPass
+  ) throws NotFoundException, BadRequestException {
+    var user = getUserFromToken(token);
     user.setPassword(
       bcryptEncoder.encode(userPass.getPassword()));
   }
 
-  public User deleteUser(Long id)
-    throws NotFoundException {
-    var userDeleted = searchUserById(id);
+  public User deleteUser(String token)
+    throws NotFoundException, BadRequestException {
+    var userDeleted = getUserFromToken(token);
     userRepository.delete(userDeleted);
     return userDeleted;
   }

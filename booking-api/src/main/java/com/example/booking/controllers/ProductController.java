@@ -9,6 +9,7 @@ import com.example.booking.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -105,6 +106,7 @@ public class ProductController {
   }
 
   @PostMapping()
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Product> createProduct(
     @Valid @RequestBody ProductRequest productRequest,
     BindingResult bindingResult
@@ -117,6 +119,7 @@ public class ProductController {
 
   @Transactional
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Product> updateProduct(
     @PathVariable Long id,
     @Valid @RequestBody ProductRequest productRequest,
@@ -129,6 +132,7 @@ public class ProductController {
   }
 
   @DeleteMapping ("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<String> deleteProduct(
     @PathVariable Long id
   ) throws NotFoundException {

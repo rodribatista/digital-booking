@@ -33,8 +33,8 @@ public class UserController {
   private TokenProvider jwtTokenUtil;
   private UserService userService;
 
-  @PreAuthorize("hasRole('USER')")
   @GetMapping
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> getUser(
     @RequestHeader String Authorization
   ) throws BadRequestException, NotFoundException {
@@ -72,50 +72,54 @@ public class UserController {
 
   @Transactional
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> updateUser(
-    @PathVariable Long id,
+    @RequestHeader String Authorization,
     @Valid @RequestBody UserInfo userInfo,
     BindingResult bindingResult
   ) throws NotFoundException, BadRequestException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
-      .body(userService.updateUser(id, userInfo));
+      .body(userService.updateUser(Authorization, userInfo));
   }
 
   @Transactional
   @PutMapping("/{id}/email")
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> updateUserEmail(
-    @PathVariable Long id,
+    @RequestHeader String Authorization,
     @Valid @RequestBody UserEmail userEmail,
     BindingResult bindingResult
   ) throws NotFoundException, BadRequestException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
     return ResponseEntity.status(HttpStatus.OK)
-      .body(userService.updateUserEmail(id, userEmail));
+      .body(userService.updateUserEmail(Authorization, userEmail));
   }
 
   @Transactional
   @PutMapping("/{id}/pass")
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<String> updateUserPassword(
-    @PathVariable Long id,
+    @RequestHeader String Authorization,
     @Valid @RequestBody UserPass userPass,
     BindingResult bindingResult
   ) throws NotFoundException, BadRequestException {
     if (bindingResult.hasErrors())
       throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
-    userService.updateUserPassword(id, userPass);
+    userService.updateUserPassword(Authorization, userPass);
     return ResponseEntity.status(HttpStatus.OK)
       .body("Contraseña actualizada correctamente");
   }
 
   @DeleteMapping ("/{id}")
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> deleteUser(
-    @PathVariable Long id
-  ) throws NotFoundException {
+    @RequestHeader String Authorization
+  ) throws NotFoundException, BadRequestException {
     return ResponseEntity.status(HttpStatus.OK)
-      .body(userService.deleteUser(id));
+      .body(userService.deleteUser(Authorization));
   }
 
 }
