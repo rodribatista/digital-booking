@@ -70,7 +70,12 @@ public class ProductService {
       .id(null)
       .title(productRequest.getTitle())
       .description(productRequest.getDescription())
-      .address(handlerAddress(productRequest))
+      .address(Address.builder()
+          .id(null)
+          .street(productRequest.getAddress_street())
+          .number(productRequest.getAddress_number())
+          .city(cityService.getCity(productRequest.getCity_id()))
+          .build())
       .category(categoryService
         .getCategory(productRequest.getCategory_id()))
       .features(featureService
@@ -88,7 +93,10 @@ public class ProductService {
     var product = getProduct(id);
     product.setTitle(productRequest.getTitle());
     product.setDescription(productRequest.getDescription());
-    product.setAddress(handlerAddress(productRequest));
+    var address = product.getAddress();
+    address.setStreet(productRequest.getAddress_street());
+    address.setNumber(productRequest.getAddress_number());
+    address.setCity(cityService.getCity(productRequest.getCity_id()));
     product.setCategory(categoryService
       .getCategory(productRequest.getCategory_id()));
     product.setFeatures(featureService
@@ -103,17 +111,6 @@ public class ProductService {
     var productDeleted = getProduct(id);
     productRepository.delete(productDeleted);
     //return productDeleted;
-  }
-
-  private Address handlerAddress(
-    ProductRequest productRequest
-  ) throws NotFoundException {
-    return Address.builder()
-      .id(null)
-      .street(productRequest.getAddress_street())
-      .number(productRequest.getAddress_number())
-      .city(cityService.getCity(productRequest.getCity_id()))
-      .build();
   }
 
   public LocalDate formatStringToLocalDate(String date){
