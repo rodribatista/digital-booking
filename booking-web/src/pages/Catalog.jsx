@@ -38,13 +38,13 @@ const Catalog = ({type}) => {
         setUrlFetch(`${endpoint}/products/filter/checkIn=${handleDate(params.checkIn)}/checkOut=${handleDate(params.checkOut)}/city=${state?.id}`)
         break
       default:
-        setFilter(`Se ha producido un error inesperado`)
+        setFilter(`Se ha producido un error inesperado.`)
         break
     }
-  }, [type, params, state])
+  }, [])
 
   const { response, error, loading } = useFetch(urlFetch)
-
+  
   return (
     <>
       {loading && <h2>Cargando datos...</h2>}
@@ -54,7 +54,7 @@ const Catalog = ({type}) => {
         <section className='container products'>
           <h2>Resultados para {filter}</h2>
           <div className='products-grid'>
-            {response.length > 0 ? response?.map(
+            {response?.length > 0 ? response?.map(
               product => <ProductCard key={product.id} product={product}/>
             ) : <p>No hay resultados para esta búsqueda</p>}
           </div>
