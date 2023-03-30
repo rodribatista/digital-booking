@@ -4,6 +4,7 @@ import { getIcon } from '../../utils/iconsFeatures'
 
 import fav from '../../assets/icons/heart_fav.svg'
 import pointer from '../../assets/icons/pointer_solid.svg'
+import noImage from '../../assets/images/no-image.png'
 
 import '../../styles/productCard.css'
 
@@ -17,11 +18,19 @@ const ProductCard = ({product}) => {
       { state: { id: e.target.id }})
   }
 
+  const handleImage = (images) => {
+    if (images[0]) {
+      return images[0].url
+    } else {
+      return noImage
+    }
+  }
+
   return (
     <div className='productCard'>
       <div className='productCardImage'>
         <img src={fav} alt="" className='icons fav'/>
-        <img className='productImg' src={product.images[0].url} alt="" />
+        <img className='productImg' src={handleImage(product.images)} alt="" />
       </div>
       <div className='productCardInfo'>
         <div>

@@ -10,6 +10,7 @@ import SlideGallery from '../components/product/SlideGallery'
 import { CalendarMobile, CalendarDesktop } from '../components/product/Calendar'
 
 import pointer from '../assets/icons/pointer_solid.svg'
+import noImage from '../assets/images/no-image.png'
 
 import '../styles/product.css'
 
@@ -52,17 +53,27 @@ const Product = () => {
             ${response.address.city.country.name}`}</p>
           </section>
 
-          <SlideGallery images={response.images}/>
-
-          <div className='productGallery'>
-            <img src={response.images[0].url} alt="" />
-            <div className='grid'>
-              {response.images.slice(1,5).map(
-                image => <img src={image.url} alt="" key={image.id}/>)}
+          {response.images.length > 0 ?
+            <SlideGallery images={response.images}/>
+          : <img src={noImage} alt=""
+              className='onTablet onMobile sliderContainer'
+                style={{objectFit: 'cover'}}/>}
+          
+          
+          {response.images.length > 0 ?
+            <div className='productGallery'>
+              <img src={response.images[0].url} alt="" />
+              <div className='grid'>
+                {response.images.slice(1,5).map(
+                  image => <img src={image.url} alt="" key={image.id}/>)}
+              </div>
+              <button onClick={() => setShowCarousel(true)}>Ver galería</button>
             </div>
-            <button onClick={() => setShowCarousel(true)}>Ver galería</button>
-          </div>
-
+          : <div className='productGallery'>
+              <img src={noImage} alt=""/>
+              <div className='grid'></div>
+            </div>}
+              
           {showCarousel &&
             <Carousel
               images={response.images}
