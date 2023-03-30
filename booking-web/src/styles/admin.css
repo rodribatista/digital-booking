@@ -17,6 +17,17 @@
   cursor: pointer;
 }
 
+.adminSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.adminSection button {
+  width: 200px !important;
+  background-color: var(--dark);
+}
+
 .adminPage section {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext }  from '../../hooks/userContext'
+import { useUserContext }  from '../../hooks/userContext'
 
 import MobileNav from './MobileNav'
 
@@ -12,15 +12,8 @@ import '../../styles/header.css'
 
 const Header = () => {
 
-  const { userInfo, setUserInfo, fetchUserInfo } = useContext(UserContext)
+  const { userInfo, setUserInfo } = useUserContext()
   const [ showMobileNav, setShowMobileNav ] = useState(false)
-
-  useEffect(() =>{
-    const token = localStorage.getItem('token')
-    if (token) {
-      fetchUserInfo(token)
-    }
-  }, [])
 
   const handleCloseNav = () => {
     setShowMobileNav(false)}
@@ -58,6 +51,10 @@ const Header = () => {
       )}
       {userInfo && (
         <div className='onTablet onDesktop userLog'>
+          {userInfo.role.title !== 'USER' && 
+            <Link to="/admin" className='userRole'>
+              {userInfo.role.title}
+            </Link>}
           <div className='userProfile'>
             {userInfo.firstName[0].toUpperCase()+
             userInfo.lastName[0].toUpperCase()}

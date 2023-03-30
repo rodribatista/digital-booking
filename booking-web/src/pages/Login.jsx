@@ -1,6 +1,6 @@
-import React, { useState, useContext }from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserContext }  from '../hooks/userContext'
+import { useUserContext } from '../hooks/userContext'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
@@ -10,8 +10,8 @@ import '../styles/forms.css'
 
 const Login = () => {
 
-  const navigate = useNavigate();
-  const { fetchUserInfo } = useContext(UserContext)
+  const navigate = useNavigate()
+  const { fetchUserInfo } = useUserContext()
 
   const [ user, setUser ] = useState({
     email: '',

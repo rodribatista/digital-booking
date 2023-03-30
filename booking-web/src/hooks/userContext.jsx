@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
-export const UserContext = React.createContext()
+export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
 
@@ -18,6 +18,12 @@ export const UserProvider = ({ children }) => {
       alert(error.response))
   }
 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetchUserInfo(token)}
+  }, [])
+
   return (
     <UserContext.Provider value={{ userInfo, setUserInfo, fetchUserInfo }}>
       {children}
@@ -25,4 +31,4 @@ export const UserProvider = ({ children }) => {
   )
 }
 
-export const useUserContext = () => React.useContext(UserContext)
+export const useUserContext = () => useContext(UserContext)

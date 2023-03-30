@@ -43,9 +43,9 @@ root.render(
           <Route path='/products/:value/booking/success'
             element={<Success/>}/>
 
-          <Route path='/products/admin'
+          <Route path='/admin'
             element={<Admin/>}/>
-          <Route path='/products/admin/success'
+          <Route path='/admin/success'
             element={<Success/>}/>
 
         </Route>
