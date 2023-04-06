@@ -1,17 +1,21 @@
-import React, { useState }from 'react'
+import React, { useState, useRef }from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchData } from '../../utils/utils'
 import { endpoint } from '../../utils/utils'
 import axios from 'axios'
 
 import warning from '../../assets/icons/warning.svg'
+import atomo_delete from '../../assets/icons/atomo_close.svg'
 
 const categoriesData = fetchData(`${endpoint}/categories`)
 const citiesData = fetchData(`${endpoint}/cities`)
 const featuresData = fetchData(`${endpoint}/features`)
 
 const NewProduct = () => {
+
   const navigate = useNavigate()
+
+  const inputRef = useRef()
 
   const categories = categoriesData.read()
   const cities = citiesData.read()
@@ -73,8 +77,24 @@ const NewProduct = () => {
     }
   }
 
+  const addImage = (e) => {
+    e.preventDefault()
+    setProduct({
+      ...product,
+      images_url: [...product.images_url, inputRef.current.value]
+    })
+    inputRef.current.value = ''
+  }
+
+  const deleteImage = (imgUrl) => {
+    setProduct({
+      ...product,
+      images_url: product.images_url.filter(url => url !== imgUrl)
+    })
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <h3>Información</h3>
       <div className="contLine">
         <div className="contInputs">
@@ -142,7 +162,26 @@ const NewProduct = () => {
       <hr />
 
       <h3>Imágenes</h3>
-
+      
+        {product.images_url.length > 0 ?
+          <div id="contImages">
+            {product.images_url.map((url) => (
+            <div>
+              <img src={url} alt="" className='productImg'/>
+              <img src={atomo_delete} alt="" className='deleteProdImg'
+                onClick={() => deleteImage(url)}/>
+            </div>
+          ))}
+          </div>
+        : <label>No se han agregado imágenes</label>
+        }
+      
+      <div id='adminImages'>
+        <input type="text" id="image_url" name="image_url"
+          placeholder='Insertar url de la imagen' ref={inputRef}/>
+        <button onClick={addImage}>Agregar imagen</button>
+      </div>
+      
       <hr />
 
       {error && 
@@ -150,7 +189,7 @@ const NewProduct = () => {
           <img src={warning} alt="Icon error" />
           <error>{error}</error>
         </div>}
-      <button>Crear producto</button>
+      <button onClick={handleSubmit}>Crear producto</button>
     </form>
   )
 }

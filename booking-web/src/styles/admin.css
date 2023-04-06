@@ -101,6 +101,51 @@
   align-items: center;
 }
 
+#contImages {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+#contImages div {
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+
+#contImages div .productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#contImages div .deleteProdImg {
+  position: absolute;
+  width: 20px;
+  top: -8px;
+  right: -8px;
+  cursor: pointer;
+}
+
+#contImages label {
+  width: 100%;
+}
+
+#adminImages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#adminImages input {
+  width: 100%;
+}
+
+#adminImages button {
+  background-color: var(--secondary);
+}
+
 .adminPage button {
   align-self: center;
 }
@@ -115,8 +160,12 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  #contImages {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
   .adminPage button {
-    width: 50%;
+    width: 40%;
   }
 
 }
@@ -127,8 +176,20 @@
     grid-template-columns: repeat(4, 1fr);
   }
 
+  #contImages {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  #contImages div {
+    height: 125px;
+  }
+
+  #adminImages {
+    flex-direction: row;
+  }
+
   .adminPage button {
-    width: 30%;
+    width: 25%;
   }
 
 }
