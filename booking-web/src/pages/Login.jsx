@@ -36,7 +36,9 @@ const Login = () => {
       localStorage.setItem(
         'token', response.data.token)
       fetchUserInfo(response.data.token)
-      toast.success('Ingreso exitoso. Aguarde, pronto será redireccionado.')
+      toast.success('Ingreso exitoso. Aguarde, pronto será redireccionado.', {
+        id: 'successLogin',
+      })
       setTimeout(() => {
         if (location.state) {
           navigate(location.state.from, {
@@ -78,11 +80,11 @@ const Login = () => {
   return (
     <>
       <Toaster
-          position="top-center"
-          reverseOrder={true}
-          toastOptions={{
-            duration: 3000
-          }}/>
+        position="top-center"
+        reverseOrder={true}
+        toastOptions={{
+          duration: 3000
+        }}/>
       <form action='' className='forms' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='email'>Correo eléctronico</label>

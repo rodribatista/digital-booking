@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
@@ -38,8 +39,12 @@ const Signup = () => {
 
   const handleResponse = (response) => {
     if (response.status === 201) {
-      alert('Registro exitoso!')
-      navigate('/login')
+      toast.success('Registro exitoso. Aguarde, pronto será redireccionado.', {
+        id: 'successSignup',
+      })
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
     } else {
       setError(response.data)
     }
@@ -77,6 +82,12 @@ const Signup = () => {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={true}
+        toastOptions={{
+          duration: 3000
+        }}/>
       <form action='' className='forms' onSubmit={handleSubmit}>
         <div className='username'>
           <div>
