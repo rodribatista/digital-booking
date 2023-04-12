@@ -31,7 +31,8 @@ public class ProductService {
   public List<Product> getAllProductsRandom() {
     var randomList = productRepository.findAll();
     Collections.shuffle(randomList);
-    return randomList;
+    return randomList.stream()
+      .limit(4).toList();
   }
 
   public List<Product> getAllProductsHasCategory(Long id)
