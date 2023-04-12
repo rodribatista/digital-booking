@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { filterCities } from '../../utils/citiesList'
 
 import pointer from '../../assets/icons/pointer_outline.svg'
@@ -15,14 +15,9 @@ const CitiesList = ({
     setCitiesList(filterCities(cityValue, cities.response ? cities.response : []))
   }, [cityValue])
 
-  const stopPropagation = (e) => {
-    e.stopPropagation()
-    handleClick()
-  }
-
-  const handleClick = (e) => {
-    setCityId(e.target.value)
-    setCityValue(e.target.id)
+  const handleClick = (id, value) => {
+    setCityId(id)
+    setCityValue(value)
     setShowList(false)
   }
 
@@ -31,14 +26,16 @@ const CitiesList = ({
       {citiesList.length > 0 ?
         citiesList.slice(0,5).map((city) => (
           <li
-            key={city.id} id={city.name}
-            value={city.id}
-            onClick={handleClick}
+            key={city.id}
+            onClick={() => handleClick(city.id, city.name)}
           >
-            <img src={pointer} alt='' onClick={(stopPropagation)}/>
-            <div onClick={stopPropagation}>
-              <p onClick={stopPropagation}>{city.name}</p>
-              <span onClick={stopPropagation}>{city.country.name}</span>
+            <img src={pointer} alt=''
+              onClick={() => handleClick(city.id, city.name)}/>
+            <div onClick={() => handleClick(city.id, city.name)}>
+              <p onClick={() => handleClick(city.id, city.name)}>
+                {city.name}</p>
+              <span onClick={() => handleClick(city.id, city.name)}>
+                {city.country.name}</span>
             </div>
           </li>
         )) :
