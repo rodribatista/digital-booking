@@ -48,7 +48,7 @@ const SearchBar = () => {
 
   return (
     <section className="searchBar">
-      <h2>Busca ofertas en hoteles, casas y mucho más</h2>
+      <h2>Busca alojamientos para relajarte o vivir aventuras</h2>
       <form onSubmit={handleSubmit}>
         <div className='searchBar-input'>
           <div>

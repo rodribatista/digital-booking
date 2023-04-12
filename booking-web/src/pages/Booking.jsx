@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { UserContext } from '../hooks/userContext'
+import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
@@ -18,7 +19,6 @@ const Booking = () => {
   const location = useLocation()
   const { userInfo } = useContext(UserContext)
 
-  // aca tengo que controlar la navegacion para que cuando el usuario se loguee vuelva a esta pagina
   useEffect(() => {
     if (!userInfo) {
       navigate('/login',
@@ -45,8 +45,10 @@ const Booking = () => {
     if (response.status === 201) {
       navigate('success',
         { state: { from: 'booking' }})
+    } else if (response.status === 403) {
+      toast.error('No tienes permisos para realizar una reserva')
     } else {
-      alert(response.data)
+      toast.error(response.data)
     }
   }
 
@@ -67,18 +69,19 @@ const Booking = () => {
       .catch(error =>
         handleResponse(error.response))
     } else {
-      alert('Por favor, completa todos los campos')
+      toast.error('Por favor, completa todos los campos')
     }
-  }
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    navigate(`/products/${e.target.value}`,
-      { state: { id: e.target.id }})
   }
 
   return (
     <div className='bookingPage'>
+
+      <Toaster
+        position="top-center"
+        reverseOrder={true}
+        toastOptions={{
+          duration: 3000
+        }}/>
 
       <ProductHeader product={state.product}/>
 
