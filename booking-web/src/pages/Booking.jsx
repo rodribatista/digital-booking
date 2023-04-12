@@ -10,6 +10,7 @@ import { CalendarMobile, CalendarDesktop } from '../components/booking/Calendar'
 
 import calendar from '../assets/icons/calendar.svg'
 import pointer from '../assets/icons/pointer_solid.svg'
+import noImage from '../assets/images/no-image.png'
 
 import '../styles/booking.css'
 
@@ -39,6 +40,14 @@ const Booking = () => {
   const handleFetchDate = (date) => {
     return date.toLocaleDateString("es-CL")
       .split("-").reverse().join("-")
+  }
+
+  const handleImage = (images) => {
+    if (images[0]) {
+      return images[0].url
+    } else {
+      return noImage
+    }
   }
 
   const handleResponse = (response) => {
@@ -150,7 +159,7 @@ const Booking = () => {
         <section className='bookingInfo'>
           <h2>Detalles de la reserva</h2>
           <div>
-            <img src={state.product.images[0].url} alt="" 
+            <img src={handleImage(state.product.images)} alt="" 
               className='productCardImage'/>
             <div className='bookingInfoContainer'>
               <div className='productCardInfo'>
