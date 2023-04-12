@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useFetch from '../../hooks/useFetch'
+import { endpoint } from '../../utils/utils'
 
 import CitiesList from '../searchBar/CitiesList'
 import { CalendarMobile, CalendarDesktop } from '../searchBar/Calendar'
@@ -16,6 +18,8 @@ const SearchBar = () => {
 
   const [showCitiesList, setShowCitiesList] = useState(false)
   const [showCalendar, setShowCalendar] = useState(false)
+
+  const cities = useFetch(`${endpoint}/cities`)
 
   const [cityId, setCityId] = useState('') 
   const [cityValue, setCityValue] = useState('') 
@@ -63,6 +67,7 @@ const SearchBar = () => {
               onClick={() => setCityValue('')}/>}
           </div>
           {showCitiesList && <CitiesList
+            cities={cities}
             cityValue={cityValue}
             setCityValue={setCityValue}
             setCityId={setCityId}

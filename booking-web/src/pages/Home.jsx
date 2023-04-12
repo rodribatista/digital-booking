@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { fetchData } from '../utils/utils'
+import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
 
 import SearchBar from '../components/general/SearchBar'
@@ -9,13 +9,10 @@ import ProductCard from '../components/general/ProductCard'
 
 import '../styles/home.css'
 
-const categoriesData = fetchData(`${endpoint}/categories`)
-const productsData = fetchData(`${endpoint}/products/random`)
-
 const Home = () => {
-
-  const categories = categoriesData.read()
-  const products = productsData.read()
+  
+  const categories = useFetch(`${endpoint}/categories`)
+  const products = useFetch(`${endpoint}/products/random`)
 
   return (
     <>
@@ -24,25 +21,23 @@ const Home = () => {
         <section className='container categories'>
           <h2>Buscar por tipo de alojamiento</h2>
           <div className='categories-grid'>
-            <Suspense fallback={<div>Cargando categorías...</div>}>
-              {categories?.slice(0,4).map(
-                category =>
-                  <Link key={category.id} to={`/products/category/${category.title}`}
-                    state={{ id: category.id }}>
-                    <CategoryCard key={category.id} category={category}/>
-                  </Link>
-              )}
-            </Suspense>
+            {categories.loading && <h2>Cargando datos...</h2>}
+            {categories.response?.slice(0,4).map(
+              category =>
+                <Link key={category.id} to={`/products/category/${category.title}`}
+                  state={{ id: category.id }}>
+                  <CategoryCard key={category.id} category={category}/>
+                </Link>
+            )}
           </div>
         </section>
         <section className='container products'>
           <h2>Recomendaciones</h2>
           <div className='products-grid'>
-            <Suspense fallback={<div>Cargando productos...</div>}>
-              {products?.map(
-                product => <ProductCard key={product.id} product={product}/>
-              )}
-            </Suspense>
+            {products.loading && <h2>Cargando datos...</h2>}
+            {products.response?.map(
+              product => <ProductCard key={product.id} product={product}/>
+            )}
           </div>
         </section>
       </main>

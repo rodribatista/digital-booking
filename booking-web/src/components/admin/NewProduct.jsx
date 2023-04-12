@@ -1,25 +1,21 @@
 import React, { useState, useRef }from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchData } from '../../utils/utils'
+import useFetch from '../../hooks/useFetch'
 import { endpoint } from '../../utils/utils'
 import axios from 'axios'
 
 import warning from '../../assets/icons/warning.svg'
 import atomo_delete from '../../assets/icons/atomo_close.svg'
 
-const categoriesData = fetchData(`${endpoint}/categories`)
-const citiesData = fetchData(`${endpoint}/cities`)
-const featuresData = fetchData(`${endpoint}/features`)
-
 const NewProduct = () => {
-
+  
   const navigate = useNavigate()
 
   const inputRef = useRef()
 
-  const categories = categoriesData.read()
-  const cities = citiesData.read()
-  const features = featuresData.read()
+  const categories = useFetch(`${endpoint}/categories`)
+  const cities = useFetch(`${endpoint}/cities`)
+  const features = useFetch(`${endpoint}/features`)
 
   const [ product, setProduct ] = useState({
     title: '',
@@ -107,7 +103,7 @@ const NewProduct = () => {
             <option value={null} selected>
               Seleccionar una categoría
             </option>
-            {categories.map((category) => (
+            {categories.response?.map((category) => (
               <option value={category.id}>{category.title}</option>
             ))}
           </select>
@@ -128,7 +124,7 @@ const NewProduct = () => {
             <option value={null} selected>
               Seleccionar una ciudad
             </option>
-            {cities.map((city) => (
+            {cities.response?.map((city) => (
               <option value={city.id}>
                 {city.name}, {city.country.code}
               </option>
@@ -145,7 +141,7 @@ const NewProduct = () => {
 
       <h3>Características</h3>
       <div id="contFeatures">
-        {features.map((feature) => (
+        {features.response?.map((feature) => (
           <div>
             <input
               type="checkbox"

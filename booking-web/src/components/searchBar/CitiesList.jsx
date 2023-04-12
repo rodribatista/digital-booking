@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { fetchData } from '../../utils/utils'
-import { endpoint } from '../../utils/utils'
 import { filterCities } from '../../utils/citiesList'
 
 import pointer from '../../assets/icons/pointer_outline.svg'
 
 import '../../styles/citiesList.css'
 
-const citiesData = fetchData(`${endpoint}/cities`)
 
 const CitiesList = ({
-  cityValue, setCityValue, setCityId, setShowList}) => {
+  cities, cityValue, setCityValue, setCityId, setShowList}) => {
   
-  const cities = citiesData.read()
-  const [citiesList, setCitiesList] = useState(cities ? cities : [])
+  const [citiesList, setCitiesList] = useState(cities.response ? cities.response : [])
 
   useEffect(()=>{
-    setCitiesList(filterCities(cityValue, cities ? cities : []))
-  }, [cities, cityValue])
+    setCitiesList(filterCities(cityValue, cities.response ? cities.response : []))
+  }, [cityValue])
 
   const stopPropagation = (e) => {
     e.stopPropagation()
