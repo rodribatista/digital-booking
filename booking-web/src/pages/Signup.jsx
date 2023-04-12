@@ -39,12 +39,10 @@ const Signup = () => {
 
   const handleResponse = (response) => {
     if (response.status === 201) {
-      toast.success('Registro exitoso. Aguarde, pronto será redireccionado.', {
+      toast.success('Registro exitoso. Ahora puede iniciar sesión.', {
         id: 'successSignup',
       })
-      setTimeout(() => {
-        navigate('/login')
-      }, 2000)
+      navigate('/login')
     } else {
       setError(response.data)
     }

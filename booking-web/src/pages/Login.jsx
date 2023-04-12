@@ -36,18 +36,18 @@ const Login = () => {
       localStorage.setItem(
         'token', response.data.token)
       fetchUserInfo(response.data.token)
-      toast.success('Ingreso exitoso. Aguarde, pronto será redireccionado.', {
+      toast.success(`Inicio de sesión exitoso. Que gusto tenerte devuelta!`, {
         id: 'successLogin',
       })
-      setTimeout(() => {
-        if (location.state) {
-          navigate(location.state.from, {
-            state: { product: location.state.product }
-          })
-        } else {
-          navigate('/')
-        }
-      }, 2000)
+      if (location.state) {
+        console.log('navegar')
+        navigate(location.state.from, {
+          state: { product: location.state.product }
+        })
+      } else {
+        console.log('navegar')
+        navigate('/')
+      }
     } else if (response.status === 401) {
       setError('Credenciales invalidas. Intente nuevamente.')
     } else  {

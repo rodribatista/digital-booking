@@ -13,20 +13,19 @@ import '../../styles/header.css'
 
 const Header = () => {
 
-  const { userInfo, setUserInfo } = useUserContext()
+  const { userInfo } = useUserContext()
   const [ showMobileNav, setShowMobileNav ] = useState(false)
 
   const handleCloseNav = () => {
     setShowMobileNav(false)}
 
   const handleLogOut = () => {
-    setUserInfo(null)
     localStorage.removeItem('token')
     if (!localStorage.getItem('token')) {
-      toast.success('Se ha cerrado su sesión con éxito')
+      toast.success('Se ha cerrado su sesión con éxito. Aguarde un momento...')
     setTimeout(() => {
       window.location.reload()
-    }, 2000)
+    }, 1500)
     }
   }
 
