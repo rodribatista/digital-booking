@@ -4,6 +4,7 @@ import useFetch from '../hooks/useFetch'
 import { endpoint } from '../utils/utils'
 
 import ProductCard from '../components/general/ProductCard'
+import SkeletonProductCard from '../components/skeleton/SkeletonProductCard'
 
 const Catalog = ({type}) => {
 
@@ -46,22 +47,31 @@ const Catalog = ({type}) => {
   const { response, error, loading } = useFetch(urlFetch)
   
   return (
-    <>
-      {loading && <h2>Cargando datos...</h2>}
+    <main>
+      <section className='container products'>
+      {loading && 
+        <>
+          <h2>Cargando resultados...</h2>
+          <div className='products-grid'>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonProductCard key={index} />
+            ))}
+          </div>
+        </>
+      }
       {error && <h2>{error.message}</h2>}
       {response != null &&
-      <main>
-        <section className='container products'>
+        <>
           <h2>Resultados para {filter}</h2>
           <div className='products-grid'>
             {response?.length > 0 ? response?.map(
               product => <ProductCard key={product.id} product={product}/>
             ) : <p>No hay resultados para esta búsqueda</p>}
           </div>
-        </section>
-      </main>
+        </>
       }
-    </>
+      </section>
+    </main>
   )
 }
 
