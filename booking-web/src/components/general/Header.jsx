@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useUserContext }  from '../../hooks/userContext'
+import toast, { Toaster } from 'react-hot-toast'
 
 import MobileNav from './MobileNav'
 
@@ -21,11 +22,17 @@ const Header = () => {
   const handleLogOut = () => {
     localStorage.removeItem('token')
     setUserInfo(null)
-    alert('Cierre de sesión exitoso!')
+    toast.success('Ha cerrado su sesión con éxito')
   }
 
   return (
     <header>
+      <Toaster
+          position="top-center"
+          reverseOrder={true}
+          toastOptions={{
+            duration: 4000
+          }}/>
       <Link to="/" className="logo">
         <img src={logo} alt="Logo Digital Booking" />
       </Link>

@@ -15,13 +15,15 @@ import '../styles/booking.css'
 const Booking = () => {
 
   const navigate = useNavigate()
+  const location = useLocation()
   const { userInfo } = useContext(UserContext)
 
   // aca tengo que controlar la navegacion para que cuando el usuario se loguee vuelva a esta pagina
   useEffect(() => {
     if (!userInfo) {
       navigate('/login',
-        { state: { from: '/booking' }})
+        { state: { from: location.pathname, 
+          product: location.state.product}})
   }}, [])
 
   const { state } = useLocation()

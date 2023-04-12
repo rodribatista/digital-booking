@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useUserContext } from '../hooks/userContext'
+import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import { endpoint } from '../utils/utils'
 
@@ -9,6 +10,16 @@ import warning from '../assets/icons/warning.svg'
 import '../styles/forms.css'
 
 const Login = () => {
+
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.state && location.state.from.includes('/booking')) {
+      toast.error('Debes estar logueado para poder realizar una reserva', {
+        id: 'loginError',
+      })
+    }
+  }, [])
 
   const navigate = useNavigate()
   const { fetchUserInfo } = useUserContext()
@@ -25,8 +36,16 @@ const Login = () => {
       localStorage.setItem(
         'token', response.data.token)
       fetchUserInfo(response.data.token)
-      alert('Ingreso exitoso!')
-      navigate('/')
+      toast.success('Ingreso exitoso. Aguarde, pronto será redireccionado.')
+      setTimeout(() => {
+        if (location.state) {
+          navigate(location.state.from, {
+            state: { product: location.state.product }
+          })
+        } else {
+          navigate('/')
+        }
+      }, 2000)
     } else if (response.status === 401) {
       setError('Credenciales invalidas. Intente nuevamente.')
     } else  {
@@ -58,6 +77,12 @@ const Login = () => {
 
   return (
     <>
+      <Toaster
+          position="top-center"
+          reverseOrder={true}
+          toastOptions={{
+            duration: 3000
+          }}/>
       <form action='' className='forms' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='email'>Correo eléctronico</label>
