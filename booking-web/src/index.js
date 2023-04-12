@@ -12,6 +12,7 @@ import Product from './pages/Product'
 import Booking from './pages/Booking'
 import Success from './pages/Success'
 import Admin from './pages/Admin'
+import Profile from './pages/Profile'
 
 import './styles/index.css'
 
@@ -47,6 +48,9 @@ root.render(
             element={<Admin/>}/>
           <Route path='/admin/success'
             element={<Success/>}/>
+
+          <Route path='/profile'
+            element={<Profile/>}/>
 
         </Route>
       </Routes>

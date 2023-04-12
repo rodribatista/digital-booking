@@ -42,10 +42,15 @@ const MobileNav = ({userInfo, handleCloseNav, handleLogOut}) => {
         {userInfo && (
           <>
             <nav>
-            {userInfo.role.title !== 'USER' && 
+            {userInfo.role.title === 'ADMIN' && 
               <Link to="/admin" className='userRole'
                 onClick={handleCloseNav}>
                 Administración
+              </Link>}
+            {userInfo.role.title === 'USER' && 
+              <Link to="/profile" className='userRole'
+                onClick={handleCloseNav}>
+                Mi perfil
               </Link>}
             </nav>
             <p className='closeLog'>

@@ -17,22 +17,24 @@
   cursor: pointer;
 }
 
+.adminPage {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 15px 5%;
+}
+
 .adminSection {
   display: flex;
+  width: 100%;
+  margin-top: 20px;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .adminSection button {
-  width: 200px !important;
+  width: 100px !important;
   background-color: var(--dark);
-}
-
-.adminPage section {
-  display: flex;
-  flex-direction: column;
-  padding: 15px 5%;
-  gap: 10px;
 }
 
 .adminPage section > form {

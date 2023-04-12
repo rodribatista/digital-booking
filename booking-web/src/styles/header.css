@@ -67,7 +67,6 @@ header .userProfile {
 header .userRole {
   padding-right: 10px;
   font-size: .8rem;
-  font-weight: bold;
   color: var(--primary);
   border-right: solid 2px var(--secondary);
 }

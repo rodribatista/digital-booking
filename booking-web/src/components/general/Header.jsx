@@ -63,9 +63,13 @@ const Header = () => {
       )}
       {userInfo && (
         <div className='onTablet onDesktop userLog'>
-          {userInfo.role.title !== 'USER' && 
+          {userInfo.role.title === 'ADMIN' && 
             <Link to="/admin" className='userRole'>
               Administración
+            </Link>}
+          {userInfo.role.title === 'USER' && 
+            <Link to="/profile" className='userRole'>
+              Mi perfil
             </Link>}
           <div className='userProfile'>
             {userInfo.firstName[0].toUpperCase()+
