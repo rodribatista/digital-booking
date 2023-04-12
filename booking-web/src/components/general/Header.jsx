@@ -20,9 +20,14 @@ const Header = () => {
     setShowMobileNav(false)}
 
   const handleLogOut = () => {
-    localStorage.removeItem('token')
     setUserInfo(null)
-    toast.success('Ha cerrado su sesión con éxito')
+    localStorage.removeItem('token')
+    if (!localStorage.getItem('token')) {
+      toast.success('Se ha cerrado su sesión con éxito')
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000)
+    }
   }
 
   return (
@@ -60,7 +65,7 @@ const Header = () => {
         <div className='onTablet onDesktop userLog'>
           {userInfo.role.title !== 'USER' && 
             <Link to="/admin" className='userRole'>
-              {userInfo.role.title}
+              Administración
             </Link>}
           <div className='userProfile'>
             {userInfo.firstName[0].toUpperCase()+

@@ -40,9 +40,18 @@ const MobileNav = ({userInfo, handleCloseNav, handleLogOut}) => {
           </nav>
         )}
         {userInfo && (
-          <p className='closeLog'>
-            ¿Deseas<span onClick={handleLogOut}> cerrar sesión</span>?
-          </p>
+          <>
+            <nav>
+            {userInfo.role.title !== 'USER' && 
+              <Link to="/admin" className='userRole'
+                onClick={handleCloseNav}>
+                Administración
+              </Link>}
+            </nav>
+            <p className='closeLog'>
+              ¿Deseas<span onClick={handleLogOut}> cerrar sesión</span>?
+            </p>
+          </>
         )}
       </div>
       <div className='mobileNav-footer'>
