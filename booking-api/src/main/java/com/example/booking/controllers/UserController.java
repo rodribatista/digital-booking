@@ -71,7 +71,7 @@ public class UserController {
   }
 
   @Transactional
-  @PutMapping("/{id}")
+  @PutMapping
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> updateUser(
     @RequestHeader String Authorization,
@@ -85,7 +85,7 @@ public class UserController {
   }
 
   @Transactional
-  @PutMapping("/{id}/email")
+  @PutMapping("/email")
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> updateUserEmail(
     @RequestHeader String Authorization,
@@ -99,7 +99,7 @@ public class UserController {
   }
 
   @Transactional
-  @PutMapping("/{id}/pass")
+  @PutMapping("/password")
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<String> updateUserPassword(
     @RequestHeader String Authorization,
@@ -113,7 +113,7 @@ public class UserController {
       .body("Contraseña actualizada correctamente");
   }
 
-  @DeleteMapping ("/{id}")
+  @DeleteMapping
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<User> deleteUser(
     @RequestHeader String Authorization
