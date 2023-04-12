@@ -36,82 +36,86 @@ const Product = () => {
   }
 
   return (
-    <>
-      {loading && <h2>Cargando datos...</h2>}
-      {error && <h2>{error.message}</h2>}
-      {response != null &&
-        <div className='productPage'>
+    <main style={{padding: '0'}}>
+      <div className='productPage'>
+        {loading && 
+          <section>
+            <h2 style={{border: 'none'}}>
+              Cargando datos...</h2>
+          </section>}
+        {error && <h2>{error.message}</h2>}
+        {response != null &&
+          <>
+            <ProductHeader product={response}/>
 
-          <ProductHeader product={response}/>
+            <section className='productLocation'>
+              <img src={pointer} alt="Icono de ubicación"
+                className='icons'/>
+              <p>{`${response.address.street} 
+              ${response.address.number} - 
+              ${response.address.city.name}, 
+              ${response.address.city.country.name}`}</p>
+            </section>
 
-          <section className='productLocation'>
-            <img src={pointer} alt="Icono de ubicación"
-              className='icons'/>
-            <p>{`${response.address.street} 
-            ${response.address.number} - 
-            ${response.address.city.name}, 
-            ${response.address.city.country.name}`}</p>
-          </section>
-
-          {response.images.length > 0 ?
-            <SlideGallery images={response.images}/>
-          : <img src={noImage} alt=""
-              className='onTablet onMobile sliderContainer'
-                style={{objectFit: 'cover'}}/>}
-          
-          
-          {response.images.length > 0 ?
-            <div className='productGallery'>
-              <img src={response.images[0].url} alt="" />
-              <div className='grid'>
-                {response.images.slice(1,5).map(
-                  image => <img src={image.url} alt="" key={image.id}/>)}
+            {response.images.length > 0 ?
+              <SlideGallery images={response.images}/>
+            : <img src={noImage} alt=""
+                className='onTablet onMobile sliderContainer'
+                  style={{objectFit: 'cover'}}/>}
+            
+            
+            {response.images.length > 0 ?
+              <div className='productGallery'>
+                <img src={response.images[0].url} alt="" />
+                <div className='grid'>
+                  {response.images.slice(1,5).map(
+                    image => <img src={image.url} alt="" key={image.id}/>)}
+                </div>
+                <button onClick={() => setShowCarousel(true)}>Ver galería</button>
               </div>
-              <button onClick={() => setShowCarousel(true)}>Ver galería</button>
-            </div>
-          : <div className='productGallery'>
-              <img src={noImage} alt=""/>
-              <div className='grid'></div>
-            </div>}
-              
-          {showCarousel &&
-            <Carousel
-              images={response.images}
-              setShowCarousel={setShowCarousel}/>}
+            : <div className='productGallery'>
+                <img src={noImage} alt=""/>
+                <div className='grid'></div>
+              </div>}
+                
+            {showCarousel &&
+              <Carousel
+                images={response.images}
+                setShowCarousel={setShowCarousel}/>}
 
-          <section className='productDescription'>
-            <h2>Alojate con nosotros en {response.address.city.name}</h2>
-            <p>{response.description}</p>
-          </section>
+            <section className='productDescription'>
+              <h2>Alojate con nosotros en {response.address.city.name}</h2>
+              <p>{response.description}</p>
+            </section>
 
-          <section className='productFeatures'>
-            <h2>¿Qué ofrece este lugar?</h2>
-            <ul>
-              {response.features.map(feature => (
-                <li key={feature.id}>
-                  <img src={getIcon(feature.id)} alt=""
-                    className='icons'/>
-                  <p>{feature.title}</p>
-                </li>
-                ))}
-            </ul>
-          </section>
+            <section className='productFeatures'>
+              <h2>¿Qué ofrece este lugar?</h2>
+              <ul>
+                {response.features.map(feature => (
+                  <li key={feature.id}>
+                    <img src={getIcon(feature.id)} alt=""
+                      className='icons'/>
+                    <p>{feature.title}</p>
+                  </li>
+                  ))}
+              </ul>
+            </section>
 
-          <section className='productDates'>
-            <h2>Fechas disponibles</h2>
-            <div>
-              <CalendarMobile bookings={bookings?.response}/>
-              <CalendarDesktop bookings={bookings?.response}/>
-              <div className='startBooking'>
-                <p>Agregá tus fechas para obtener precios exactos</p>
-                <button onClick={handleClick}>Iniciar reserva</button>
+            <section className='productDates'>
+              <h2>Fechas disponibles</h2>
+              <div>
+                <CalendarMobile bookings={bookings?.response}/>
+                <CalendarDesktop bookings={bookings?.response}/>
+                <div className='startBooking'>
+                  <p>Agregá tus fechas para obtener precios exactos</p>
+                  <button onClick={handleClick}>Iniciar reserva</button>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-        </div>
-      }
-    </>
+        </>}
+      </div>
+    </main>
   )
 }
 
