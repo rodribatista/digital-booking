@@ -13,12 +13,12 @@ const SkeletonCategory = () => {
       <div
         style={{
           width: '100%',
-          height: '65%',
+          height: '150px',
           backgroundColor: '#f0f0f0',
         }}>
       </div>
       <div style={{
-        height: '35%',
+        height: '50px',
         gap: '10px',
       }}>
         <div

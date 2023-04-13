@@ -22,7 +22,9 @@ const Carousel = ({images, setShowCarousel}) => {
         {currentImg < images.length - 1 &&
         <img src={goNext} alt="" className='carouselIcon carouselGoNext'
           onClick={() => setCurrentImg(currentImg + 1)}/>}
-        <p>{`${currentImg + 1} / ${images.length}`}</p>
+        <div className='carouselInfo'>
+          <p>{`${currentImg + 1} / ${images.length}`}</p>
+        </div>
       </div>
     </div>
   )

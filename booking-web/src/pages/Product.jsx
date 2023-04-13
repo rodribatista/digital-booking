@@ -107,7 +107,7 @@ const Product = () => {
                 <CalendarMobile bookings={bookings?.response}/>
                 <CalendarDesktop bookings={bookings?.response}/>
                 <div className='startBooking'>
-                  <p>Agregá tus fechas para obtener precios exactos</p>
+                  <p>Realizá una reserva ahora, asegurá tu estadía</p>
                   <button onClick={handleClick}>Iniciar reserva</button>
                 </div>
               </div>

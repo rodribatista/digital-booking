@@ -29,7 +29,7 @@ const ProductCard = ({product}) => {
   return (
     <div className='productCard'>
       <div className='productCardImage'>
-        <img src={fav} alt="" className='icons fav'/>
+        {/* <img src={fav} alt="" className='icons fav'/> */}
         <img className='productImg' src={handleImage(product.images)} alt="" />
       </div>
       <div className='productCardInfo'>
