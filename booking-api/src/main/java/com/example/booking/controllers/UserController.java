@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping("${endpoint}/users")
 @Controller

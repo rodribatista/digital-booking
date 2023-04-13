@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping("${endpoint}/features")
 @Controller
