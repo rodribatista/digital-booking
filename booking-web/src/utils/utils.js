@@ -1,4 +1,4 @@
-export const endpoint = 'http://15.228.58.7:8080/api/v1.0'
+export const endpoint = 'http://18.230.184.65:8080/api/v1.0'
 
 export const getBookings = (array) => {
   if (array)
