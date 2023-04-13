@@ -1,4 +1,4 @@
-USE `booking_hotel`;
+USE `digitalbooking_db`;
 
 -- -----------------------------------------------------
 -- Table `categories`

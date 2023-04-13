@@ -3,15 +3,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema booking_hotel
+-- Schema digitalbooking_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `booking_hotel` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `booking_hotel` ;
+CREATE SCHEMA IF NOT EXISTS `digitalbooking_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `digitalbooking_db` ;
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`countries`
+-- Table `digitalbooking_db`.`countries`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`countries` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`countries` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(2) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
@@ -24,9 +24,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`cities`
+-- Table `digitalbooking_db`.`cities`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`cities` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`cities` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `country_id` BIGINT NOT NULL,
@@ -35,16 +35,16 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`cities` (
   INDEX `FK6gatmv9dwedve82icy8wrkdmk` (`country_id` ASC) VISIBLE,
   CONSTRAINT `FK6gatmv9dwedve82icy8wrkdmk`
     FOREIGN KEY (`country_id`)
-    REFERENCES `booking_hotel`.`countries` (`id`))
+    REFERENCES `digitalbooking_db`.`countries` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`addresses`
+-- Table `digitalbooking_db`.`addresses`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`addresses` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`addresses` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `number` VARCHAR(10) NOT NULL,
   `street` VARCHAR(100) NOT NULL,
@@ -53,16 +53,16 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`addresses` (
   INDEX `FK9fkb8qaj71tiyr9htkmn7r8y5` (`city_id` ASC) VISIBLE,
   CONSTRAINT `FK9fkb8qaj71tiyr9htkmn7r8y5`
     FOREIGN KEY (`city_id`)
-    REFERENCES `booking_hotel`.`cities` (`id`))
+    REFERENCES `digitalbooking_db`.`cities` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`roles`
+-- Table `digitalbooking_db`.`roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`roles` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`roles` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`),
@@ -73,9 +73,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`users`
+-- Table `digitalbooking_db`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`users` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`users` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(50) NOT NULL,
   `first_name` VARCHAR(50) NOT NULL,
@@ -87,16 +87,16 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`users` (
   INDEX `FKp56c1712k691lhsyewcssf40f` (`role_id` ASC) VISIBLE,
   CONSTRAINT `FKp56c1712k691lhsyewcssf40f`
     FOREIGN KEY (`role_id`)
-    REFERENCES `booking_hotel`.`roles` (`id`))
+    REFERENCES `digitalbooking_db`.`roles` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`categories`
+-- Table `digitalbooking_db`.`categories`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`categories` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`categories` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(250) NULL DEFAULT NULL,
   `image_url` VARCHAR(250) NOT NULL,
@@ -109,9 +109,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`products`
+-- Table `digitalbooking_db`.`products`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`products` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`products` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `availability` BIT(1) NULL DEFAULT NULL,
   `description` VARCHAR(1250) NULL DEFAULT NULL,
@@ -123,19 +123,19 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`products` (
   INDEX `FKog2rp4qthbtt2lfyhfo32lsw9` (`category_id` ASC) VISIBLE,
   CONSTRAINT `FK5x0dxcwl286wp420yw1vhdxy7`
     FOREIGN KEY (`address_id`)
-    REFERENCES `booking_hotel`.`addresses` (`id`),
+    REFERENCES `digitalbooking_db`.`addresses` (`id`),
   CONSTRAINT `FKog2rp4qthbtt2lfyhfo32lsw9`
     FOREIGN KEY (`category_id`)
-    REFERENCES `booking_hotel`.`categories` (`id`))
+    REFERENCES `digitalbooking_db`.`categories` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`bookings`
+-- Table `digitalbooking_db`.`bookings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`bookings` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`bookings` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `arrived_time` TIME NOT NULL,
   `date_checkin` DATE NOT NULL,
@@ -147,19 +147,19 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`bookings` (
   INDEX `FKeyog2oic85xg7hsu2je2lx3s6` (`user_id` ASC) VISIBLE,
   CONSTRAINT `FKeyog2oic85xg7hsu2je2lx3s6`
     FOREIGN KEY (`user_id`)
-    REFERENCES `booking_hotel`.`users` (`id`),
+    REFERENCES `digitalbooking_db`.`users` (`id`),
   CONSTRAINT `FKlmdmerb98p3rhxcmvc9iunj2d`
     FOREIGN KEY (`product_id`)
-    REFERENCES `booking_hotel`.`products` (`id`))
+    REFERENCES `digitalbooking_db`.`products` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`features`
+-- Table `digitalbooking_db`.`features`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`features` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`features` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`),
@@ -170,9 +170,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`images`
+-- Table `digitalbooking_db`.`images`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`images` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`images` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `url` VARCHAR(250) NOT NULL,
   `product_id` BIGINT NULL DEFAULT NULL,
@@ -180,26 +180,26 @@ CREATE TABLE IF NOT EXISTS `booking_hotel`.`images` (
   INDEX `FKghwsjbjo7mg3iufxruvq6iu3q` (`product_id` ASC) VISIBLE,
   CONSTRAINT `FKghwsjbjo7mg3iufxruvq6iu3q`
     FOREIGN KEY (`product_id`)
-    REFERENCES `booking_hotel`.`products` (`id`))
+    REFERENCES `digitalbooking_db`.`products` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `booking_hotel`.`product_has_features`
+-- Table `digitalbooking_db`.`product_has_features`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `booking_hotel`.`product_has_features` (
+CREATE TABLE IF NOT EXISTS `digitalbooking_db`.`product_has_features` (
   `product_id` BIGINT NOT NULL,
   `feature_id` BIGINT NOT NULL,
   INDEX `FKatvj5n2g0scsy3w62lc3pk8rg` (`feature_id` ASC) VISIBLE,
   INDEX `FKhkps2og9oos7tqyehfgxq3r74` (`product_id` ASC) VISIBLE,
   CONSTRAINT `FKatvj5n2g0scsy3w62lc3pk8rg`
     FOREIGN KEY (`feature_id`)
-    REFERENCES `booking_hotel`.`features` (`id`),
+    REFERENCES `digitalbooking_db`.`features` (`id`),
   CONSTRAINT `FKhkps2og9oos7tqyehfgxq3r74`
     FOREIGN KEY (`product_id`)
-    REFERENCES `booking_hotel`.`products` (`id`))
+    REFERENCES `digitalbooking_db`.`products` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

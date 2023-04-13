@@ -1,5 +1,6 @@
 #LOCAL
 application-local.properties
+application-prod.properties
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,intellij,visualstudiocode,git,osx,windows,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,intellij,visualstudiocode,git,osx,windows,maven
