@@ -1,6 +1,9 @@
 import React, { useEffect, useState }from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext }  from '../hooks/userContext'
+import toast, { Toaster } from 'react-hot-toast'
+import axios from 'axios'
+import { endpoint } from '../utils/utils'
 
 import UserProfile from '../components/admin/UserProfile'
 import UserBooking from '../components/admin/UserBooking'
@@ -13,19 +16,37 @@ const Admin = () => {
 
   const { userInfo } = useUserContext()
   const navigate = useNavigate()
-  
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/')
-    if (userInfo && userInfo.role !== 'user') {
-      navigate('/')}
-  }}, [])
 
+  const [bookings, setBookings] = useState(null)
   const [showProfile, setShowProfile] = useState(false)
   const [showBooking, setShowBooking] = useState(false)
+  
+  const fetchBookings = () => {
+    axios.get(`${endpoint}/bookings/filter/users`,
+      { headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}` }})
+      .then (res =>
+        setBookings(res.data))
+      .catch (err =>
+        toast.error('Ha ocurrido un error al cargar las reservas del usuario')
+        , { id: 'errorBookings' })
+  }
+  useEffect(() => {
+    if (userInfo && userInfo.role.title === 'USER') {
+      fetchBookings()
+    } else {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={true}
+        toastOptions={{
+          duration: 3000
+        }}/>
       <div className='adminHeader'>
         <h1>Mi perfil</h1>
         <img src={goback} alt="Flecha para volver atras"
@@ -51,7 +72,9 @@ const Admin = () => {
                 {showBooking ? 'Ocultar' : 'Mostrar'}
               </button>
           </section>
-          {showBooking && <UserBooking/>}
+          {showBooking && <UserBooking
+            bookings={bookings}
+            fetchBookings={fetchBookings}/>}
       </main>
     </>
   )

@@ -152,6 +152,12 @@
   align-self: center;
 }
 
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 25px;
+}
+
 @media (min-width: 540px) {
 
   .adminPage .contLine {
@@ -192,6 +198,18 @@
 
   .adminPage button {
     width: 25%;
+  }
+
+  .bookings-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (min-width: 1600px) {
+  
+  .bookings-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
 }

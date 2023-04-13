@@ -16,7 +16,7 @@ const Admin = () => {
   useEffect(() => {
     if (!userInfo) {
       navigate('/')
-    if (userInfo && userInfo.role !== 'admin') {
+    if (userInfo && userInfo.role.title !== 'ADMIN') {
       navigate('/')}
   }}, [])
 
