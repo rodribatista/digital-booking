@@ -200,6 +200,10 @@
     width: 25%;
   }
 
+}
+
+@media (min-width: 1200px) {
+
   .bookings-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -207,6 +211,14 @@
 }
 
 @media (min-width: 1600px) {
+
+  .adminHeader {
+    padding: 15px 10%;
+  }
+
+  .adminPage {
+    padding: 15px 10%;
+  }
   
   .bookings-grid {
     grid-template-columns: repeat(4, 1fr);
