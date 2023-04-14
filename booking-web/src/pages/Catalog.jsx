@@ -59,7 +59,7 @@ const Catalog = ({type}) => {
           </div>
         </>
       }
-      {error && <h2>{error.message}</h2>}
+      {/* error && <h2>{error.message}</h2> */}
       {response != null &&
         <>
           <h2>Resultados para {filter}</h2>

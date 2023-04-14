@@ -11,10 +11,8 @@ const useFetch = (url) => {
     setLoading(true)
     axios.get(url)
     .then (res => {
-      setError(null)
       setResponse(res.data)})
     .catch (err => {
-      setResponse(null)
       setError(err)})
     .finally (() =>
       setLoading(false))
